@@ -2,6 +2,9 @@
 #define TANK_H
 
 #include "boardobject.h"
+#include "bullet.h"
+
+class Bullet;
 
 class Tank : public BoardObject {
 protected:
@@ -25,7 +28,7 @@ public:
     void setIsDead(bool value);
 
     virtual void rotate(Rotate value) = 0;
-    virtual void attack(float value) = 0;
+    virtual Bullet* attack();
     void takeDamage(float value);
 };
 

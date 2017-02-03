@@ -7,7 +7,8 @@ SOURCES += \
     tank.cpp \
     player.cpp \
     enemy.cpp \
-    boardobject.cpp
+    boardobject.cpp \
+    bullet.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,7 +25,8 @@ HEADERS += \
     enums.h \
     player.h \
     enemy.h \
-    boardobject.h
+    boardobject.h \
+    bullet.h
 
 release {
     QT_NO_DEBUG_OUTPUT

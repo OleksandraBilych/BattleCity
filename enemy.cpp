@@ -10,15 +10,8 @@ Enemy::Enemy(float hitPointsLimit, float damage, QObject* parent) {
     qDebug() << direction;
 }
 
-//Enemy::Enemy(QObject* parent) :
-//    Tank(parent, 100, 20),
-//    direction(down)
-//{
-//    qDebug() << "Default constructor: Enemy";
-//}
-
 Enemy::~Enemy() {
-    qDebug() << "Constructor: Enemy";
+    qDebug() << "Destructor: Enemy";
 }
 
 void Enemy::rotate(Rotate value) {

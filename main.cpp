@@ -4,6 +4,7 @@
 #include "tank.h"
 #include "player.h"
 #include "enemy.h"
+#include "bullet.h"
 
 
 int main(int argc, char *argv[]) {
@@ -13,10 +14,8 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-
-
     Player* p = new Player(100, 20, "Sasha");
-    //qDebug << p->getDirection();
+    Bullet* b = p->attack();
     delete p;
 
     Enemy* e = new Enemy(100, 15);

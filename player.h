@@ -18,7 +18,6 @@ public:
     void setName(const std::string& value);
 
     virtual void rotate(Rotate value);
-    virtual void attack(float value);
 };
 
 #endif // PLAYER_H

@@ -1,8 +1,8 @@
 #include "tank.h"
+#include "bullet.h"
 
 Tank::Tank() {
     qDebug() << "Constructor: Tank";
-    qDebug() << direction;
 
     isDead = false;
 }
@@ -45,4 +45,8 @@ void Tank::setIsDead(bool value) {
 
 void Tank::takeDamage(float value) {
 
+}
+
+Bullet* Tank::attack() {
+    return new Bullet(*this);
 }

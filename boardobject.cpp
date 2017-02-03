@@ -6,8 +6,6 @@ BoardObject::BoardObject(QObject *parent) :
     parent(parent) {
 
     qDebug() << "Constructor: BoardObject";
-    qDebug() << this->parent;
-    qDebug() << this->direction;
 }
 
 BoardObject::~BoardObject() {
