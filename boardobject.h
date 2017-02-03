@@ -19,6 +19,9 @@ public:
 
     void setRandomDirection();
     void move(Rotate value);
+
+    virtual void rotate(Rotate value) = 0;
+    virtual void attack(float value) = 0;
 };
 
 #endif // BOARDOBJECT_H

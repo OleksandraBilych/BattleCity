@@ -12,8 +12,7 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    Tank* t = new Tank();
-    delete t;
+
 
     Player* p = new Player();
     delete p;

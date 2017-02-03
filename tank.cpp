@@ -40,14 +40,6 @@ void Tank::setIsDead(bool value) {
     isDead = value;
 }
 
-void Tank::rotate(Rotate value) {
-
-}
-
-void Tank::attack(float value) {
-
-}
-
 void Tank::takeDamage(float value) {
 
 }

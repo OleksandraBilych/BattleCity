@@ -24,8 +24,8 @@ public:
     void setDamage(float value);
     void setIsDead(bool value);
 
-    void rotate(Rotate value);
-    void attack(float value);
+    virtual void rotate(Rotate value) = 0;
+    virtual void attack(float value) = 0;
     void takeDamage(float value);
 };
 

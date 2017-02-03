@@ -15,3 +15,11 @@ const std::string& Player::getName() const {
 void Player::setName(const std::string& value) {
     name = value;
 }
+
+void Player::rotate(Rotate value) {
+
+}
+
+void Player::attack(float value) {
+
+}
