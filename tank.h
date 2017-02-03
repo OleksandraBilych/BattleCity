@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include "enums.h"
 
 class Tank : public QObject {
 protected:
@@ -20,6 +21,19 @@ signals:
 
 public slots:
 
+    float getDamage() const;
+    float getHitPoints() const;
+    float getHitPointsLimit() const;
+    bool getIsDead() const;
+
+    void setHitPoints(float value);
+    void setHitPointsLimit(float value);
+    void setDamage(float value);
+    void setIsDead();
+
+    void rotate(Rotate value);
+    void attack(float value);
+    void takeDamage(float value);
 };
 
 #endif // TANK_H

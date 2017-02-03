@@ -17,7 +17,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    tank.h
+    tank.h \
+    enums.h
 
 release {
     QT_NO_DEBUG_OUTPUT
