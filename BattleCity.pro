@@ -4,7 +4,8 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    tank.cpp
+    tank.cpp \
+    player.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,7 +19,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     tank.h \
-    enums.h
+    enums.h \
+    player.h
 
 release {
     QT_NO_DEBUG_OUTPUT
