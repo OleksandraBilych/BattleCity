@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include "tank.h"
 #include "player.h"
+#include "enemy.h"
+
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -13,8 +15,11 @@ int main(int argc, char *argv[]) {
     Tank* t = new Tank();
     delete t;
 
-    Tank* p = new Player();
+    Player* p = new Player();
     delete p;
+
+    Enemy* e = new Enemy();
+    delete e;
 
     return app.exec();
 }
