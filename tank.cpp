@@ -2,6 +2,9 @@
 
 Tank::Tank() {
     qDebug() << "Constructor: Tank";
+    qDebug() << direction;
+
+    isDead = false;
 }
 
 Tank::~Tank() {

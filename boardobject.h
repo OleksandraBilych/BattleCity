@@ -8,6 +8,7 @@
 class BoardObject : public QObject {
 protected:
     Rotate direction;
+    QObject *parent;
 
     Q_OBJECT
 public:

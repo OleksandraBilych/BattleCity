@@ -2,13 +2,15 @@
 #define PLAYER_H
 
 #include "tank.h"
+#include <string>
 
 class Player : public Tank {
 private:
     std::string name;
 
 public:
-    Player();
+    Player(float hitPointsLimit, float damage, const std::string& name, QObject* parent = 0);
+    //Player(QObject* parent = 0);
     virtual ~Player();
 
     const std::string& getName() const;

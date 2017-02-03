@@ -3,9 +3,9 @@
 
 enum Rotate {
     rotate_left = 0,
-    rotate_right,
-    rotate_top,
-    rotate_down
+    rotate_right = 1,
+    rotate_top = 2,
+    rotate_down = 3
 };
 
 #endif // ENUMS_H

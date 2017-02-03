@@ -1,7 +1,15 @@
 #include "player.h"
 
-Player::Player() {
+Player::Player(float hitPointsLimit, float damage, const std::string& name, QObject* parent) {
     qDebug() << "Constructor: Player";
+
+    this->hitPointsLimit = hitPointsLimit;
+    this->damage = damage;
+    this->name = name;
+    hitPoints = hitPointsLimit;
+    direction = Rotate::rotate_top;
+    qDebug() << direction;
+
 }
 
 Player::~Player() {

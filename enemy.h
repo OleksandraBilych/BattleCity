@@ -5,7 +5,8 @@
 
 class Enemy : public Tank {
 public:
-    Enemy();
+    Enemy(float hitPointsLimit, float damage, QObject* parent = 0);
+    Enemy(QObject* parent = 0);
     virtual ~Enemy();
 
     virtual void rotate(Rotate value);

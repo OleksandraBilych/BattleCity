@@ -1,8 +1,13 @@
 #include "boardobject.h"
 #include <cstdlib>
 
-BoardObject::BoardObject(QObject *parent) : QObject(parent) {
+BoardObject::BoardObject(QObject *parent) :
+    QObject(parent),
+    parent(parent) {
+
     qDebug() << "Constructor: BoardObject";
+    qDebug() << this->parent;
+    qDebug() << this->direction;
 }
 
 BoardObject::~BoardObject() {
@@ -19,7 +24,6 @@ void BoardObject::setDirection(Rotate value) {
 
 void BoardObject::setRandomDirection() {
     direction = Rotate(rand() % 4);
-    qDebug() << direction;
 }
 
 void BoardObject::move(Rotate value) {
