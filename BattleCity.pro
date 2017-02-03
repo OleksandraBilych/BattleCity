@@ -2,7 +2,9 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += \
+    main.cpp \
+    tank.cpp
 
 RESOURCES += qml.qrc
 
@@ -13,3 +15,10 @@ QML_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    tank.h
+
+release {
+    QT_NO_DEBUG_OUTPUT
+}
