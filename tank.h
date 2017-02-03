@@ -29,7 +29,7 @@ public slots:
     void setHitPoints(float value);
     void setHitPointsLimit(float value);
     void setDamage(float value);
-    void setIsDead();
+    void setIsDead(bool value);
 
     void rotate(Rotate value);
     void attack(float value);
