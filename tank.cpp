@@ -1,6 +1,6 @@
 #include "tank.h"
 
-Tank::Tank(QObject *parent) : QObject(parent) {
+Tank::Tank() {
     qDebug() << "Constructor: Tank";
 }
 

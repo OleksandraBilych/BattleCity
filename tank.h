@@ -1,25 +1,18 @@
 #ifndef TANK_H
 #define TANK_H
 
-#include <QObject>
-#include <QDebug>
-#include "enums.h"
+#include "boardobject.h"
 
-class Tank : public QObject {
+class Tank : public BoardObject {
 protected:
     float hitPoints;
     float hitPointsLimit;
     float damage;
     bool isDead;
 
-    Q_OBJECT
 public:
-    explicit Tank(QObject *parent = 0);
+    explicit Tank();
     virtual ~Tank();
-
-signals:
-
-public slots:
 
     float getDamage() const;
     float getHitPoints() const;
