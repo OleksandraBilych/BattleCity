@@ -20,3 +20,5 @@ void Enemy::rotate(Direction value) {
 void Enemy::move(Direction value) {
 
 }
+
+

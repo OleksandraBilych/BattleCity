@@ -18,7 +18,11 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
 
-        Page1 {
+        Board {
+            startButton.onClicked: {
+                console.log("Start");
+                startButton.visible = false;
+            }
         }
     }
 

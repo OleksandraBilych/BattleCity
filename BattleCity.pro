@@ -30,8 +30,12 @@ HEADERS += \
     boardobject.h \
     bullet.h \
     board.h \
-    cell.h
+    cell.h \
+    cell.h \
+    player.h \
+    board.h
 
 release {
     QT_NO_DEBUG_OUTPUT
 }
+
