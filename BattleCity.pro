@@ -9,7 +9,8 @@ SOURCES += \
     enemy.cpp \
     boardobject.cpp \
     bullet.cpp \
-    board.cpp
+    board.cpp \
+    cell.cpp
 
 RESOURCES += qml.qrc
 
@@ -28,7 +29,8 @@ HEADERS += \
     enemy.h \
     boardobject.h \
     bullet.h \
-    board.h
+    board.h \
+    cell.h
 
 release {
     QT_NO_DEBUG_OUTPUT
