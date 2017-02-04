@@ -5,6 +5,7 @@
 #include "bullet.h"
 
 class Bullet;
+class TankIsDead {};
 
 class Tank : public BoardObject {
 protected:
@@ -12,6 +13,7 @@ protected:
     float hitPointsLimit;
     float damage;
     bool isDead;
+    bool isPlayer;
 
 public:
     explicit Tank();
@@ -21,11 +23,15 @@ public:
     float getHitPoints() const;
     float getHitPointsLimit() const;
     bool getIsDead() const;
+    bool getIsPlayer() const;
+
 
     void setHitPoints(float value);
     void setHitPointsLimit(float value);
     void setDamage(float value);
     void setIsDead(bool value);
+
+    void ensureIsAlive();
 
     virtual void rotate(Direction value) = 0;
     virtual void move(Direction value) = 0;

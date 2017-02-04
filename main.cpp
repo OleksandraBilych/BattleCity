@@ -14,12 +14,20 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    Player* p = new Player(100, 20, "Sasha");
-    Bullet* b = p->attack();
-    delete p;
+    Player* player = new Player(100, 20, "Sasha");
+    Enemy* enemy1 = new Enemy(100, 15);
+    Enemy* enemy2 = new Enemy(100, 15);
 
-    Enemy* e = new Enemy(100, 15);
-    delete e;
+    Bullet* playerBullet = player->attack();
+    Bullet* enemyBullet = enemy1->attack();
+
+    playerBullet->attack(*enemy2);
+    enemyBullet->attack(*enemy2);
+    enemyBullet->attack(*player);
+
+    delete player;
+    delete enemy1;
+    delete enemy2;
 
     return app.exec();
 }

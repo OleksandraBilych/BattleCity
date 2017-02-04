@@ -8,20 +8,17 @@ class Tank;
 
 class Bullet : public BoardObject {
 private:
-    const Tank* attacker;
-    const Tank* enemy;
+    Tank* attacker;
 public:
-    Bullet(const Tank& attacker, QObject* parent = 0);
+    Bullet(Tank* attacker, QObject* parent = 0);
     virtual ~Bullet();
 
-    const Tank* getAttacker() const;
-    const Tank* getEnemy() const;
+    Tank* getAttacker() const;
 
-    void setAttacker(const Tank& attacker);
-    void setEnemy(const Tank& enemy);
+    void setAttacker(Tank* attacker);
 
     virtual void move(Direction value);
-    void attack();
+    void attack(Tank& enemy);
 };
 
 #endif // BULLET_H

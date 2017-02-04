@@ -10,7 +10,6 @@ private:
 
 public:
     Player(float hitPointsLimit, float damage, const std::string& name, QObject* parent = 0);
-    //Player(QObject* parent = 0);
     virtual ~Player();
 
     const std::string& getName() const;

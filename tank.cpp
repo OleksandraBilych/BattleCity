@@ -5,6 +5,7 @@ Tank::Tank() {
     qDebug() << "Constructor: Tank";
 
     isDead = false;
+    isPlayer = false;
 }
 
 Tank::~Tank() {
@@ -27,6 +28,10 @@ bool Tank::getIsDead() const {
     return isDead;
 }
 
+bool Tank::getIsPlayer() const {
+    return isPlayer;
+}
+
 void Tank::setHitPoints(float value) {
     hitPoints = value;
 }
@@ -43,10 +48,21 @@ void Tank::setIsDead(bool value) {
     isDead = value;
 }
 
-void Tank::takeDamage(float value) {
+void Tank::ensureIsAlive() {
+    if ( isDead ) {
+        throw TankIsDead();
+    }
+}
 
+void Tank::takeDamage(float value) {
+    if ( value < 0 ) {
+        hitPoints = 0;
+        isDead = true;
+    } else {
+        hitPoints = value;
+    }
 }
 
 Bullet* Tank::attack() {
-    return new Bullet(*this);
+    return new Bullet(this);
 }

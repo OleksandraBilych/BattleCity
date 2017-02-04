@@ -8,6 +8,7 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name, QObj
     this->name = name;
     hitPoints = hitPointsLimit;
     direction = Direction::dir_top;
+    isPlayer = true;
 }
 
 Player::~Player() {
