@@ -7,7 +7,7 @@
 
 class BoardObject : public QObject {
 protected:
-    Rotate direction;
+    Direction direction;
     QObject *parent;
 
     Q_OBJECT
@@ -15,13 +15,13 @@ public:
     explicit BoardObject(QObject *parent = 0);
     virtual ~BoardObject();
 
-    Rotate getDirection() const;
-    void setDirection(Rotate value);
+    Direction getDirection() const;
+    void setDirection(Direction value);
 
     void setRandomDirection();
-    void move(Rotate value);
+    void move(Direction value);
 
-    virtual void rotate(Rotate value) = 0;
+    virtual void rotate(Direction value) = 0;
 };
 
 #endif // BOARDOBJECT_H

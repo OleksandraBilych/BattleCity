@@ -20,7 +20,7 @@ public:
     void setAttacker(const Tank& attacker);
     void setEnemy(const Tank& enemy);
 
-    virtual void rotate(Rotate value);
+    virtual void rotate(Direction value);
     void attack();
 };
 

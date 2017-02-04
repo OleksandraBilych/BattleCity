@@ -27,7 +27,7 @@ public:
     void setDamage(float value);
     void setIsDead(bool value);
 
-    virtual void rotate(Rotate value) = 0;
+    virtual void rotate(Direction value) = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
 };

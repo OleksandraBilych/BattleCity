@@ -12,18 +12,18 @@ BoardObject::~BoardObject() {
     qDebug() << "Destructor: BoardObject";
 }
 
-Rotate BoardObject::getDirection() const {
+Direction BoardObject::getDirection() const {
     return direction;
 }
 
-void BoardObject::setDirection(Rotate value) {
+void BoardObject::setDirection(Direction value) {
     direction = value;
 }
 
 void BoardObject::setRandomDirection() {
-    direction = Rotate(rand() % 4);
+    direction = Direction(rand() % 4);
 }
 
-void BoardObject::move(Rotate value) {
+void BoardObject::move(Direction value) {
 
 }

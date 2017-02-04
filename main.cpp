@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
     delete p;
 
     Enemy* e = new Enemy(100, 15);
-    //qDebug << p->getDirection();
     delete e;
 
     return app.exec();

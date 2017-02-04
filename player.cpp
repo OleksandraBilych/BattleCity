@@ -7,7 +7,7 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name, QObj
     this->damage = damage;
     this->name = name;
     hitPoints = hitPointsLimit;
-    direction = Rotate::rotate_top;
+    direction = Direction::dir_top;
 }
 
 Player::~Player() {
@@ -22,7 +22,7 @@ void Player::setName(const std::string& value) {
     name = value;
 }
 
-void Player::rotate(Rotate value) {
+void Player::rotate(Direction value) {
 
 }
 

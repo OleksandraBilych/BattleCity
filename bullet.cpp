@@ -26,7 +26,7 @@ void Bullet::setEnemy(const Tank& enemy) {
     this->enemy = &enemy;
 }
 
-void Bullet::rotate(Rotate value) {
+void Bullet::rotate(Direction value) {
 
 }
 

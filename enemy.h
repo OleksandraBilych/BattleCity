@@ -9,7 +9,7 @@ public:
     Enemy(QObject* parent = 0);
     virtual ~Enemy();
 
-    virtual void rotate(Rotate value);
+    virtual void rotate(Direction value);
     virtual void attack(float value);
 };
 

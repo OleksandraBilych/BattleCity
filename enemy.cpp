@@ -6,15 +6,14 @@ Enemy::Enemy(float hitPointsLimit, float damage, QObject* parent) {
     this->hitPointsLimit = hitPointsLimit;
     this->damage = damage;
     hitPoints = hitPointsLimit;
-    direction = Rotate::rotate_down;
-    qDebug() << direction;
+    direction = Direction::dir_down;
 }
 
 Enemy::~Enemy() {
     qDebug() << "Destructor: Enemy";
 }
 
-void Enemy::rotate(Rotate value) {
+void Enemy::rotate(Direction value) {
 
 }
 
