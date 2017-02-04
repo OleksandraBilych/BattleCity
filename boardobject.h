@@ -10,7 +10,6 @@ protected:
     Direction direction;
     QObject *parent;
 
-    Q_OBJECT
 public:
     explicit BoardObject(QObject *parent = 0);
     virtual ~BoardObject();
