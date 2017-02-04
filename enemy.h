@@ -4,6 +4,7 @@
 #include "tank.h"
 
 class Enemy : public Tank {
+    Q_OBJECT
 public:
     Enemy(float hitPointsLimit, float damage, QObject* parent = 0);
     Enemy(QObject* parent = 0);

@@ -7,6 +7,7 @@
 class Tank;
 
 class Bullet : public BoardObject {
+    Q_OBJECT
 private:
     Tank* attacker;
 public:

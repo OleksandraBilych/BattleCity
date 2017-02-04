@@ -1,7 +1,7 @@
 #include "tank.h"
 #include "bullet.h"
 
-Tank::Tank() {
+Tank::Tank(QObject *parent) : BoardObject(parent){
     qDebug() << "Constructor: Tank";
 
     isDead = false;

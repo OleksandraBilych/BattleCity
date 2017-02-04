@@ -8,6 +8,7 @@ class Bullet;
 class TankIsDead {};
 
 class Tank : public BoardObject {
+    Q_OBJECT
 protected:
     float hitPoints;
     float hitPointsLimit;
@@ -16,7 +17,7 @@ protected:
     bool isPlayer;
 
 public:
-    explicit Tank();
+    explicit Tank(QObject *parent = 0);
     virtual ~Tank();
 
     float getDamage() const;

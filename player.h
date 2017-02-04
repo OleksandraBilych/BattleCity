@@ -5,6 +5,7 @@
 #include <string>
 
 class Player : public Tank {
+    Q_OBJECT
 private:
     std::string name;
 

@@ -12,5 +12,6 @@ Item {
         width: 50
         height: 50
         source: "qrc:/images/player.png"
+        rotation: 90
     }
 }

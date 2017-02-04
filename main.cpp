@@ -15,6 +15,10 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
 
     qmlRegisterType<Player>();
+    qmlRegisterType<Enemy>();
+    qmlRegisterType<Tank>();
+    qmlRegisterType<Bullet>();
+    qmlRegisterType<BoardObject>();
 
     Player* player = new Player(100, 20, "Sasha", &app);
     engine.rootContext()->setContextProperty("player", player);

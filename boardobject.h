@@ -6,19 +6,25 @@
 #include "enums.h"
 
 class BoardObject : public QObject {
+    Q_OBJECT
 protected:
     Direction direction;
-    QObject *parent;
 
 public:
     explicit BoardObject(QObject *parent = 0);
     virtual ~BoardObject();
 
+    Q_PROPERTY(Direction direction READ getDirection WRITE setDirection NOTIFY directionChanged)
     Direction getDirection() const;
     void setDirection(Direction value);
-    void setRandomDirection();
+
+    void updateDirection(Direction value);
+    void updateDirection();
 
     virtual void move(Direction value) = 0;
+
+signals:
+    void directionChanged(Direction value);
 };
 
 #endif // BOARDOBJECT_H

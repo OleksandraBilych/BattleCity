@@ -1,6 +1,7 @@
 #include "enemy.h"
 
-Enemy::Enemy(float hitPointsLimit, float damage, QObject* parent) {
+Enemy::Enemy(float hitPointsLimit, float damage, QObject* parent) :
+    Tank(parent) {
     qDebug() << "Constructor: Enemy";
 
     this->hitPointsLimit = hitPointsLimit;
