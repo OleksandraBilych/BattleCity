@@ -28,6 +28,7 @@ public:
     void setIsDead(bool value);
 
     virtual void rotate(Direction value) = 0;
+    virtual void move(Direction value) = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
 };

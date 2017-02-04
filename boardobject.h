@@ -17,11 +17,9 @@ public:
 
     Direction getDirection() const;
     void setDirection(Direction value);
-
     void setRandomDirection();
-    void move(Direction value);
 
-    virtual void rotate(Direction value) = 0;
+    virtual void move(Direction value) = 0;
 };
 
 #endif // BOARDOBJECT_H

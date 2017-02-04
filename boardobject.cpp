@@ -24,6 +24,3 @@ void BoardObject::setRandomDirection() {
     direction = Direction(rand() % 4);
 }
 
-void BoardObject::move(Direction value) {
-
-}

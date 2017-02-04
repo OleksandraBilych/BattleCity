@@ -18,6 +18,7 @@ public:
     void setName(const std::string& value);
 
     virtual void rotate(Direction value);
+    virtual void move(Direction value);
 };
 
 #endif // PLAYER_H

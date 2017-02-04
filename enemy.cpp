@@ -20,3 +20,7 @@ void Enemy::rotate(Direction value) {
 void Enemy::attack(float value) {
 
 }
+
+void Enemy::move(Direction value) {
+
+}

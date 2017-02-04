@@ -10,6 +10,7 @@ public:
     virtual ~Enemy();
 
     virtual void rotate(Direction value);
+    virtual void move(Direction value);
     virtual void attack(float value);
 };
 
