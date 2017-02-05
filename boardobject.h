@@ -1,30 +1,44 @@
 #ifndef BOARDOBJECT_H
 #define BOARDOBJECT_H
 
+#include <QtQuick/QQuickPaintedItem>
 #include <QObject>
 #include <QDebug>
 #include "enums.h"
 
-class BoardObject : public QObject {
+class BoardObject : public QQuickPaintedItem {
     Q_OBJECT
 protected:
-    Direction direction;
+    int direction;
+    int coordinate_x;
+    int coordinate_y;
 
 public:
-    explicit BoardObject(QObject *parent = 0);
+    explicit BoardObject(QQuickItem *parent = 0);
     virtual ~BoardObject();
 
-    Q_PROPERTY(Direction direction READ getDirection WRITE setDirection NOTIFY directionChanged)
-    Direction getDirection() const;
-    void setDirection(Direction value);
+    Q_PROPERTY(int direction READ getDirection WRITE setDirection NOTIFY directionChanged)
+    Q_PROPERTY(int coordinate_x READ getX WRITE setX NOTIFY XChanged)
+    Q_PROPERTY(int coordinate_y READ getY WRITE setY NOTIFY YChanged)
 
-    void updateDirection(Direction value);
+    int getDirection() const;
+    int getX() const;
+    int getY() const;
+
+    void setDirection(int value);
+    void setX(int value);
+    void setY(int value);
+
+    void updateDirection(int value);
     void updateDirection();
 
-    virtual void move(Direction value) = 0;
+    virtual void move(int value) = 0;
+    void paint(QPainter *painter);
 
 signals:
-    void directionChanged(Direction value);
+    void directionChanged(int value);
+    void XChanged(int value);
+    void YChanged(int value);
 };
 
 #endif // BOARDOBJECT_H

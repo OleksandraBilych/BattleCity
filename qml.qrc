@@ -1,8 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>Board.ui.qml</file>
         <file>images/player.png</file>
-        <file>Player.qml</file>
         <file>main.qml</file>
+        <file>images/enemy.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(float hitPointsLimit, float damage, const std::string& name, QObject* parent) :
+Player::Player(float hitPointsLimit, float damage, const std::string& name, QQuickItem* parent) :
     Tank(parent) {
     qDebug() << "Constructor: Player";
 
@@ -8,7 +8,21 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name, QObj
     this->damage = damage;
     this->name = name;
     hitPoints = hitPointsLimit;
-    direction = Direction::dir_right;
+    direction = Direction::dir_up;
+    coordinate_x = 300;
+    coordinate_y = 580;
+    isPlayer = true;
+}
+
+Player::Player(QQuickItem* parent) :
+    Tank(parent) {
+    qDebug() << "Constructor: Player";
+
+    this->hitPointsLimit = 150;
+    this->damage = 50;
+    this->name = "Sasha";
+    hitPoints = 150;
+    direction = Direction::dir_up;
     isPlayer = true;
 }
 
@@ -24,11 +38,11 @@ void Player::setName(const std::string& value) {
     name = value;
 }
 
-void Player::rotate(Direction value) {
+void Player::rotate(int value) {
 
 }
 
-void Player::move(Direction value) {
+void Player::move(int value) {
 
 }
 

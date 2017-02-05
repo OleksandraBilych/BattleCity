@@ -18,7 +18,7 @@ public:
 
     void setAttacker(Tank* attacker);
 
-    virtual void move(Direction value);
+    virtual void move(int value);
     void attack(Tank& enemy);
 };
 

@@ -17,7 +17,7 @@ protected:
     bool isPlayer;
 
 public:
-    explicit Tank(QObject *parent = 0);
+    explicit Tank(QQuickItem *parent = 0);
     virtual ~Tank();
 
     float getDamage() const;
@@ -34,8 +34,8 @@ public:
 
     void ensureIsAlive();
 
-    virtual void rotate(Direction value) = 0;
-    virtual void move(Direction value) = 0;
+    virtual void rotate(int value) = 0;
+    virtual void move(int value) = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
 };
