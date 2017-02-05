@@ -37,8 +37,8 @@ void BoardObject::setX(int value) {
     qDebug() << "setX" << value;
 
     if (value != coordinate_x) {
-            coordinate_x = value;
-            emit XChanged(coordinate_x);
+        coordinate_x = value;
+        emit XChanged(coordinate_x);
     }
 }
 
@@ -46,8 +46,8 @@ void BoardObject::setY(int value) {
     qDebug() << "setY" << value;
 
     if (value != coordinate_y) {
-            coordinate_y = value;
-            emit YChanged(coordinate_y);
+        coordinate_y = value;
+        emit YChanged(coordinate_y);
     }
 }
 

@@ -7,17 +7,20 @@
 #include "player.h"
 #include "enemy.h"
 #include "bullet.h"
+#include "computer.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
+    Computer* comp = new Computer(&app);
+
     Player* player = new Player(100, 20, "Sasha");
     engine.rootContext()->setContextProperty("sasha", player);
 
-    Enemy* enemy = new Enemy(100, 20);
-    engine.rootContext()->setContextProperty("sirius", enemy);
+    //Enemy* enemy = new Enemy(100, 20);
+    engine.rootContext()->setContextProperty("sirius", (comp->getBoard()->getEnemy()));
 
     qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
