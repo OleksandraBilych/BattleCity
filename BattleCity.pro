@@ -10,7 +10,8 @@ SOURCES += \
     boardobject.cpp \
     bullet.cpp \
     board.cpp \
-    cell.cpp
+    cell.cpp \
+    computer.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,7 +34,8 @@ HEADERS += \
     cell.h \
     cell.h \
     player.h \
-    board.h
+    board.h \
+    computer.h
 
 release {
     QT_NO_DEBUG_OUTPUT

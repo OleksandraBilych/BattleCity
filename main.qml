@@ -13,64 +13,114 @@ ApplicationWindow {
     color: "black"
 
     Component.onCompleted: {
-            setX(Screen.width / 2 - width / 2);
-            setY(Screen.height / 2 - height / 2);
+        setX(Screen.width / 2 - width / 2);
+        setY(Screen.height / 2 - height / 2);
+    }
+
+    function proceedMovement() {
+        var step = 10;
+        var limixX = width - aPlayer.width;
+        var limitY = height - aPlayer.height;
+
+        if (aPlayer.moveUp && sasha.coordinate_y - step > 0) {
+            if (sasha.direction != 0) {
+                sasha.direction = 0;
+            } else {
+                sasha.coordinate_y -= step;
+            }
+        } else if (sasha.coordinate_y < 0) {
+            sasha.coordinate_y = 0;
         }
 
-    Rectangle {
-        id: board
-        visible: false;
-        focus: false
-
-        Keys.onPressed: {
-            if (event.key === Qt.Key_Left) {
-                if ( sasha.direction == 270 ) {
-                    if ( sasha.coordinate_x > 0) {
-                        sasha.coordinate_x -= 10;
-                    };
-                } else {
-                    sasha.direction = 270;
-                }
-
-                event.accepted = true;
-            } else if (event.key === Qt.Key_Down) {
-                if ( sasha.direction == 180 ) {
-                    if ( sasha.coordinate_y < 600) {
-                        sasha.coordinate_y += 10;
-                    };
-                } else {
-                    sasha.direction = 180;
-                }
-
-                event.accepted = true;
-             }
-             else if (event.key === Qt.Key_Right) {
-                if ( sasha.direction == 90 ) {
-                    if ( sasha.coordinate_x < 600) {
-                        sasha.coordinate_x += 10;
-                    };
-                } else {
-                    sasha.direction = 90;
-                }
-
-                event.accepted = true;
-             }
-             else if (event.key === Qt.Key_Up) {
-                if ( sasha.direction == 0 ) {
-                    if ( sasha.coordinate_y > 0) {
-                        sasha.coordinate_y -= 10;
-                    }
-                } else {
-                    sasha.direction = 0;
-                }
-
-                event.accepted = true;
-             }
+        if (aPlayer.moveDown && sasha.coordinate_y + step < limitY) {
+            if (sasha.direction != 180) {
+                sasha.direction = 180;
+            } else {
+                sasha.coordinate_y += step;
+            }
+        } else if (sasha.coordinate_y > limitY) {
+            sasha.coordinate_y = limitY;
         }
 
-        Item {
-            width: 650; height: 650
+        if (aPlayer.moveLeft && sasha.coordinate_x - step > 0) {
+            if (sasha.direction != 270) {
+                sasha.direction = 270;
+            } else {
+                sasha.coordinate_x -= step;
+            }
+        } else if (sasha.coordinate_x < 0) {
+            sasha.coordinate_x = 0;
+        }
 
+        if (aPlayer.moveRight && sasha.coordinate_x + step < limixX) {
+            if (sasha.direction != 90) {
+                sasha.direction = 90;
+            } else {
+                sasha.coordinate_x += step;
+            }
+        } else if (sasha.coordinate_x > limixX) {
+            sasha.coordinate_x = limixX;
+        }
+    }
+
+    Item {
+        Rectangle {
+            id: board
+            width: 650
+            height: 650
+            visible: false
+            focus: false
+            color: "black"
+
+            Timer  {
+                id: playerMoveTimer
+                interval: 100;
+                running: true;
+                repeat: true;
+                onTriggered: proceedMovement();
+            }
+
+            Keys.onPressed: {
+                if (event.key == Qt.Key_Left) {
+                    aPlayer.moveLeft = true;
+                    aPlayer.moveRight = false;
+                    aPlayer.moveUp = false;
+                    aPlayer.moveDown = false;
+                } else if (event.key == Qt.Key_Right) {
+                    aPlayer.moveLeft = false;
+                    aPlayer.moveRight = true;
+                    aPlayer.moveUp = false;
+                    aPlayer.moveDown = false;
+                } else if (event.key == Qt.Key_Up) {
+                    aPlayer.moveLeft = false;
+                    aPlayer.moveRight = false;
+                    aPlayer.moveUp = true;
+                    aPlayer.moveDown = false;
+                } else if (event.key == Qt.Key_Down) {
+                    aPlayer.moveLeft = false;
+                    aPlayer.moveRight = false;
+                    aPlayer.moveUp = false;
+                    aPlayer.moveDown = true;
+                }
+
+                proceedMovement();
+
+                event.accepted = true;
+            }
+
+            Keys.onReleased: {
+                if (event.key == Qt.Key_Left) {
+                    aPlayer.moveLeft = false;
+                } else if (event.key == Qt.Key_Right) {
+                    aPlayer.moveRight = false;
+                } else if (event.key == Qt.Key_Up) {
+                    aPlayer.moveUp = false;
+                } else if (event.key == Qt.Key_Down) {
+                    aPlayer.moveDown = false;
+                }
+
+                event.accepted = true;
+            }
 
             Player {
                 id: aPlayer
@@ -79,6 +129,24 @@ ApplicationWindow {
                 width: 50;
                 height: 50
                 rotation: sasha.direction
+
+                property bool moveUp: false
+                property bool moveDown: false
+                property bool moveLeft: false
+                property bool moveRight: false
+                property int direction: 90
+
+                Behavior on x {
+                    NumberAnimation {
+                        duration: 100
+                    }
+                }
+
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 100
+                    }
+                }
 
                 Image {
                     id: playerBackground
