@@ -29,7 +29,6 @@ void BoardObject::setDirection(int value) {
 
     if (value != direction) {
             direction = value;
-            update();   // repaint with the new color
             emit directionChanged(direction);
     }
 }
@@ -39,7 +38,6 @@ void BoardObject::setX(int value) {
 
     if (value != coordinate_x) {
             coordinate_x = value;
-            update();   // repaint with the new color
             emit XChanged(coordinate_x);
     }
 }
@@ -49,7 +47,6 @@ void BoardObject::setY(int value) {
 
     if (value != coordinate_y) {
             coordinate_y = value;
-            update();   // repaint with the new color
             emit YChanged(coordinate_y);
     }
 }
@@ -58,7 +55,6 @@ void BoardObject::updateDirection(int value) {
     qDebug() << "updateDirection";
     direction = value;
     emit directionChanged(value);
-    update();
 }
 
 void BoardObject::updateDirection() {
