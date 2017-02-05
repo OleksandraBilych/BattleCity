@@ -28,8 +28,8 @@ void BoardObject::setDirection(int value) {
     qDebug() << "setDirection" << value;
 
     if (value != direction) {
-            direction = value;
-            emit directionChanged(direction);
+        direction = value;
+        emit directionChanged(direction);
     }
 }
 

@@ -11,7 +11,6 @@ public:
     virtual ~Enemy();
 
     virtual void rotate(int value);
-    virtual void move(int value);
 };
 
 #endif // ENEMY_H

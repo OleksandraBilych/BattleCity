@@ -32,7 +32,7 @@ public:
     void updateDirection(int value);
     void updateDirection();
 
-    virtual void move(int value) = 0;
+    virtual void move() = 0;
     void paint(QPainter *painter);
 
 signals:

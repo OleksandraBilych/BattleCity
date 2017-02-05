@@ -103,7 +103,7 @@ ApplicationWindow {
                     aPlayer.moveDown = true;
                 }
 
-                proceedMovement();
+                //proceedMovement();
 
                 event.accepted = true;
             }
@@ -162,6 +162,18 @@ ApplicationWindow {
                 width: 50;
                 height: 50
                 rotation: sirius.direction
+
+                Behavior on x {
+                    NumberAnimation {
+                        duration: 100
+                    }
+                }
+
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 100
+                    }
+                }
 
                 Image {
                     id: enemyBackground

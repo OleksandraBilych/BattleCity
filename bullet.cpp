@@ -18,7 +18,7 @@ void Bullet::setAttacker(Tank* attacker) {
     this->attacker = attacker;
 }
 
-void Bullet::move(int value) {
+void Bullet::move() {
 
 }
 

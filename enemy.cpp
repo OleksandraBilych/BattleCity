@@ -32,8 +32,4 @@ void Enemy::rotate(int value) {
 
 }
 
-void Enemy::move(int value) {
-
-}
-
 

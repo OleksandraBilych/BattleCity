@@ -5,7 +5,7 @@ Computer::Computer(QObject *parent) : QObject(parent) {
 
     board = new Board(parent);
     myTimer = new QTimer(this);
-    myTimer->start(5000);
+    myTimer->start(100);
     connect(myTimer, SIGNAL (timeout()), this, SLOT (sendPressSignal()));
 }
 
@@ -18,7 +18,7 @@ Computer::~Computer() {
 void Computer::sendPressSignal() {
     qDebug() << "sendPressSignal";
 
-    (board->getEnemy())->setDirection(90);
+    (board->getEnemy())->move();
 }
 
 Board* Computer::getBoard() const {
