@@ -4,8 +4,8 @@ Computer::Computer(QObject *parent) : QObject(parent) {
     qDebug() << "Constructor Computer";
 
     board = new Board(parent);
+    animation = false;
     myTimer = new QTimer(this);
-    myTimer->start(100);
     connect(myTimer, SIGNAL (timeout()), this, SLOT (sendPressSignal()));
 }
 
@@ -18,11 +18,19 @@ Computer::~Computer() {
 void Computer::sendPressSignal() {
     qDebug() << "sendPressSignal";
 
+    if ( !(rand() % 30) ) {
+        qDebug() << "updateDirection Enemy";
+        (board->getEnemy())->updateDirection();
+    }
     (board->getEnemy())->move();
 }
 
 Board* Computer::getBoard() const {
     return board;
+}
+
+bool Computer::getAnimation() const {
+    return animation;
 }
 
 void Computer::setBoard(Board* other) {
@@ -31,4 +39,29 @@ void Computer::setBoard(Board* other) {
     }
 
     board = other;
+}
+
+void Computer::setAnimation(bool value) {
+    if ( animation != value ) {
+        animation = value;
+        if ( animation ) {
+            startTimer();
+        } else {
+            stopTimer();
+        }
+        emit stopStartAnimation(animation);
+    }
+
+}
+
+void Computer::startTimer() {
+    if ( !myTimer->isActive() ) {
+        myTimer->start(100);
+    }
+}
+
+void Computer::stopTimer() {
+    if ( myTimer->isActive() ) {
+        myTimer->stop();
+    }
 }

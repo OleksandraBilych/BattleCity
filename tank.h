@@ -35,7 +35,7 @@ public:
     void ensureIsAlive();
 
     virtual void rotate(int value) = 0;
-    virtual void move();
+    virtual void move() = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
 };

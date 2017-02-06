@@ -154,33 +154,41 @@ ApplicationWindow {
                     source: "qrc:/images/player.png"
                 }
             }
+            Board {
 
-            Enemy {
-                id: aEnemy
-                x: enemyTank.coordinate_x;
-                y: enemyTank.coordinate_y;
-                width: 50;
-                height: 50
-                rotation: enemyTank.direction
+                enemies: [
 
-                Behavior on x {
-                    NumberAnimation {
-                        duration: 100
-                    }
-                }
+                   Repeater {
+                       model: 4
+                       Enemy {
+                           //id: aEnemy
+                           //x: enemyTank.coordinate_x;
+                           //y: enemyTank.coordinate_y;
+                           width: 50;
+                           height: 50
+                           rotation: enemyTank.direction
 
-                Behavior on y {
-                    NumberAnimation {
-                        duration: 100
-                    }
-                }
+                           Behavior on x {
+                               NumberAnimation {
+                                   duration: 100
+                               }
+                           }
 
-                Image {
-                    id: enemyBackground
-                    anchors.fill: parent
-                    source: "qrc:/images/enemy.png"
-                }
-            }
+                           Behavior on y {
+                               NumberAnimation {
+                                   duration: 100
+                               }
+                           }
+
+                           Image {
+                               id: enemyBackground
+                               anchors.fill: parent
+                               source: "qrc:/images/enemy.png"
+                           }
+                       }
+                   }
+               ]
+             }
         }
     }
 
@@ -198,6 +206,7 @@ ApplicationWindow {
                 visible = false;
                 board.visible = true;
                 board.focus = true;
+                computer.animation = true;
             }
         }
     }

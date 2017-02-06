@@ -42,4 +42,6 @@ void Player::rotate(int value) {
 
 }
 
+void Player::move() {
 
+}

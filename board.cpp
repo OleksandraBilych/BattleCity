@@ -23,3 +23,7 @@ void Board::setEnemy(Enemy* other) {
 
     enemy = other;
 }
+
+QQmlListProperty<Enemy> Board::getEnemies() {
+    return QQmlListProperty<Enemy>(this, enemies);
+}

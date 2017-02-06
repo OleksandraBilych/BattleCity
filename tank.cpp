@@ -67,12 +67,3 @@ Bullet* Tank::attack() {
     return new Bullet(this);
 }
 
-void Tank::move() {
-    qDebug() << "Move";
-
-    if ( direction == Direction::dir_down ) {
-        qDebug() << "Direction::dir_down";
-        coordinate_y += 10;
-        emit YChanged(coordinate_y);
-    }
-}

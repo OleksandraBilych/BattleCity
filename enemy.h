@@ -3,6 +3,8 @@
 
 #include "tank.h"
 
+class EndOfBoardException {};
+
 class Enemy : public Tank {
     Q_OBJECT
 public:
@@ -11,6 +13,8 @@ public:
     virtual ~Enemy();
 
     virtual void rotate(int value);
+    void move();
+    void doStep();
 };
 
 #endif // ENEMY_H
