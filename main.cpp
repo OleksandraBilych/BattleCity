@@ -16,11 +16,11 @@ int main(int argc, char *argv[]) {
 
     Computer* comp = new Computer(&app);
 
-    Player* player = new Player(100, 20, "Sasha");
-    engine.rootContext()->setContextProperty("sasha", player);
+    Player* player = new Player(100, 20, "PlayerTank");
+    engine.rootContext()->setContextProperty("playerTank", player);
 
     //Enemy* enemy = new Enemy(100, 20);
-    engine.rootContext()->setContextProperty("sirius", (comp->getBoard()->getEnemy()));
+    engine.rootContext()->setContextProperty("enemyTank", (comp->getBoard()->getEnemy()));
 
     qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");

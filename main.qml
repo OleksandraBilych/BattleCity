@@ -22,44 +22,44 @@ ApplicationWindow {
         var limixX = width - aPlayer.width;
         var limitY = height - aPlayer.height;
 
-        if (aPlayer.moveUp && sasha.coordinate_y - step > 0) {
-            if (sasha.direction != 0) {
-                sasha.direction = 0;
+        if (aPlayer.moveUp && playerTank.coordinate_y - step > 0) {
+            if (playerTank.direction != 0) {
+                playerTank.direction = 0;
             } else {
-                sasha.coordinate_y -= step;
+                playerTank.coordinate_y -= step;
             }
-        } else if (sasha.coordinate_y < 0) {
-            sasha.coordinate_y = 0;
+        } else if (playerTank.coordinate_y < 0) {
+            playerTank.coordinate_y = 0;
         }
 
-        if (aPlayer.moveDown && sasha.coordinate_y + step < limitY) {
-            if (sasha.direction != 180) {
-                sasha.direction = 180;
+        if (aPlayer.moveDown && playerTank.coordinate_y + step < limitY) {
+            if (playerTank.direction != 180) {
+                playerTank.direction = 180;
             } else {
-                sasha.coordinate_y += step;
+                playerTank.coordinate_y += step;
             }
-        } else if (sasha.coordinate_y > limitY) {
-            sasha.coordinate_y = limitY;
+        } else if (playerTank.coordinate_y > limitY) {
+            playerTank.coordinate_y = limitY;
         }
 
-        if (aPlayer.moveLeft && sasha.coordinate_x - step > 0) {
-            if (sasha.direction != 270) {
-                sasha.direction = 270;
+        if (aPlayer.moveLeft && playerTank.coordinate_x - step > 0) {
+            if (playerTank.direction != 270) {
+                playerTank.direction = 270;
             } else {
-                sasha.coordinate_x -= step;
+                playerTank.coordinate_x -= step;
             }
-        } else if (sasha.coordinate_x < 0) {
-            sasha.coordinate_x = 0;
+        } else if (playerTank.coordinate_x < 0) {
+            playerTank.coordinate_x = 0;
         }
 
-        if (aPlayer.moveRight && sasha.coordinate_x + step < limixX) {
-            if (sasha.direction != 90) {
-                sasha.direction = 90;
+        if (aPlayer.moveRight && playerTank.coordinate_x + step < limixX) {
+            if (playerTank.direction != 90) {
+                playerTank.direction = 90;
             } else {
-                sasha.coordinate_x += step;
+                playerTank.coordinate_x += step;
             }
-        } else if (sasha.coordinate_x > limixX) {
-            sasha.coordinate_x = limixX;
+        } else if (playerTank.coordinate_x > limixX) {
+            playerTank.coordinate_x = limixX;
         }
     }
 
@@ -124,11 +124,11 @@ ApplicationWindow {
 
             Player {
                 id: aPlayer
-                x: sasha.coordinate_x;
-                y: sasha.coordinate_y;
+                x: playerTank.coordinate_x;
+                y: playerTank.coordinate_y;
                 width: 50;
                 height: 50
-                rotation: sasha.direction
+                rotation: playerTank.direction
 
                 property bool moveUp: false
                 property bool moveDown: false
@@ -157,11 +157,11 @@ ApplicationWindow {
 
             Enemy {
                 id: aEnemy
-                x: sirius.coordinate_x;
-                y: sirius.coordinate_y;
+                x: enemyTank.coordinate_x;
+                y: enemyTank.coordinate_y;
                 width: 50;
                 height: 50
-                rotation: sirius.direction
+                rotation: enemyTank.direction
 
                 Behavior on x {
                     NumberAnimation {
