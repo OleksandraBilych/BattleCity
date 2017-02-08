@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 
 #include "boardobject.h"
+#include "board.h"
 #include "tank.h"
 #include "player.h"
 #include "enemy.h"
@@ -20,14 +21,13 @@ int main(int argc, char *argv[]) {
     Player* player = new Player(100, 20, "PlayerTank");
     engine.rootContext()->setContextProperty("playerTank", player);
 
-    //Enemy* enemy = new Enemy(100, 20);
-    //engine.rootContext()->setContextProperty("enemyTank", (comp->getBoard()->getEnemy()));
-
     qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
+    qmlRegisterType<Board>("BattleCity", 1, 0, "Board");
     qmlRegisterType<Tank>();
     qmlRegisterType<Bullet>();
     qmlRegisterType<BoardObject>();
+    engine.rootContext()->setContextProperty("modelData", QVariant::fromValue(comp->getBoard()));
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

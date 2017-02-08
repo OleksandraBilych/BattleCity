@@ -18,11 +18,13 @@ Computer::~Computer() {
 void Computer::sendPressSignal() {
     qDebug() << "sendPressSignal";
 
-    if ( !(rand() % 30) ) {
-        qDebug() << "updateDirection Enemy";
-        (board->getEnemy())->updateDirection();
+    for (auto enemy : board->getEnemies()) {
+        if ( !(rand() % 30) ) {
+            qDebug() << "updateDirection Enemy";
+            enemy->updateDirection();
+        }
+        enemy->move();
     }
-    (board->getEnemy())->move();
 }
 
 Board* Computer::getBoard() const {

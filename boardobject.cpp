@@ -1,5 +1,7 @@
 #include "boardobject.h"
 #include <cstdlib>
+#include <QColor>
+#include <QPainter>
 
 BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent) {
     qDebug() << "Constructor: BoardObject";
@@ -64,4 +66,9 @@ void BoardObject::updateDirection() {
 }
 
 void BoardObject::paint(QPainter *painter) {
+    QColor color("red");
+    QPen pen(color, 2);
+    painter->setPen(pen);
+    painter->setRenderHints(QPainter::Antialiasing, true);
+    painter->drawPie(boundingRect().adjusted(1, 1, -1, -1), 90 * 16, 180 * 16);
 }

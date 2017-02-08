@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
+import QtQml.Models 2.1
 
 import BattleCity 1.0
 
@@ -154,41 +155,52 @@ ApplicationWindow {
                     source: "qrc:/images/player.png"
                 }
             }
+
             Board {
+                id: dataModel
+                model: modelData
 
                 enemies: [
+                    Enemy {
+                        x: model.coordinate_x;
+                        y: model.coordinate_y;
+                    },
+                    Enemy {
+                        x: model.coordinate_x;
+                        y: model.coordinate_y;
+                    }
+                ]
 
-                   Repeater {
-                       model: 4
-                       Enemy {
-                           //id: aEnemy
-                           //x: enemyTank.coordinate_x;
-                           //y: enemyTank.coordinate_y;
-                           width: 50;
-                           height: 50
-                           rotation: enemyTank.direction
 
-                           Behavior on x {
-                               NumberAnimation {
-                                   duration: 100
-                               }
-                           }
+//                enemies: [
+//                    Enemy {
+//                        //id: enemyTank;
+//                        //x: enemyTank.coordinate_x;
+//                        //y: enemyTank.coordinate_y;
+//                        width: 50;
+//                        height: 50
+//                        rotation: enemyTank.direction
 
-                           Behavior on y {
-                               NumberAnimation {
-                                   duration: 100
-                               }
-                           }
+//                        Behavior on x {
+//                            NumberAnimation {
+//                                duration: 100
+//                            }
+//                        }
 
-                           Image {
-                               id: enemyBackground
-                               anchors.fill: parent
-                               source: "qrc:/images/enemy.png"
-                           }
-                       }
-                   }
-               ]
-             }
+//                        Behavior on y {
+//                            NumberAnimation {
+//                                duration: 100
+//                            }
+//                        }
+
+//                        Image {
+//                            id: enemyBackground
+//                            anchors.fill: parent
+//                            source: "qrc:/images/enemy.png"
+//                        }
+//                    }
+//                ]
+            }
         }
     }
 
