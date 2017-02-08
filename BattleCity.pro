@@ -10,7 +10,6 @@ SOURCES += \
     boardobject.cpp \
     bullet.cpp \
     board.cpp \
-    cell.cpp \
     computer.cpp
 
 RESOURCES += qml.qrc
@@ -31,8 +30,6 @@ HEADERS += \
     boardobject.h \
     bullet.h \
     board.h \
-    cell.h \
-    cell.h \
     player.h \
     board.h \
     computer.h

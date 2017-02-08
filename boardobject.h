@@ -2,12 +2,12 @@
 #define BOARDOBJECT_H
 
 #include <QtQuick/QQuickPaintedItem>
-#include <QObject>
 #include <QDebug>
 #include "enums.h"
 
 class BoardObject : public QQuickPaintedItem {
     Q_OBJECT
+
 protected:
     int direction;
     int coordinate_x;
@@ -32,7 +32,6 @@ public:
     void updateDirection(int value);
     void updateDirection();
 
-    virtual void move() = 0;
     void paint(QPainter *painter);
 
 signals:

@@ -8,10 +8,12 @@
 
 class Computer : public QObject {
     Q_OBJECT
+
 private:
    QTimer *myTimer;
    Board* board;
    bool animation;
+
 public:
    explicit Computer(QObject *parent = 0);
    ~Computer();
@@ -32,7 +34,6 @@ signals:
 
 public slots:
    void sendPressSignal();
-
 };
 
 #endif // COMPUTER_H

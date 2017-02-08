@@ -6,6 +6,7 @@
 
 class Player : public Tank {
     Q_OBJECT
+
 private:
     std::string name;
 
@@ -17,9 +18,6 @@ public:
     const std::string& getName() const;
 
     void setName(const std::string& value);
-
-    virtual void rotate(int value);
-    void move();
 };
 
 #endif // PLAYER_H

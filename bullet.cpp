@@ -18,13 +18,7 @@ void Bullet::setAttacker(Tank* attacker) {
     this->attacker = attacker;
 }
 
-void Bullet::move() {
-
-}
-
 void Bullet::attack(Tank& enemy) {
-    qDebug() << "Attack enemy";
-
     if ( attacker->getIsPlayer() == enemy.getIsPlayer() ) {
         return;
     }
@@ -36,6 +30,5 @@ void Bullet::attack(Tank& enemy) {
         enemy.takeDamage(newEnemyHitPoint);
 
     } catch ( TankIsDead& e ) {
-        qDebug() << &enemy << " is dead!";
     }
 }

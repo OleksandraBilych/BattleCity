@@ -2,7 +2,7 @@
 
 Board::Board(QObject *parent) : QObject(parent) {
     qDebug() << "Constructor Board";
-    //create x*y cells
+
     enemy = new Enemy(100, 20);
 }
 
@@ -22,8 +22,4 @@ void Board::setEnemy(Enemy* other) {
     }
 
     enemy = other;
-}
-
-QQmlListProperty<Enemy> Board::getEnemies() {
-    return QQmlListProperty<Enemy>(this, enemies);
 }

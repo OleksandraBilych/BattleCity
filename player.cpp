@@ -14,16 +14,7 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name, QQui
     isPlayer = true;
 }
 
-Player::Player(QQuickItem* parent) :
-    Tank(parent) {
-    qDebug() << "Constructor: Player";
-
-    this->hitPointsLimit = 150;
-    this->damage = 50;
-    this->name = "Sasha";
-    hitPoints = 150;
-    direction = Direction::dir_up;
-    isPlayer = true;
+Player::Player(QQuickItem* parent) : Tank(parent) {
 }
 
 Player::~Player() {
@@ -36,12 +27,4 @@ const std::string& Player::getName() const {
 
 void Player::setName(const std::string& value) {
     name = value;
-}
-
-void Player::rotate(int value) {
-
-}
-
-void Player::move() {
-
 }

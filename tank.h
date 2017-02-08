@@ -9,6 +9,7 @@ class TankIsDead {};
 
 class Tank : public BoardObject {
     Q_OBJECT
+
 protected:
     float hitPoints;
     float hitPointsLimit;
@@ -34,8 +35,6 @@ public:
 
     void ensureIsAlive();
 
-    virtual void rotate(int value) = 0;
-    virtual void move() = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
 };

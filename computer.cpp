@@ -16,12 +16,10 @@ Computer::~Computer() {
 }
 
 void Computer::sendPressSignal() {
-    qDebug() << "sendPressSignal";
-
     if ( !(rand() % 30) ) {
-        qDebug() << "updateDirection Enemy";
         (board->getEnemy())->updateDirection();
     }
+
     (board->getEnemy())->move();
 }
 
@@ -44,11 +42,13 @@ void Computer::setBoard(Board* other) {
 void Computer::setAnimation(bool value) {
     if ( animation != value ) {
         animation = value;
+
         if ( animation ) {
             startTimer();
         } else {
             stopTimer();
         }
+
         emit stopStartAnimation(animation);
     }
 
