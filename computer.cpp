@@ -19,7 +19,7 @@ void Computer::sendPressSignal() {
     qDebug() << "sendPressSignal";
 
     for (auto enemy : board->getEnemies()) {
-        if ( !(rand() % 30) ) {
+        if ( !(rand() % 20) ) {
             qDebug() << "updateDirection Enemy";
             enemy->updateDirection();
         }

@@ -104,8 +104,6 @@ ApplicationWindow {
                     aPlayer.moveDown = true;
                 }
 
-                //proceedMovement();
-
                 event.accepted = true;
             }
 
@@ -125,9 +123,9 @@ ApplicationWindow {
 
             Player {
                 id: aPlayer
-                x: playerTank.coordinate_x;
-                y: playerTank.coordinate_y;
-                width: 50;
+                x: playerTank.coordinate_x
+                y: playerTank.coordinate_y
+                width: 50
                 height: 50
                 rotation: playerTank.direction
 
@@ -156,50 +154,34 @@ ApplicationWindow {
                 }
             }
 
-            Board {
-                id: dataModel
-                model: modelData
+            Repeater {
+                model: gameBoard.enemies
+                Enemy {
+                    id: enemyTank
+                    x: modelData.coordinate_x
+                    y: modelData.coordinate_y
+                    width: 50
+                    height: 50
+                    rotation: modelData.direction
 
-                enemies: [
-                    Enemy {
-                        x: model.coordinate_x;
-                        y: model.coordinate_y;
-                    },
-                    Enemy {
-                        x: model.coordinate_x;
-                        y: model.coordinate_y;
+                    Behavior on x {
+                        NumberAnimation {
+                            duration: 100
+                        }
                     }
-                ]
 
+                    Behavior on y {
+                        NumberAnimation {
+                            duration: 100
+                        }
+                    }
 
-//                enemies: [
-//                    Enemy {
-//                        //id: enemyTank;
-//                        //x: enemyTank.coordinate_x;
-//                        //y: enemyTank.coordinate_y;
-//                        width: 50;
-//                        height: 50
-//                        rotation: enemyTank.direction
-
-//                        Behavior on x {
-//                            NumberAnimation {
-//                                duration: 100
-//                            }
-//                        }
-
-//                        Behavior on y {
-//                            NumberAnimation {
-//                                duration: 100
-//                            }
-//                        }
-
-//                        Image {
-//                            id: enemyBackground
-//                            anchors.fill: parent
-//                            source: "qrc:/images/enemy.png"
-//                        }
-//                    }
-//                ]
+                    Image {
+                        id: enemyBackground
+                        anchors.fill: parent
+                        source: "qrc:/images/enemy.png"
+                    }
+                }
             }
         }
     }
