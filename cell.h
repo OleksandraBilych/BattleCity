@@ -6,13 +6,8 @@
 
 class CellIsEmptyException {};
 
-class Cell : public QObject {
-private:
-    int x;
-    int y;
-    bool isEmpty;
-    BoardObject* obj;
-
+class Cell : public QObject
+{
 public:
     explicit Cell(int x, int y, QObject *parent = 0);
     explicit Cell(int x, int y, BoardObject* obj, QObject *parent = 0);
@@ -23,6 +18,12 @@ public:
 
     bool isCellEmpty();
     void clearBoardObject();
+
+private:
+    int x;
+    int y;
+    bool isEmpty;
+    BoardObject* obj;
 };
 
 #endif // CELL_H

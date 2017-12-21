@@ -6,7 +6,8 @@
 #include "cell.h"
 #include "enemy.h"
 
-class Board : public QObject {
+class Board : public QObject
+{
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Enemy> enemies READ enemies NOTIFY enemiesChanged)
 
@@ -25,7 +26,6 @@ private:
     const int height = 13;
     const int width = 13;
     QList<Enemy*> m_enemies;
-
 };
 
 #endif // BOARD_H

@@ -4,10 +4,9 @@
 #include "tank.h"
 #include <string>
 
-class Player : public Tank {
+class Player : public Tank
+{
     Q_OBJECT
-private:
-    std::string name;
 
 public:
     Player(float hitPointsLimit, float damage, const std::string& name, QQuickItem* parent = 0);
@@ -20,6 +19,9 @@ public:
 
     virtual void rotate(int value);
     void move();
+
+private:
+    std::string name;
 };
 
 #endif // PLAYER_H

@@ -7,14 +7,9 @@
 class Bullet;
 class TankIsDead {};
 
-class Tank : public BoardObject {
+class Tank : public BoardObject
+{
     Q_OBJECT
-protected:
-    float hitPoints;
-    float hitPointsLimit;
-    float damage;
-    bool isDead;
-    bool isPlayer;
 
 public:
     explicit Tank(QQuickItem *parent = 0);
@@ -38,6 +33,13 @@ public:
     virtual void move() = 0;
     virtual Bullet* attack();
     void takeDamage(float value);
+
+protected:
+    float hitPoints;
+    float hitPointsLimit;
+    float damage;
+    bool isDead;
+    bool isPlayer;
 };
 
 #endif // TANK_H

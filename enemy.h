@@ -5,8 +5,10 @@
 
 class EndOfBoardException {};
 
-class Enemy : public Tank {
+class Enemy : public Tank
+{
     Q_OBJECT
+
 public:
     Enemy(float hitPointsLimit, float damage, QQuickItem* parent = 0);
     Enemy(QQuickItem* parent = 0);

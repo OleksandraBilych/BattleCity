@@ -6,12 +6,12 @@
 
 class Tank;
 
-class Bullet : public BoardObject {
+class Bullet : public BoardObject
+{
     Q_OBJECT
-private:
-    Tank* attacker;
+
 public:
-    Bullet(Tank* attacker, QObject* parent = 0);
+    explicit Bullet(Tank* attacker, QObject* parent = 0);
     virtual ~Bullet();
 
     Tank* getAttacker() const;
@@ -20,6 +20,9 @@ public:
 
     virtual void move();
     void attack(Tank& enemy);
+
+private:
+    Tank* attacker;
 };
 
 #endif // BULLET_H

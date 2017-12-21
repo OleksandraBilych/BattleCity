@@ -1,6 +1,7 @@
 #include "board.h"
 
-Board::Board(QObject *parent) : QObject(parent) {
+Board::Board(QObject *parent) : QObject(parent)
+{
     qDebug() << "Constructor Board";
 
     for (int i = 0; i < 5; i++) {
@@ -9,7 +10,8 @@ Board::Board(QObject *parent) : QObject(parent) {
     }
 }
 
-Board::~Board() {
+Board::~Board()
+{
     m_enemies.clear();
 }
 

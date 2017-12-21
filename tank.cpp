@@ -1,69 +1,81 @@
 #include "tank.h"
 #include "bullet.h"
 
-Tank::Tank(QQuickItem *parent) : BoardObject(parent){
+Tank::Tank(QQuickItem *parent) : BoardObject(parent)
+{
     qDebug() << "Constructor: Tank";
 
     isDead = false;
     isPlayer = false;
 }
 
-Tank::~Tank() {
+Tank::~Tank()
+{
     qDebug() << "Destructor: Tank";
 }
 
-float Tank::getDamage() const {
+float Tank::getDamage() const
+{
     return damage;
 }
 
-float Tank::getHitPoints() const {
+float Tank::getHitPoints() const
+{
     return hitPoints;
 }
 
-float Tank::getHitPointsLimit() const {
+float Tank::getHitPointsLimit() const
+{
     return hitPointsLimit;
 }
 
-bool Tank::getIsDead() const {
+bool Tank::getIsDead() const
+{
     return isDead;
 }
 
-bool Tank::getIsPlayer() const {
+bool Tank::getIsPlayer() const
+{
     return isPlayer;
 }
 
-void Tank::setHitPoints(float value) {
+void Tank::setHitPoints(float value)
+{
     hitPoints = value;
 }
 
-void Tank::setHitPointsLimit(float value) {
+void Tank::setHitPointsLimit(float value)
+{
     hitPointsLimit = value;
 }
 
-void Tank::setDamage(float value) {
+void Tank::setDamage(float value)
+{
     damage = value;
 }
 
-void Tank::setIsDead(bool value) {
+void Tank::setIsDead(bool value)
+{
     isDead = value;
 }
 
-void Tank::ensureIsAlive() {
-    if ( isDead ) {
+void Tank::ensureIsAlive()
+{
+    if (isDead)
         throw TankIsDead();
-    }
 }
 
-void Tank::takeDamage(float value) {
+void Tank::takeDamage(float value)
+{
     if ( value < 0 ) {
         hitPoints = 0;
         isDead = true;
-    } else {
+    } else
         hitPoints = value;
-    }
 }
 
-Bullet* Tank::attack() {
+Bullet* Tank::attack()
+{
     return new Bullet(this);
 }
 

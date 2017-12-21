@@ -6,17 +6,14 @@
 #include <QDebug>
 #include <board.h>
 
-class Computer : public QObject {
+class Computer : public QObject
+{
     Q_OBJECT
-private:
-   QTimer *myTimer;
-   Board* board;
-   bool animation;
+    Q_PROPERTY(bool animation READ getAnimation WRITE setAnimation NOTIFY stopStartAnimation)
+
 public:
    explicit Computer(QObject *parent = 0);
-   ~Computer();
-
-   Q_PROPERTY(bool animation READ getAnimation WRITE setAnimation NOTIFY stopStartAnimation)
+   ~Computer();   
 
    Board* getBoard() const;
    bool getAnimation() const;
@@ -33,6 +30,10 @@ signals:
 public slots:
    void sendPressSignal();
 
+private:
+   QTimer *myTimer;
+   Board* board;
+   bool animation;
 };
 
 #endif // COMPUTER_H

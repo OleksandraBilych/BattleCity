@@ -3,30 +3,36 @@
 #include <QColor>
 #include <QPainter>
 
-BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent) {
+BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
+{
     qDebug() << "Constructor: BoardObject";
 }
 
-BoardObject::~BoardObject() {
+BoardObject::~BoardObject()
+{
     qDebug() << "Destructor: BoardObject";
 }
 
-int BoardObject::getDirection() const {
+int BoardObject::getDirection() const
+{
     qDebug() << "getDirection" << direction;
     return direction;
 }
 
-int BoardObject::getX() const {
+int BoardObject::getX() const
+{
     qDebug() << "getX" << coordinate_x;
     return coordinate_x;
 }
 
-int BoardObject::getY() const {
+int BoardObject::getY() const
+{
     qDebug() << "getY" << coordinate_y;
     return coordinate_y;
 }
 
-void BoardObject::setDirection(int value) {
+void BoardObject::setDirection(int value)
+{
     qDebug() << "setDirection" << value;
 
     if (value != direction) {
@@ -35,7 +41,8 @@ void BoardObject::setDirection(int value) {
     }
 }
 
-void BoardObject::setX(int value) {
+void BoardObject::setX(int value)
+{
     qDebug() << "setX" << value;
 
     if (value != coordinate_x) {
@@ -44,7 +51,8 @@ void BoardObject::setX(int value) {
     }
 }
 
-void BoardObject::setY(int value) {
+void BoardObject::setY(int value)
+{
     qDebug() << "setY" << value;
 
     if (value != coordinate_y) {
@@ -53,19 +61,22 @@ void BoardObject::setY(int value) {
     }
 }
 
-void BoardObject::updateDirection(int value) {
+void BoardObject::updateDirection(int value)
+{
     qDebug() << "updateDirection";
     direction = value;
     emit directionChanged(value);
 }
 
-void BoardObject::updateDirection() {
+void BoardObject::updateDirection()
+{
     qDebug() << "updateDirection";
     direction = (rand() % 4) * 90;
     emit directionChanged(direction);
 }
 
-void BoardObject::paint(QPainter *painter) {
+void BoardObject::paint(QPainter *painter)
+{
     QColor color("red");
     QPen pen(color, 2);
     painter->setPen(pen);
