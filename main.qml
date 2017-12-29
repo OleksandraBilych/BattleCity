@@ -3,19 +3,22 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
 import QtQml.Models 2.1
+import QtQuick.Dialogs 1.2
 
 import BattleCity 1.0
 
 ApplicationWindow {
-    visible: true
-    width: 650
-    height: 650
+    id: mainWindow
     title: qsTr("Battle City")
     color: "black"
+    visible: true
+
+    width: Screen.width
+    height: Screen.height
+
+    flags: Qt.SplashScreen
 
     Component.onCompleted: {
-        setX(Screen.width / 2 - width / 2);
-        setY(Screen.height / 2 - height / 2);
     }
 
     function proceedMovement() {
@@ -64,6 +67,26 @@ ApplicationWindow {
         }
     }
 
+    Dialog {
+        id: closeDialog
+        visible: false
+        title: "Do you want to exit the game?"
+        standardButtons: StandardButton.Yes | StandardButton.No
+
+        onYes: {
+            console.log("Exit");
+            visible = false;
+            mainWindow.close();
+        }
+
+        onNo: {
+            console.log("Return to game");
+            visible = false;
+            board.focus = true;
+            computer.animation = true;
+        }
+    }
+
     Item {
         Rectangle {
             id: board
@@ -102,7 +125,13 @@ ApplicationWindow {
                     aPlayer.moveRight = false;
                     aPlayer.moveUp = false;
                     aPlayer.moveDown = true;
+                } else if (event.key == Qt.Key_Escape) {
+                    closeDialog.visible = false;
+                    board.focus = false;
+                    computer.animation = false;
+                    closeDialog.visible = true;
                 }
+
 
                 event.accepted = true;
             }
