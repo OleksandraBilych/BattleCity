@@ -125,8 +125,8 @@ ApplicationWindow {
                 id: aPlayer
                 x: playerTank.coordinate_x
                 y: playerTank.coordinate_y
-                width: 50
-                height: 50
+                width: playerTank.objectWidth
+                height: playerTank.objectHeight
                 rotation: playerTank.direction
 
                 property bool moveUp: false
@@ -160,8 +160,8 @@ ApplicationWindow {
                     id: enemyTank
                     x: modelData.coordinate_x
                     y: modelData.coordinate_y
-                    width: 50
-                    height: 50
+                    width: modelData.objectWidth
+                    height: modelData.objectHeight
                     rotation: modelData.direction
 
                     Behavior on x {

@@ -1,4 +1,6 @@
 #include "enemy.h"
+#include <QGuiApplication>
+#include <QWindow>
 
 Enemy::Enemy(float hitPointsLimit, float damage, QQuickItem* parent)
     : Tank(parent)
@@ -49,7 +51,7 @@ void Enemy::move()
 void Enemy::doStep()
 {
     if ( direction == Direction::dir_down) {
-        if (coordinate_y >= 600)
+        if (coordinate_y >= qApp->focusWindow()->height() - getHeight())
             throw EndOfBoardException();
 
         coordinate_y += 10;
@@ -67,7 +69,7 @@ void Enemy::doStep()
         coordinate_x -= 10;
         emit XChanged(coordinate_x);
     } else if (direction == Direction::dir_right) {
-        if (coordinate_x >= 600)
+        if (coordinate_x >= qApp->focusWindow()->width() - getWidth())
             throw EndOfBoardException();
 
         coordinate_x += 10;

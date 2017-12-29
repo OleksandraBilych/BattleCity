@@ -7,6 +7,9 @@ Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 
     isDead = false;
     isPlayer = false;
+
+    objectWidth = 50; // TO DO: create common config
+    objectHeight = 50;
 }
 
 Tank::~Tank()
