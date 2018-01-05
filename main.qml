@@ -18,9 +18,6 @@ ApplicationWindow {
 
     flags: Qt.SplashScreen
 
-    Component.onCompleted: {
-    }
-
     function proceedMovement() {
         var step = 10;
         var limixX = width - aPlayer.width;

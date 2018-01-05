@@ -1,13 +1,24 @@
 #include "board.h"
+#include <QGuiApplication>
+#include <QScreen>
 
 Board::Board(QObject *parent) : QObject(parent)
 {
     qDebug() << "Constructor Board";
 
-    for (int i = 0; i < 5; i++) {
-        m_enemies.append(new Enemy(100, 20));
-        m_enemies.at(i)->setProperty("coordinate_x", 100 * (i + 1));
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    int height = screenGeometry.height();
+    int width = screenGeometry.width();
+
+    int enemiesAmount = 6; // TO DO: move to commmon config
+    int distance = width/enemiesAmount;
+
+    for (int i = 0; i < enemiesAmount; i++) {
+        m_enemies.append(new Enemy(100, 20, distance * i + distance / 2, 0));
     }
+
+    player = new Player(100, 20, "PlayerTank", width / 2, height);
 }
 
 Board::~Board()
@@ -23,5 +34,10 @@ QQmlListProperty<Enemy> Board::enemies()
 QList<Enemy*> Board::getEnemies()
 {
     return m_enemies;
+}
+
+Player* Board::getPlayer() const
+{
+    return player;
 }
 

@@ -2,7 +2,8 @@
 #include <QGuiApplication>
 #include <QWindow>
 
-Enemy::Enemy(float hitPointsLimit, float damage, QQuickItem* parent)
+Enemy::Enemy(float hitPointsLimit, float damage,
+             int coordinate_x, int coordinate_y, QQuickItem* parent)
     : Tank(parent)
 {
     qDebug() << "Constructor: Enemy";
@@ -11,8 +12,8 @@ Enemy::Enemy(float hitPointsLimit, float damage, QQuickItem* parent)
     this->damage = damage;
     hitPoints = hitPointsLimit;
     direction = Direction::dir_down;
-    coordinate_x = 300;
-    coordinate_y = 20;
+    this->coordinate_x = coordinate_x;
+    this->coordinate_y = coordinate_y;
 }
 
 Enemy::Enemy(QQuickItem* parent)

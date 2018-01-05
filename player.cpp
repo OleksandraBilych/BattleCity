@@ -1,6 +1,9 @@
 #include "player.h"
+#include <QGuiApplication>
+#include <QWindow>
 
-Player::Player(float hitPointsLimit, float damage, const std::string& name, QQuickItem* parent)
+Player::Player(float hitPointsLimit, float damage, const std::string& name,
+               int coordinate_x, int coordinate_y, QQuickItem* parent)
     : Tank(parent)
 {
     qDebug() << "Constructor: Player";
@@ -10,8 +13,8 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name, QQui
     this->name = name;
     hitPoints = hitPointsLimit;
     direction = Direction::dir_up;
-    coordinate_x = 300;
-    coordinate_y = 580;
+    this->coordinate_x = coordinate_x;
+    this->coordinate_y = coordinate_y;
     isPlayer = true;
 }
 

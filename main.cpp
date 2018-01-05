@@ -28,9 +28,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("computer", comp);
 
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());
-
-    Player* player = new Player(100, 20, "PlayerTank");
-    engine.rootContext()->setContextProperty("playerTank", player);
+    engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

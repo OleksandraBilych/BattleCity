@@ -5,11 +5,13 @@
 #include <vector>
 #include "cell.h"
 #include "enemy.h"
+#include "player.h"
 
 class Board : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Enemy> enemies READ enemies NOTIFY enemiesChanged)
+    Q_PROPERTY(Player player READ getPlayer NOTIFY playerChanged)
 
 public:
     explicit Board(QObject *parent = 0);
@@ -18,14 +20,15 @@ public:
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
 
+    Player* getPlayer() const;
+
 signals:
     void enemiesChanged(QQmlListProperty<Enemy>);
+    void playerChanged(Player* player);
 
 private:
-    std::vector<Cell*> cells;
-    const int height = 13;
-    const int width = 13;
     QList<Enemy*> m_enemies;
+    Player* player;
 };
 
 #endif // BOARD_H
