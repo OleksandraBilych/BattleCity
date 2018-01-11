@@ -20,6 +20,7 @@ public:
 
     virtual void rotate(int value);
     void move();
+    Q_INVOKABLE void rotatePlayer();
 
 private:
     std::string name;

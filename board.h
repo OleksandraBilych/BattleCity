@@ -16,7 +16,7 @@ public:
     explicit Board(QObject *parent = 0);
     ~Board();
 
-    void move(Tank* tank);
+    Q_INVOKABLE void move(Tank* tank, Qt::Key keyDirection = Qt::Key_unknown);
 
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();

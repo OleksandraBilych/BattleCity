@@ -23,8 +23,6 @@ Board::Board(QObject *parent) : QObject(parent)
     if (width % step != 0)
         columnsAmount += 1;
 
-    qDebug() << "rowsAmount - " << rowsAmount << ", columnsAmount - " << columnsAmount;
-
     cells.resize(rowsAmount);
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
@@ -33,7 +31,7 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create enemy tanks
-    int enemiesAmount = 6; // TO DO: move to commmon config
+    int enemiesAmount = 10; // TO DO: move to commmon config
     int distance = width/enemiesAmount;
 
     for (int i = 0; i < enemiesAmount; i++) {
@@ -47,15 +45,14 @@ Board::Board(QObject *parent) : QObject(parent)
 
         for (int row = 0; row < rowsAmount; row++) {
             for(int col = 0; col < columnsAmount; col++) {
-                qDebug() << "Add enemy tank to cell: " << (firstRow + row) << ", " << (firstCol + col);
-                cells[firstRow + row][firstCol + col]->setBoardObject(enemy);
+                 cells[firstRow + row][firstCol + col]->setBoardObject(enemy);
             }
         }
     }
 
     //create player's tank
     int playerX = width / 2 - 50;
-    int playerY = height - 100;
+    int playerY = height - 150;
     player = new Player(100, 20, "PlayerTank", playerX, playerY);
 
     int firstRow = playerY / step;
@@ -65,7 +62,6 @@ Board::Board(QObject *parent) : QObject(parent)
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
-            qDebug() << "Add player tank to cell: " << (firstRow + row) << ", " << (firstCol + col);
             cells[firstRow + row][firstCol + col]->setBoardObject(player);
         }
     }
@@ -101,7 +97,7 @@ void Board::FreeCells(QVector<Cell*> cells)
         cell->clearBoardObject();
 }
 
-void Board::move(Tank *tank)
+void Board::move(Tank *tank, Qt::Key keyDirection)
 {
     // check if a cell is avaliable
     // if it's not than don't move tank
@@ -109,12 +105,33 @@ void Board::move(Tank *tank)
 
     int firstRow = tank->getY() / step;
     int firstCol = tank->getX() / step;
-    int direction = tank->getDirection();
-
     int nextIndex = 0;
     int prevIndex = 0;
 
-    //calculate indexes for next and previous cells
+    // if we get direction we need firstly to check
+    // do we must update direction to new one
+    if (keyDirection != Qt::Key_unknown) {
+        if ( keyDirection == Qt::Key_Down &&
+             tank->getDirection() != Direction::dir_down) {
+            tank->updateDirection(Direction::dir_down);
+
+        } else if (keyDirection == Qt::Key_Up &&
+                   tank->getDirection() != Direction::dir_up) {
+            tank->updateDirection(Direction::dir_up);
+
+        } else if (keyDirection == Qt::Key_Left &&
+                   tank->getDirection() != Direction::dir_left) {
+            tank->updateDirection(Direction::dir_left);
+
+        } else if (keyDirection == Qt::Key_Right &&
+                   tank->getDirection() != Direction::dir_right) {
+            tank->updateDirection(Direction::dir_right);
+        }
+    }
+
+    int direction = tank->getDirection();
+
+    //calculate indexes next and previous cells
     if ( direction == Direction::dir_down) {
         nextIndex = firstRow + tank->getHeight() / step;
         if (nextIndex * step >= qApp->focusWindow()->height()) {
@@ -132,7 +149,6 @@ void Board::move(Tank *tank)
         }
 
         prevIndex = firstRow + tank->getHeight() / step - 1;
-
     } else if (direction == Direction::dir_left) {
         nextIndex = firstCol - 1;
         if (nextIndex * step <= 0) {
@@ -141,8 +157,6 @@ void Board::move(Tank *tank)
         }
 
         prevIndex = firstCol + tank->getWidth() / step - 1;
-        qDebug() << "Left dir: nextIndex - " << nextIndex << ", prevIndex - " << prevIndex;
-
     } else if (direction == Direction::dir_right) {
         nextIndex = firstCol + tank->getWidth() / step;
         if (nextIndex * step >= qApp->focusWindow()->width()) {
@@ -153,7 +167,7 @@ void Board::move(Tank *tank)
         prevIndex = firstCol;
     }
 
-    qDebug() << "INDEXES: nextIndex - " << nextIndex << ", prevIndex - " << prevIndex << ", dir - " << direction;
+    // create two vectors with next and previous cells
     if ( direction == Direction::dir_down || direction == Direction::dir_up) {
         int cellAmount = tank->getWidth() / step;
 
@@ -170,6 +184,8 @@ void Board::move(Tank *tank)
         }
     }
 
+    // if new cells are avaliable a tank make a step
+    // otherwise a tank change direction
     if (AreCellsFree(nextCells)) {
         tank->move();
         for (auto cell : nextCells)
@@ -194,4 +210,3 @@ Player* Board::getPlayer() const
 {
     return player;
 }
-

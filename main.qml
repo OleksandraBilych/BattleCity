@@ -18,52 +18,6 @@ ApplicationWindow {
 
     flags: Qt.SplashScreen
 
-    function proceedMovement() {
-        var step = 10;
-        var limixX = width - aPlayer.width;
-        var limitY = height - aPlayer.height;
-
-        if (aPlayer.moveUp && playerTank.coordinate_y - step > 0) {
-            if (playerTank.direction != 0) {
-                playerTank.direction = 0;
-            } else {
-                playerTank.coordinate_y -= step;
-            }
-        } else if (playerTank.coordinate_y < 0) {
-            playerTank.coordinate_y = 0;
-        }
-
-        if (aPlayer.moveDown && playerTank.coordinate_y + step < limitY) {
-            if (playerTank.direction != 180) {
-                playerTank.direction = 180;
-            } else {
-                playerTank.coordinate_y += step;
-            }
-        } else if (playerTank.coordinate_y > limitY) {
-            playerTank.coordinate_y = limitY;
-        }
-
-        if (aPlayer.moveLeft && playerTank.coordinate_x - step > 0) {
-            if (playerTank.direction != 270) {
-                playerTank.direction = 270;
-            } else {
-                playerTank.coordinate_x -= step;
-            }
-        } else if (playerTank.coordinate_x < 0) {
-            playerTank.coordinate_x = 0;
-        }
-
-        if (aPlayer.moveRight && playerTank.coordinate_x + step < limixX) {
-            if (playerTank.direction != 90) {
-                playerTank.direction = 90;
-            } else {
-                playerTank.coordinate_x += step;
-            }
-        } else if (playerTank.coordinate_x > limixX) {
-            playerTank.coordinate_x = limixX;
-        }
-    }
-
     Dialog {
         id: closeDialog
         visible: false
@@ -93,55 +47,19 @@ ApplicationWindow {
             focus: false
             color: "black"
 
-            Timer  {
-                id: playerMoveTimer
-                interval: 100;
-                running: true;
-                repeat: true;
-                onTriggered: proceedMovement();
-            }
-
             Keys.onPressed: {
-                if (event.key == Qt.Key_Left) {
-                    aPlayer.moveLeft = true;
-                    aPlayer.moveRight = false;
-                    aPlayer.moveUp = false;
-                    aPlayer.moveDown = false;
-                } else if (event.key == Qt.Key_Right) {
-                    aPlayer.moveLeft = false;
-                    aPlayer.moveRight = true;
-                    aPlayer.moveUp = false;
-                    aPlayer.moveDown = false;
-                } else if (event.key == Qt.Key_Up) {
-                    aPlayer.moveLeft = false;
-                    aPlayer.moveRight = false;
-                    aPlayer.moveUp = true;
-                    aPlayer.moveDown = false;
-                } else if (event.key == Qt.Key_Down) {
-                    aPlayer.moveLeft = false;
-                    aPlayer.moveRight = false;
-                    aPlayer.moveUp = false;
-                    aPlayer.moveDown = true;
+                if (event.key == Qt.Key_Left ||
+                    event.key == Qt.Key_Right ||
+                    event.key == Qt.Key_Up ||
+                    event.key == Qt.Key_Down) {
+
+                gameBoard.move(playerTank, event.key);
+
                 } else if (event.key == Qt.Key_Escape) {
                     closeDialog.visible = false;
                     board.focus = false;
                     computer.animation = false;
                     closeDialog.visible = true;
-                }
-
-
-                event.accepted = true;
-            }
-
-            Keys.onReleased: {
-                if (event.key == Qt.Key_Left) {
-                    aPlayer.moveLeft = false;
-                } else if (event.key == Qt.Key_Right) {
-                    aPlayer.moveRight = false;
-                } else if (event.key == Qt.Key_Up) {
-                    aPlayer.moveUp = false;
-                } else if (event.key == Qt.Key_Down) {
-                    aPlayer.moveDown = false;
                 }
 
                 event.accepted = true;

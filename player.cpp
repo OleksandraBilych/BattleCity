@@ -48,7 +48,14 @@ void Player::setName(const std::string& value)
 
 void Player::rotate(int value)
 {
+    updateDirection(90);
+    qDebug() << "Update direction";
+}
 
+void Player::rotatePlayer()
+{
+    updateDirection(90);
+    qDebug() << "Update direction";
 }
 
 void Player::move()

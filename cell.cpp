@@ -28,8 +28,6 @@ void Cell::setBoardObject(BoardObject* obj)
 
     this->obj = obj;
     isEmpty = false;
-
-    qDebug() << "obj: x - " << obj->getX() << ", y - " << obj->getY();
 }
 
 bool Cell::isCellEmpty()
