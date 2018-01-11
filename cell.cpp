@@ -3,11 +3,10 @@
 Cell::Cell(int x, int y, QObject *parent)
     : QObject(parent), x(x), y(y), isEmpty(true), obj(nullptr)
 {
-    qDebug() << "Constructor: Cell";
 }
 
 Cell::Cell(int x, int y, BoardObject* obj, QObject *parent)
-    : QObject(parent), x(x), y(y), isEmpty(true), obj(obj)
+    : QObject(parent), x(x), y(y), isEmpty(false), obj(obj)
 {
     qDebug() << "Constructor: Cell";
 }
@@ -24,7 +23,13 @@ BoardObject* Cell::getBoardObject()
 
 void Cell::setBoardObject(BoardObject* obj)
 {
+    if (this->obj == obj)
+        return;
+
     this->obj = obj;
+    isEmpty = false;
+
+    qDebug() << "obj: x - " << obj->getX() << ", y - " << obj->getY();
 }
 
 bool Cell::isCellEmpty()
@@ -34,9 +39,6 @@ bool Cell::isCellEmpty()
 
 void Cell::clearBoardObject()
 {
-    if ( !isEmpty )
-        throw CellIsEmptyException();
-
     obj = nullptr;
     isEmpty = true;
 }

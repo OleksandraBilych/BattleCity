@@ -15,19 +15,19 @@ BoardObject::~BoardObject()
 
 int BoardObject::getDirection() const
 {
-    qDebug() << "getDirection" << direction;
+    //qDebug() << "getDirection" << direction;
     return direction;
 }
 
 int BoardObject::getX() const
 {
-    qDebug() << "getX" << coordinate_x;
+    //qDebug() << "getX" << coordinate_x;
     return coordinate_x;
 }
 
 int BoardObject::getY() const
 {
-    qDebug() << "getY" << coordinate_y;
+    //qDebug() << "getY" << coordinate_y;
     return coordinate_y;
 }
 
@@ -43,7 +43,7 @@ int BoardObject::getHeight() const
 
 void BoardObject::setDirection(int value)
 {
-    qDebug() << "setDirection" << value;
+    //qDebug() << "setDirection" << value;
 
     if (value != direction) {
         direction = value;
@@ -53,7 +53,7 @@ void BoardObject::setDirection(int value)
 
 void BoardObject::setX(int value)
 {
-    qDebug() << "setX" << value;
+    //qDebug() << "setX" << value;
 
     if (value != coordinate_x) {
         coordinate_x = value;
@@ -63,7 +63,7 @@ void BoardObject::setX(int value)
 
 void BoardObject::setY(int value)
 {
-    qDebug() << "setY" << value;
+    //qDebug() << "setY" << value;
 
     if (value != coordinate_y) {
         coordinate_y = value;

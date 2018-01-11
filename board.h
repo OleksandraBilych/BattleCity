@@ -2,7 +2,6 @@
 #define BOARD_H
 
 #include <QObject>
-#include <vector>
 #include "cell.h"
 #include "enemy.h"
 #include "player.h"
@@ -17,6 +16,8 @@ public:
     explicit Board(QObject *parent = 0);
     ~Board();
 
+    void move(Tank* tank);
+
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
 
@@ -27,8 +28,12 @@ signals:
     void playerChanged(Player* player);
 
 private:
+    bool AreCellsFree(QVector<Cell*> cells);
+    void FreeCells(QVector<Cell*> cells);
+
     QList<Enemy*> m_enemies;
     Player* player;
+    QVector<QVector<Cell*>> cells;
 };
 
 #endif // BOARD_H

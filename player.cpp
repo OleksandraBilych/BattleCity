@@ -53,5 +53,20 @@ void Player::rotate(int value)
 
 void Player::move()
 {
+    if ( direction == Direction::dir_down) {
+        coordinate_y += 10;
+        emit YChanged(coordinate_y);
 
+    } else if (direction == Direction::dir_up) {
+        coordinate_y -= 10;
+        emit YChanged(coordinate_y);
+
+    } else if (direction == Direction::dir_left) {
+        coordinate_x -= 10;
+        emit XChanged(coordinate_x);
+
+    } else if (direction == Direction::dir_right) {
+        coordinate_x += 10;
+        emit XChanged(coordinate_x);
+    }
 }

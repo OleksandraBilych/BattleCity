@@ -41,38 +41,19 @@ void Enemy::rotate(int value)
 
 void Enemy::move()
 {
-    try {
-        doStep();
-    } catch ( EndOfBoardException e) {
-        updateDirection();
-    }
-
-}
-
-void Enemy::doStep()
-{
     if ( direction == Direction::dir_down) {
-        if (coordinate_y >= qApp->focusWindow()->height() - getHeight())
-            throw EndOfBoardException();
-
         coordinate_y += 10;
         emit YChanged(coordinate_y);
-    } else if (direction == Direction::dir_up) {
-        if (coordinate_y <= 0)
-            throw EndOfBoardException();
 
+    } else if (direction == Direction::dir_up) {
         coordinate_y -= 10;
         emit YChanged(coordinate_y);
-    } else if (direction == Direction::dir_left) {
-        if (coordinate_x <= 0)
-            throw EndOfBoardException();
 
+    } else if (direction == Direction::dir_left) {
         coordinate_x -= 10;
         emit XChanged(coordinate_x);
-    } else if (direction == Direction::dir_right) {
-        if (coordinate_x >= qApp->focusWindow()->width() - getWidth())
-            throw EndOfBoardException();
 
+    } else if (direction == Direction::dir_right) {
         coordinate_x += 10;
         emit XChanged(coordinate_x);
     }

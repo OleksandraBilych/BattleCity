@@ -26,7 +26,7 @@ void Computer::sendPressSignal()
             enemy->updateDirection();
         }
 
-        enemy->move();
+        board->move(enemy);
     }
 }
 

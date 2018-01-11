@@ -17,7 +17,6 @@ public:
 
     virtual void rotate(int value);
     void move();
-    void doStep();
 };
 
 #endif // ENEMY_H
