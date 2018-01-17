@@ -75,6 +75,7 @@ void Tank::takeDamage(float value)
         hitPoints = value;
 }
 
+
 Bullet* Tank::attack()
 {
     return new Bullet(this);

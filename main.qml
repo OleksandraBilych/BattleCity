@@ -61,6 +61,9 @@ ApplicationWindow {
                     computer.animation = false;
                     closeDialog.visible = true;
                 }
+                else if (event.key == Qt.Key_Space) {
+                    gameBoard.attack(playerTank);
+                }
 
                 event.accepted = true;
             }
@@ -124,6 +127,24 @@ ApplicationWindow {
                         id: enemyBackground
                         anchors.fill: parent
                         source: "qrc:/images/enemy.png"
+                    }
+                }
+            }
+
+            Repeater {
+                model: gameBoard.bullets
+                Bullet {
+                    id: bullet
+                    x: modelData.coordinate_x
+                    y: modelData.coordinate_y
+                    width: modelData.objectWidth
+                    height: modelData.objectHeight
+                    rotation: modelData.direction
+
+                    Image {
+                        id: bulletBackground
+                        anchors.fill: parent
+                        source: "qrc:/images/bullet.png"
                     }
                 }
             }

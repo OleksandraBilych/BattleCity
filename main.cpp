@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Board>("BattleCity", 1, 0, "Board");
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
+    qmlRegisterType<Bullet>("BattleCity", 1, 0, "Bullet");
     qmlRegisterType<Tank>();
-    qmlRegisterType<Bullet>();
     qmlRegisterType<BoardObject>();
 
     QQmlApplicationEngine engine;

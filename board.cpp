@@ -75,6 +75,9 @@ Board::~Board()
     foreach(QVector<Cell*> cell, cells)
         qDeleteAll(cell);
     cells.clear();
+
+    qDeleteAll(m_bullets);
+    m_bullets.clear();
 }
 
 bool Board::AreCellsFree(QVector<Cell*> cells)
@@ -197,6 +200,13 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
     }
 }
 
+void Board::attack(Tank* tank)
+{
+    m_bullets.append(new Bullet(tank));
+    emit bulletsChanged(bullets());
+}
+
+
 QQmlListProperty<Enemy> Board::enemies()
 {
     return QQmlListProperty<Enemy>(this, m_enemies);
@@ -210,4 +220,9 @@ QList<Enemy*> Board::getEnemies()
 Player* Board::getPlayer() const
 {
     return player.data();
+}
+
+QQmlListProperty<Bullet> Board::bullets()
+{
+    return QQmlListProperty<Bullet>(this, m_bullets);
 }

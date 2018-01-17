@@ -8,12 +8,10 @@ Cell::Cell(int x, int y, QObject *parent)
 Cell::Cell(int x, int y, const BoardObject* obj, QObject *parent)
     : QObject(parent), x(x), y(y), isEmpty(false), obj(obj)
 {
-    qDebug() << "Constructor: Cell";
 }
 
 Cell::~Cell()
 {
-    qDebug() << "Destructor: Cell";
 }
 
 const BoardObject* Cell::getBoardObject()
