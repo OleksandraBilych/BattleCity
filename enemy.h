@@ -12,7 +12,11 @@ class Enemy : public Tank
 public:
     Enemy(float hitPointsLimit, float damage,
           int coordinate_x, int coordinate_y, QQuickItem* parent = 0);
-    Enemy(QQuickItem* parent = 0);
+    Enemy();
+
+    Enemy(const Enemy&) = delete;
+    Enemy& operator=(const Enemy&) = delete;
+
     virtual ~Enemy();
 
     virtual void rotate(int value);

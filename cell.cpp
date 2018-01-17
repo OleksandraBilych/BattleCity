@@ -5,7 +5,7 @@ Cell::Cell(int x, int y, QObject *parent)
 {
 }
 
-Cell::Cell(int x, int y, BoardObject* obj, QObject *parent)
+Cell::Cell(int x, int y, const BoardObject* obj, QObject *parent)
     : QObject(parent), x(x), y(y), isEmpty(false), obj(obj)
 {
     qDebug() << "Constructor: Cell";
@@ -16,12 +16,12 @@ Cell::~Cell()
     qDebug() << "Destructor: Cell";
 }
 
-BoardObject* Cell::getBoardObject()
+const BoardObject* Cell::getBoardObject()
 {
     return obj;
 }
 
-void Cell::setBoardObject(BoardObject* obj)
+void Cell::setBoardObject(const BoardObject* obj)
 {
     if (this->obj == obj)
         return;

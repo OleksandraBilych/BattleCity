@@ -31,7 +31,7 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create enemy tanks
-    int enemiesAmount = 10; // TO DO: move to commmon config
+    int enemiesAmount = 6; // TO DO: move to commmon config
     int distance = width/enemiesAmount;
 
     for (int i = 0; i < enemiesAmount; i++) {
@@ -53,7 +53,7 @@ Board::Board(QObject *parent) : QObject(parent)
     //create player's tank
     int playerX = width / 2 - 50;
     int playerY = height - 150;
-    player = new Player(100, 20, "PlayerTank", playerX, playerY);
+    player.reset(new Player(100, 20, "PlayerTank", playerX, playerY));
 
     int firstRow = playerY / step;
     int firstCol = playerX / step;
@@ -62,18 +62,19 @@ Board::Board(QObject *parent) : QObject(parent)
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
-            cells[firstRow + row][firstCol + col]->setBoardObject(player);
+            cells[firstRow + row][firstCol + col]->setBoardObject(player.data());
         }
     }
 }
 
 Board::~Board()
 {
-    for (auto enemie : m_enemies) {
-        delete enemie;
-    }
-
+    qDeleteAll(m_enemies);
     m_enemies.clear();
+
+    foreach(QVector<Cell*> cell, cells)
+        qDeleteAll(cell);
+    cells.clear();
 }
 
 bool Board::AreCellsFree(QVector<Cell*> cells)
@@ -81,7 +82,7 @@ bool Board::AreCellsFree(QVector<Cell*> cells)
     // check if cells are avaliable
     bool areFree = true;
 
-    for (auto cell : cells) {
+    for (auto& cell : cells) {
         if (!cell->isCellEmpty()) {
             areFree = false;
             break;
@@ -93,7 +94,7 @@ bool Board::AreCellsFree(QVector<Cell*> cells)
 
 void Board::FreeCells(QVector<Cell*> cells)
 {
-    for (auto cell : cells)
+    for (auto& cell : cells)
         cell->clearBoardObject();
 }
 
@@ -143,7 +144,7 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
 
     } else if (direction == Direction::dir_up) {
         nextIndex = firstRow - 1;
-        if (nextIndex * step <= 0) {
+        if (nextIndex * step < 0) {
             tank->updateDirection();
             return;
         }
@@ -151,7 +152,7 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
         prevIndex = firstRow + tank->getHeight() / step - 1;
     } else if (direction == Direction::dir_left) {
         nextIndex = firstCol - 1;
-        if (nextIndex * step <= 0) {
+        if (nextIndex * step < 0) {
             tank->updateDirection();
             return;
         }
@@ -188,7 +189,7 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
     // otherwise a tank change direction
     if (AreCellsFree(nextCells)) {
         tank->move();
-        for (auto cell : nextCells)
+        for (auto& cell : nextCells)
             cell->setBoardObject(tank);
         FreeCells(prevCells);
     } else {
@@ -208,5 +209,5 @@ QList<Enemy*> Board::getEnemies()
 
 Player* Board::getPlayer() const
 {
-    return player;
+    return player.data();
 }

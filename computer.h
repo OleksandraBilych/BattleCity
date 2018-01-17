@@ -15,10 +15,9 @@ public:
    explicit Computer(QObject *parent = 0);
    ~Computer();   
 
-   Board* getBoard() const;
+   Board* getBoard() const; // use this method only for setContextProperty
    bool getAnimation() const;
 
-   void setBoard(Board* other);
    void setAnimation(bool value);
 
    void startTimer();
@@ -31,8 +30,8 @@ public slots:
    void sendPressSignal();
 
 private:
-   QTimer *myTimer;
-   Board* board;
+   QScopedPointer<QTimer> myTimer;
+   QScopedPointer<Board> board;
    bool animation;
 };
 

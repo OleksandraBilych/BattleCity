@@ -4,16 +4,15 @@ Computer::Computer(QObject *parent) : QObject(parent)
 {
     qDebug() << "Constructor Computer";
 
-    board = new Board(parent);
+    board.reset(new Board(parent));
     animation = false;
-    myTimer = new QTimer(this);
-    connect(myTimer, SIGNAL (timeout()), this, SLOT (sendPressSignal()));
+    myTimer.reset(new QTimer(this));
+    connect(myTimer.data(), SIGNAL (timeout()), this, SLOT (sendPressSignal()));
 }
 
 Computer::~Computer()
 {
-    if ( board != nullptr )
-        delete board;
+
 }
 
 void Computer::sendPressSignal()
@@ -31,20 +30,12 @@ void Computer::sendPressSignal()
 
 Board* Computer::getBoard() const
 {
-    return board;
+    return board.data();
 }
 
 bool Computer::getAnimation() const
 {
     return animation;
-}
-
-void Computer::setBoard(Board* other)
-{
-    if (board != nullptr)
-        delete board;
-
-    board = other;
 }
 
 void Computer::setAnimation(bool value)

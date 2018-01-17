@@ -32,7 +32,7 @@ private:
     void FreeCells(QVector<Cell*> cells);
 
     QList<Enemy*> m_enemies;
-    Player* player;
+    QScopedPointer<Player> player;
     QVector<QVector<Cell*>> cells;
 };
 

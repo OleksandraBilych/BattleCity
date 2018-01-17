@@ -3,8 +3,6 @@
 
 Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 {
-    qDebug() << "Constructor: Tank";
-
     isDead = false;
     isPlayer = false;
 
@@ -14,7 +12,7 @@ Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 
 Tank::~Tank()
 {
-    qDebug() << "Destructor: Tank";
+
 }
 
 float Tank::getDamage() const

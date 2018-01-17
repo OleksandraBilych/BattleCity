@@ -5,12 +5,12 @@
 
 BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
-    qDebug() << "Constructor: BoardObject";
+
 }
 
 BoardObject::~BoardObject()
 {
-    qDebug() << "Destructor: BoardObject";
+
 }
 
 int BoardObject::getDirection() const

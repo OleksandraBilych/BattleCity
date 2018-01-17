@@ -16,17 +16,9 @@ Enemy::Enemy(float hitPointsLimit, float damage,
     this->coordinate_y = coordinate_y;
 }
 
-Enemy::Enemy(QQuickItem* parent)
-    : Tank(parent)
+Enemy::Enemy()
 {
-    qDebug() << "Constructor: Enemy";
-
-    this->hitPointsLimit = 150;
-    this->damage = 50;
-    hitPoints = 150;
-    direction = Direction::dir_down;
-    coordinate_x = 300;
-    coordinate_y = 20;
+    qDebug() << "Default constructor: Enemy";
 }
 
 Enemy::~Enemy()

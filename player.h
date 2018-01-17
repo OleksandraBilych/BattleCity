@@ -11,7 +11,11 @@ class Player : public Tank
 public:
     Player(float hitPointsLimit, float damage, const std::string& name,
            int coordinate_x, int coordinate_y, QQuickItem* parent = 0);
-    Player(QQuickItem* parent = 0);
+    Player();
+
+    Player(const Player&) = delete;
+    Player& operator=(const Player&) = delete;
+
     virtual ~Player();
 
     const std::string& getName() const;

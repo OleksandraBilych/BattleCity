@@ -24,14 +24,13 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    Computer* comp = new Computer(&app);
-    engine.rootContext()->setContextProperty("computer", comp);
+    QScopedPointer<Computer> comp(new Computer(&app));
+    engine.rootContext()->setContextProperty("computer", comp.data());
 
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());
     engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-
 
     return app.exec();
 }

@@ -22,7 +22,7 @@ public:
     void attack(Tank& enemy);
 
 private:
-    Tank* attacker;
+    Tank* attacker; // change to const Tank*
 };
 
 #endif // BULLET_H
