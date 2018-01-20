@@ -8,7 +8,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "bullet.h"
-#include "computer.h"
+#include "mainAI.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    QScopedPointer<Computer> comp(new Computer(&app));
+    QScopedPointer<MainAI> comp(new MainAI(&app));
     engine.rootContext()->setContextProperty("computer", comp.data());
 
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());

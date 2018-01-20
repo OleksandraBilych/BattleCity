@@ -144,7 +144,6 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
         }
 
         prevIndex = firstRow;
-
     } else if (direction == Direction::dir_up) {
         nextIndex = firstRow - 1;
         if (nextIndex * step < 0) {
@@ -200,9 +199,77 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
     }
 }
 
-void Board::attack(Tank* tank)
+void Board::move(Bullet* bullet)
 {
-    m_bullets.append(new Bullet(tank));
+    QVector<Cell*> prevCells, nextCells;
+
+    int direction = bullet->getDirection();
+    int firstRow = bullet->getY() / step;
+    int firstCol = bullet->getX() / step;
+    int nextIndex = 0;
+    int prevIndex = 0;
+
+    if ( direction == Direction::dir_down) {
+        nextIndex = firstRow + bullet->getHeight() / step;
+        if (nextIndex * step >= qApp->focusWindow()->height()) {
+            m_bullets.removeOne(bullet);
+            emit bulletsChanged(bullets());
+            return;
+        }
+
+        prevIndex = firstRow;
+    } else if (direction == Direction::dir_up) {
+        nextIndex = firstRow - 1;
+        if (nextIndex * step < 0) {
+            m_bullets.removeOne(bullet);
+            emit bulletsChanged(bullets());
+            return;
+        }
+
+        prevIndex = firstRow + bullet->getHeight() / step - 1;
+    } else if (direction == Direction::dir_left) {
+        nextIndex = firstCol - 1;
+        if (nextIndex * step < 0) {
+            m_bullets.removeOne(bullet);
+            emit bulletsChanged(bullets());
+            return;
+        }
+
+        prevIndex = firstCol + bullet->getWidth() / step - 1;
+    } else if (direction == Direction::dir_right) {
+        nextIndex = firstCol + bullet->getWidth() / step;
+        if (nextIndex * step >= qApp->focusWindow()->width()) {
+            m_bullets.removeOne(bullet);
+            emit bulletsChanged(bullets());
+            return;
+        }
+
+        prevIndex = firstCol;
+    }
+
+    if ( direction == Direction::dir_down || direction == Direction::dir_up) {
+        int cellAmount = bullet->getWidth() / step;
+
+        for (int cell = 0; cell < cellAmount; cell++) {
+            nextCells.append(cells[nextIndex][firstCol + cell]);
+            prevCells.append(cells[prevIndex][firstCol + cell]);
+        }
+    } else {
+        int cellAmount = bullet->getHeight() / step;
+
+        for (int cell = 0; cell < cellAmount; cell++) {
+            nextCells.append(cells[firstRow + cell][nextIndex]);
+            prevCells.append(cells[firstRow + cell][prevIndex]);
+        }
+    }
+
+    if (AreCellsFree(nextCells))
+        bullet->move();
+}
+
+void Board::addBullet(Bullet* bullet)
+{
+    m_bullets.append(bullet);
     emit bulletsChanged(bullets());
 }
 
@@ -225,4 +292,9 @@ Player* Board::getPlayer() const
 QQmlListProperty<Bullet> Board::bullets()
 {
     return QQmlListProperty<Bullet>(this, m_bullets);
+}
+
+QList<Bullet*> Board::getBullets()
+{
+    return m_bullets;
 }

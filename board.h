@@ -19,7 +19,8 @@ public:
     ~Board();
 
     Q_INVOKABLE void move(Tank* tank, Qt::Key keyDirection = Qt::Key_unknown);
-    Q_INVOKABLE void attack(Tank* tank);
+    void move(Bullet* bullet);
+    Q_INVOKABLE void addBullet(Bullet* bullet);
 
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
@@ -27,6 +28,7 @@ public:
     Player* getPlayer() const;
 
     QQmlListProperty<Bullet> bullets();
+    QList<Bullet*> getBullets();
 
 signals:
     void enemiesChanged(QQmlListProperty<Enemy>);

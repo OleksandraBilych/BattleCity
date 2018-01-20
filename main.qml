@@ -62,7 +62,7 @@ ApplicationWindow {
                     closeDialog.visible = true;
                 }
                 else if (event.key == Qt.Key_Space) {
-                    gameBoard.attack(playerTank);
+                    gameBoard.addBullet(playerTank.attack());
                 }
 
                 event.accepted = true;
@@ -144,7 +144,7 @@ ApplicationWindow {
                     Image {
                         id: bulletBackground
                         anchors.fill: parent
-                        source: "qrc:/images/bullet.png"
+                        source: "qrc:/images/bullet10*10.png"
                     }
                 }
             }

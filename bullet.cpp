@@ -6,15 +6,15 @@ Bullet::Bullet(const Tank* attacker, QObject* parent)
     qDebug() << "Constructor: Bullet";
 
     direction = attacker->getDirection();
-    objectWidth = 50;
+    objectWidth = 10;
     objectHeight = 10;
 
     if ( direction == Direction::dir_down) {
-        coordinate_x = attacker->getX();
+        coordinate_x = attacker->getX() + (attacker->getWidth() - objectWidth) / 2;
         coordinate_y = attacker->getY() + attacker->getHeight();
 
     } else if (direction == Direction::dir_up) {
-        coordinate_x = attacker->getX();
+        coordinate_x = attacker->getX() + (attacker->getWidth() - objectWidth) / 2;
         coordinate_y = attacker->getY() - objectHeight;
 
     } else if (direction == Direction::dir_left) {
@@ -22,7 +22,7 @@ Bullet::Bullet(const Tank* attacker, QObject* parent)
         coordinate_y = attacker->getY() + (attacker->getHeight() - objectHeight) / 2;
 
     } else if (direction == Direction::dir_right) {
-        coordinate_x = attacker->getX() + attacker->getWidth() / 2;
+        coordinate_x = attacker->getX() + attacker->getWidth();
         coordinate_y = attacker->getY() + (attacker->getHeight() - objectHeight) / 2;
     }
 }
@@ -50,7 +50,22 @@ void Bullet::setAttacker(const Tank* attacker)
 
 void Bullet::move()
 {
+    if ( direction == Direction::dir_down) {
+        coordinate_y += 10;
+        emit YChanged(coordinate_y);
 
+    } else if (direction == Direction::dir_up) {
+        coordinate_y -= 10;
+        emit YChanged(coordinate_y);
+
+    } else if (direction == Direction::dir_left) {
+        coordinate_x -= 10;
+        emit XChanged(coordinate_x);
+
+    } else if (direction == Direction::dir_right) {
+        coordinate_x += 10;
+        emit XChanged(coordinate_x);
+    }
 }
 
 void Bullet::attack(Tank& enemy)

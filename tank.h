@@ -31,7 +31,7 @@ public:
 
     virtual void rotate(int value) = 0;
     virtual void move() = 0;
-    virtual Bullet* attack();
+    Q_INVOKABLE virtual Bullet* attack();
     void takeDamage(float value);
 
 protected:
