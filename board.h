@@ -22,6 +22,8 @@ public:
     void move(Bullet* bullet);
     Q_INVOKABLE void addBullet(Bullet* bullet);
 
+    QVector<QVector<Cell*>> calcPrevAndNextCells(BoardObject* object);
+
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
 

@@ -101,16 +101,74 @@ void Board::FreeCells(QVector<Cell*> cells)
         cell->clearBoardObject();
 }
 
+QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
+{
+    QVector<Cell*> prevCells, nextCells;
+    QVector<QVector<Cell*>> prevNextCells;
+
+    int direction = object->getDirection();
+    int firstRow = object->getY() / step;
+    int firstCol = object->getX() / step;
+    int nextIndex = 0;
+    int prevIndex = 0;
+
+    //calculate indexes next and previous cells
+    if ( direction == Direction::dir_down) {
+        nextIndex = firstRow + object->getHeight() / step;
+        if (nextIndex * step >= qApp->focusWindow()->height()) {
+            return prevNextCells;
+        }
+
+        prevIndex = firstRow;
+    } else if (direction == Direction::dir_up) {
+        nextIndex = firstRow - 1;
+        if (nextIndex * step < 0) {
+            return prevNextCells;
+        }
+
+        prevIndex = firstRow + object->getHeight() / step - 1;
+    } else if (direction == Direction::dir_left) {
+        nextIndex = firstCol - 1;
+        if (nextIndex * step < 0) {
+            return prevNextCells;
+        }
+
+        prevIndex = firstCol + object->getWidth() / step - 1;
+    } else if (direction == Direction::dir_right) {
+        nextIndex = firstCol + object->getWidth() / step;
+        if (nextIndex * step >= qApp->focusWindow()->width()) {
+            return prevNextCells;
+        }
+
+        prevIndex = firstCol;
+    }
+
+    if ( direction == Direction::dir_down || direction == Direction::dir_up) {
+        int cellAmount = object->getWidth() / step;
+
+        for (int cell = 0; cell < cellAmount; cell++) {
+            nextCells.append(cells[nextIndex][firstCol + cell]);
+            prevCells.append(cells[prevIndex][firstCol + cell]);
+        }
+    } else {
+        int cellAmount = object->getHeight() / step;
+
+        for (int cell = 0; cell < cellAmount; cell++) {
+            nextCells.append(cells[firstRow + cell][nextIndex]);
+            prevCells.append(cells[firstRow + cell][prevIndex]);
+        }
+    }
+
+    prevNextCells.append(prevCells);
+    prevNextCells.append(nextCells);
+
+    return prevNextCells;
+}
+
 void Board::move(Tank *tank, Qt::Key keyDirection)
 {
     // check if a cell is avaliable
     // if it's not than don't move tank
-    QVector<Cell*> prevCells, nextCells;
-
-    int firstRow = tank->getY() / step;
-    int firstCol = tank->getX() / step;
-    int nextIndex = 0;
-    int prevIndex = 0;
 
     // if we get direction we need firstly to check
     // do we must update direction to new one
@@ -133,137 +191,34 @@ void Board::move(Tank *tank, Qt::Key keyDirection)
         }
     }
 
-    int direction = tank->getDirection();
-
-    //calculate indexes next and previous cells
-    if ( direction == Direction::dir_down) {
-        nextIndex = firstRow + tank->getHeight() / step;
-        if (nextIndex * step >= qApp->focusWindow()->height()) {
-            tank->updateDirection();
-            return;
-        }
-
-        prevIndex = firstRow;
-    } else if (direction == Direction::dir_up) {
-        nextIndex = firstRow - 1;
-        if (nextIndex * step < 0) {
-            tank->updateDirection();
-            return;
-        }
-
-        prevIndex = firstRow + tank->getHeight() / step - 1;
-    } else if (direction == Direction::dir_left) {
-        nextIndex = firstCol - 1;
-        if (nextIndex * step < 0) {
-            tank->updateDirection();
-            return;
-        }
-
-        prevIndex = firstCol + tank->getWidth() / step - 1;
-    } else if (direction == Direction::dir_right) {
-        nextIndex = firstCol + tank->getWidth() / step;
-        if (nextIndex * step >= qApp->focusWindow()->width()) {
-            tank->updateDirection();
-            return;
-        }
-
-        prevIndex = firstCol;
-    }
-
-    // create two vectors with next and previous cells
-    if ( direction == Direction::dir_down || direction == Direction::dir_up) {
-        int cellAmount = tank->getWidth() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[nextIndex][firstCol + cell]);
-            prevCells.append(cells[prevIndex][firstCol + cell]);
-        }
-    } else {
-        int cellAmount = tank->getHeight() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[firstRow + cell][nextIndex]);
-            prevCells.append(cells[firstRow + cell][prevIndex]);
-        }
+    QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(tank);
+    if (prevNextCells.empty()) {
+        tank->updateDirection();
+        return;
     }
 
     // if new cells are avaliable a tank make a step
     // otherwise a tank change direction
-    if (AreCellsFree(nextCells)) {
+    if (AreCellsFree(prevNextCells[1])) {
         tank->move();
-        for (auto& cell : nextCells)
+        for (auto& cell : prevNextCells[1])
             cell->setBoardObject(tank);
-        FreeCells(prevCells);
+        FreeCells(prevNextCells[0]);
     } else {
         tank->updateDirection();
     }
 }
 
 void Board::move(Bullet* bullet)
-{
-    QVector<Cell*> prevCells, nextCells;
-
-    int direction = bullet->getDirection();
-    int firstRow = bullet->getY() / step;
-    int firstCol = bullet->getX() / step;
-    int nextIndex = 0;
-    int prevIndex = 0;
-
-    if ( direction == Direction::dir_down) {
-        nextIndex = firstRow + bullet->getHeight() / step;
-        if (nextIndex * step >= qApp->focusWindow()->height()) {
-            m_bullets.removeOne(bullet);
-            emit bulletsChanged(bullets());
-            return;
-        }
-
-        prevIndex = firstRow;
-    } else if (direction == Direction::dir_up) {
-        nextIndex = firstRow - 1;
-        if (nextIndex * step < 0) {
-            m_bullets.removeOne(bullet);
-            emit bulletsChanged(bullets());
-            return;
-        }
-
-        prevIndex = firstRow + bullet->getHeight() / step - 1;
-    } else if (direction == Direction::dir_left) {
-        nextIndex = firstCol - 1;
-        if (nextIndex * step < 0) {
-            m_bullets.removeOne(bullet);
-            emit bulletsChanged(bullets());
-            return;
-        }
-
-        prevIndex = firstCol + bullet->getWidth() / step - 1;
-    } else if (direction == Direction::dir_right) {
-        nextIndex = firstCol + bullet->getWidth() / step;
-        if (nextIndex * step >= qApp->focusWindow()->width()) {
-            m_bullets.removeOne(bullet);
-            emit bulletsChanged(bullets());
-            return;
-        }
-
-        prevIndex = firstCol;
+{ 
+    QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
+    if (prevNextCells.empty()) {
+        m_bullets.removeOne(bullet);
+        emit bulletsChanged(bullets());
+        return;
     }
 
-    if ( direction == Direction::dir_down || direction == Direction::dir_up) {
-        int cellAmount = bullet->getWidth() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[nextIndex][firstCol + cell]);
-            prevCells.append(cells[prevIndex][firstCol + cell]);
-        }
-    } else {
-        int cellAmount = bullet->getHeight() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[firstRow + cell][nextIndex]);
-            prevCells.append(cells[firstRow + cell][prevIndex]);
-        }
-    }
-
-    if (AreCellsFree(nextCells))
+    if (AreCellsFree(prevNextCells[1]))
         bullet->move();
 }
 
