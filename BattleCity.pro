@@ -11,9 +11,9 @@ SOURCES += \
     bullet.cpp \
     board.cpp \
     cell.cpp \
-    enemyAI.cpp \
     bulletAI.cpp \
-    mainAI.cpp
+    mainAI.cpp \
+    tankAI.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,9 +37,9 @@ HEADERS += \
     cell.h \
     player.h \
     board.h \
-    enemyAI.h \
     bulletAI.h \
-    mainAI.h
+    mainAI.h \
+    tankAI.h
 
 release {
     QT_NO_DEBUG_OUTPUT

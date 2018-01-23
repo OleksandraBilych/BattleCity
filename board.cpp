@@ -165,66 +165,55 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     return prevNextCells;
 }
 
-void Board::move(Tank *tank, Qt::Key keyDirection)
+Objects Board::move(Tank *tank)
 {
     // check if a cell is avaliable
     // if it's not than don't move tank
-
-    // if we get direction we need firstly to check
-    // do we must update direction to new one
-    if (keyDirection != Qt::Key_unknown) {
-        if ( keyDirection == Qt::Key_Down &&
-             tank->getDirection() != Direction::dir_down) {
-            tank->updateDirection(Direction::dir_down);
-
-        } else if (keyDirection == Qt::Key_Up &&
-                   tank->getDirection() != Direction::dir_up) {
-            tank->updateDirection(Direction::dir_up);
-
-        } else if (keyDirection == Qt::Key_Left &&
-                   tank->getDirection() != Direction::dir_left) {
-            tank->updateDirection(Direction::dir_left);
-
-        } else if (keyDirection == Qt::Key_Right &&
-                   tank->getDirection() != Direction::dir_right) {
-            tank->updateDirection(Direction::dir_right);
-        }
-    }
-
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(tank);
-    if (prevNextCells.empty()) {
-        tank->updateDirection();
-        return;
-    }
+    if (prevNextCells.empty())
+        return Objects::windowBorders;
 
     // if new cells are avaliable a tank make a step
     // otherwise a tank change direction
     if (AreCellsFree(prevNextCells[1])) {
-        tank->move();
         for (auto& cell : prevNextCells[1])
             cell->setBoardObject(tank);
         FreeCells(prevNextCells[0]);
-    } else {
-        tank->updateDirection();
+
+        return Objects::emptyCell;
     }
+
+    return Objects::undefined;
 }
 
-void Board::move(Bullet* bullet)
+Objects Board::move(Bullet* bullet)
 { 
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
     if (prevNextCells.empty()) {
-        m_bullets.removeOne(bullet);
-        emit bulletsChanged(bullets());
-        return;
+        // need to clean previous cells
+        return Objects::windowBorders;
     }
 
-    if (AreCellsFree(prevNextCells[1]))
-        bullet->move();
+    if (AreCellsFree(prevNextCells[1])) {
+        for (auto& cell : prevNextCells[1])
+            cell->setBoardObject(bullet);
+        FreeCells(prevNextCells[0]);
+
+        return Objects::emptyCell;
+    }
+
+    return Objects::undefined;
 }
 
 void Board::addBullet(Bullet* bullet)
 {
     m_bullets.append(bullet);
+    emit bulletsChanged(bullets());
+}
+
+void Board::removeBullet(Bullet *bullet)
+{
+    m_bullets.removeOne(bullet);
     emit bulletsChanged(bullets());
 }
 

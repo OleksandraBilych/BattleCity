@@ -18,9 +18,10 @@ public:
     explicit Board(QObject *parent = 0);
     ~Board();
 
-    Q_INVOKABLE void move(Tank* tank, Qt::Key keyDirection = Qt::Key_unknown);
-    void move(Bullet* bullet);
+    Objects move(Tank* tank);
+    Objects move(Bullet* bullet);
     Q_INVOKABLE void addBullet(Bullet* bullet);
+    void removeBullet(Bullet* bullet);
 
     QVector<QVector<Cell*>> calcPrevAndNextCells(BoardObject* object);
 

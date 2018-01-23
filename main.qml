@@ -53,8 +53,7 @@ ApplicationWindow {
                     event.key == Qt.Key_Up ||
                     event.key == Qt.Key_Down) {
 
-                gameBoard.move(playerTank, event.key);
-
+                tankAI.sendPressSignal(gameBoard, playerTank, event.key);
                 } else if (event.key == Qt.Key_Escape) {
                     closeDialog.visible = false;
                     board.focus = false;

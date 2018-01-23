@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
-#include "enemyAI.h"
+#include "tankAI.h"
 #include "bulletAI.h"
 
 class MainAI : public QObject
@@ -17,6 +17,7 @@ public:
 
     Board* getBoard() const; // use this method only for setContextProperty
     bool getAnimation() const;
+    TankAI* getTankAI() const;
 
     void setAnimation(bool value);
 
@@ -32,7 +33,7 @@ public slots:
 private:
     QScopedPointer<QTimer> myTimer;
     QScopedPointer<Board> board;
-    QScopedPointer<EnemyAI> enemyAI;
+    QScopedPointer<TankAI> tankAI;
     QScopedPointer<BulletAI> bulletAI;
     bool animation;
 };

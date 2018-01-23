@@ -7,7 +7,7 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     board.reset(new Board(parent));
     animation = false;
     myTimer.reset(new QTimer(this));
-    enemyAI.reset(new EnemyAI);
+    tankAI.reset(new TankAI);
     bulletAI.reset(new BulletAI);
 
     connect(myTimer.data(), SIGNAL (timeout()), this, SLOT (events()));
@@ -20,7 +20,7 @@ MainAI::~MainAI()
 
 void MainAI::events()
 {
-    enemyAI->sendPressSignal(board.data());
+    tankAI->sendPressSignal(board.data());
     bulletAI->sendMoveSignal(board.data());
 }
 
@@ -32,6 +32,11 @@ Board* MainAI::getBoard() const
 bool MainAI::getAnimation() const
 {
     return animation;
+}
+
+TankAI* MainAI::getTankAI() const
+{
+    return tankAI.data();
 }
 
 void MainAI::setAnimation(bool value)

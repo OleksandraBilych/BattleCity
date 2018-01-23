@@ -9,6 +9,16 @@ enum Direction
     dir_down = 180
 };
 
+enum Objects
+{
+    wall = 1,
+    tank = 2,
+    bullet = 3,
+    emptyCell = 4,
+    windowBorders = 5,
+    undefined = -1
+};
+
 #endif // ENUMS_H
 
 

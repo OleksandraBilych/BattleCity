@@ -25,8 +25,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     QScopedPointer<MainAI> comp(new MainAI(&app));
-    engine.rootContext()->setContextProperty("computer", comp.data());
 
+    engine.rootContext()->setContextProperty("computer", comp.data());
+    engine.rootContext()->setContextProperty("tankAI", comp->getTankAI());
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());
     engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
 

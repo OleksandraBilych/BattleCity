@@ -13,6 +13,12 @@ BulletAI::~BulletAI()
 void BulletAI::sendMoveSignal(Board* board)
 {
     for (auto& bullet : board->getBullets()) {
-        board->move(bullet);
+        Objects collisionObject = board->move(bullet);
+
+        if (collisionObject == Objects::emptyCell)
+            bullet->move();
+        else if (collisionObject == Objects::windowBorders) {
+            board->removeBullet(bullet);
+        }
     }
 }
