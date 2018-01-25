@@ -19,9 +19,10 @@ public:
     bool isCellEmpty();
     void clearBoardObject();
 
-private:
+//private:
     int x;
     int y;
+    private:
     bool isEmpty;
     const BoardObject* obj;
 };

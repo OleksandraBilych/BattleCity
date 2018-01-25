@@ -162,7 +162,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     return prevNextCells;
 }
 
-Objects Board::move(Tank *tank)
+Objects Board::move(Tank* tank)
 {
     // check if a cell is avaliable
     // if it's not than don't move tank
@@ -208,6 +208,13 @@ Objects Board::move(Bullet* bullet)
 void Board::addBullet(Bullet* bullet)
 {
     m_bullets.append(bullet);
+
+    int col = bullet->getX() / step;
+    int row = bullet->getY() / step;
+
+    Cell* cell = cells.at(row).at(col);
+    cell->setBoardObject(bullet);
+
     emit bulletsChanged(bullets());
 }
 

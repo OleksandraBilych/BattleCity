@@ -18,7 +18,7 @@ Bullet::Bullet(const Tank* attacker, QObject* parent)
         coordinate_y = attacker->getY() - objectHeight;
 
     } else if (direction == Direction::dir_left) {
-        coordinate_x = attacker->getX() -  attacker->getWidth() / 2;
+        coordinate_x = attacker->getX();
         coordinate_y = attacker->getY() + (attacker->getHeight() - objectHeight) / 2;
 
     } else if (direction == Direction::dir_right) {
