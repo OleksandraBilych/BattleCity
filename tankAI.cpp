@@ -52,3 +52,10 @@ void TankAI::sendPressSignal(Board* board, Tank* tank, Qt::Key keyDirection)
     if (collisionObject == Objects::emptyCell)
         tank->move();
 }
+
+void TankAI::sendAtackSignal(Board* board)
+{
+    QList<Enemy*> enemies = board->getEnemies();
+    int index = rand() % enemies.size();
+    board->addBullet(enemies.at(index)->attack());
+}

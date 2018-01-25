@@ -6,11 +6,15 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
 
     board.reset(new Board(parent));
     animation = false;
-    myTimer.reset(new QTimer(this));
+
+    motionTimer.reset(new QTimer(this));
+    atackTimer.reset(new QTimer(this));
+
     tankAI.reset(new TankAI);
     bulletAI.reset(new BulletAI);
 
-    connect(myTimer.data(), SIGNAL (timeout()), this, SLOT (events()));
+    connect(motionTimer.data(), SIGNAL (timeout()), this, SLOT (motionEvents()));
+    connect(atackTimer.data(), SIGNAL (timeout()), this, SLOT (atackEvents()));
 }
 
 MainAI::~MainAI()
@@ -18,11 +22,18 @@ MainAI::~MainAI()
 
 }
 
-void MainAI::events()
+void MainAI::motionEvents()
 {
     tankAI->sendPressSignal(board.data());
     bulletAI->sendMoveSignal(board.data());
 }
+
+void MainAI::atackEvents()
+{
+    tankAI->sendAtackSignal(board.data());
+}
+
+void atackEvents();
 
 Board* MainAI::getBoard() const
 {
@@ -55,13 +66,16 @@ void MainAI::setAnimation(bool value)
 
 void MainAI::startTimer()
 {
-    if (!myTimer->isActive()) {
-        myTimer->start(100);
+    if (!motionTimer->isActive() && !atackTimer->isActive()) {
+        motionTimer->start(100);
+        atackTimer->start(1000);
     }
 }
 
 void MainAI::stopTimer()
 {
-    if (myTimer->isActive())
-        myTimer->stop();
+    if (motionTimer->isActive() && atackTimer->isActive()) {
+        motionTimer->stop();
+        atackTimer->stop();
+    }
 }

@@ -28,10 +28,13 @@ signals:
     void stopStartAnimation(bool value);
 
 public slots:
-    void events();
+    void motionEvents();
+    void atackEvents();
 
 private:
-    QScopedPointer<QTimer> myTimer;
+    QScopedPointer<QTimer> motionTimer;
+    QScopedPointer<QTimer> atackTimer;
+
     QScopedPointer<Board> board;
     QScopedPointer<TankAI> tankAI;
     QScopedPointer<BulletAI> bulletAI;
