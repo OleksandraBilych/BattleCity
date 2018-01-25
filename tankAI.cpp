@@ -57,5 +57,12 @@ void TankAI::sendAtackSignal(Board* board)
 {
     QList<Enemy*> enemies = board->getEnemies();
     int index = rand() % enemies.size();
-    board->addBullet(enemies.at(index)->attack());
+
+    // check if a tank can attack
+    Enemy* enemy = enemies.at(index);
+    Objects collisionObject = board->move(enemy);
+    if (collisionObject == Objects::windowBorders)
+        return;
+
+    board->addBullet(enemy->attack());
 }
