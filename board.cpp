@@ -10,7 +10,7 @@ Board::Board(QObject *parent) : QObject(parent)
     qDebug() << "Constructor Board";
 
     QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
+    QRect screenGeometry = screen->geometry();
     int height = screenGeometry.height();
     int width = screenGeometry.width();
 
@@ -114,52 +114,49 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
 
     //calculate indexes next and previous cells
     if ( direction == Direction::dir_down) {
-        nextIndex = firstRow + object->getHeight() / step;
-        if (nextIndex * step >= qApp->focusWindow()->height()) {
-            return prevNextCells;
-        }
-
         prevIndex = firstRow;
+        nextIndex = firstRow + object->getHeight() / step;
     } else if (direction == Direction::dir_up) {
-        nextIndex = firstRow - 1;
-        if (nextIndex * step < 0) {
-            return prevNextCells;
-        }
-
         prevIndex = firstRow + object->getHeight() / step - 1;
+        nextIndex = firstRow - 1;
     } else if (direction == Direction::dir_left) {
-        nextIndex = firstCol - 1;
-        if (nextIndex * step < 0) {
-            return prevNextCells;
-        }
-
         prevIndex = firstCol + object->getWidth() / step - 1;
+        nextIndex = firstCol - 1;
     } else if (direction == Direction::dir_right) {
         nextIndex = firstCol + object->getWidth() / step;
-        if (nextIndex * step >= qApp->focusWindow()->width()) {
-            return prevNextCells;
-        }
-
         prevIndex = firstCol;
     }
 
     if ( direction == Direction::dir_down || direction == Direction::dir_up) {
         int cellAmount = object->getWidth() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[nextIndex][firstCol + cell]);
+        for (int cell = 0; cell < cellAmount; cell++)
             prevCells.append(cells[prevIndex][firstCol + cell]);
-        }
+
+        prevNextCells.append(prevCells);
+
+        //check colision with window borders
+        if (nextIndex * step >= qApp->focusWindow()->height() ||
+            nextIndex * step < 0)
+            return prevNextCells;
+
+        for (int cell = 0; cell < cellAmount; cell++)
+            nextCells.append(cells[nextIndex][firstCol + cell]);
     } else {
         int cellAmount = object->getHeight() / step;
-
-        for (int cell = 0; cell < cellAmount; cell++) {
-            nextCells.append(cells[firstRow + cell][nextIndex]);
+        for (int cell = 0; cell < cellAmount; cell++)
             prevCells.append(cells[firstRow + cell][prevIndex]);
-        }
+
+        prevNextCells.append(prevCells);
+
+        //check colision with window borders
+        if (nextIndex * step >= qApp->focusWindow()->width() ||
+            nextIndex * step < 0)
+            return prevNextCells;
+
+        for (int cell = 0; cell < cellAmount; cell++)
+            nextCells.append(cells[firstRow + cell][nextIndex]);
     }
 
-    prevNextCells.append(prevCells);
     prevNextCells.append(nextCells);
 
     return prevNextCells;
@@ -170,7 +167,7 @@ Objects Board::move(Tank *tank)
     // check if a cell is avaliable
     // if it's not than don't move tank
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(tank);
-    if (prevNextCells.empty())
+    if (prevNextCells.size() == 1)
         return Objects::windowBorders;
 
     // if new cells are avaliable a tank make a step
@@ -189,8 +186,11 @@ Objects Board::move(Tank *tank)
 Objects Board::move(Bullet* bullet)
 { 
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
-    if (prevNextCells.empty()) {
-        // need to clean previous cells
+
+    // if we couldn't calculate next cells
+    // than we have collision with window borders
+    if (prevNextCells.size() == 1) {
+        FreeCells(prevNextCells[0]);
         return Objects::windowBorders;
     }
 
