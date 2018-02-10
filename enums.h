@@ -12,10 +12,11 @@ enum Direction
 enum Objects
 {
     wall = 1,
-    tank = 2,
-    bullet = 3,
-    emptyCell = 4,
-    windowBorders = 5,
+    enemy = 2,
+    player = 3,
+    bullet = 4,
+    emptyCell = 5,
+    windowBorders = 6,
     undefined = -1
 };
 

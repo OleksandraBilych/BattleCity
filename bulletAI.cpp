@@ -17,8 +17,9 @@ void BulletAI::sendMoveSignal(Board* board)
 
         if (collisionObject == Objects::emptyCell)
             bullet->move();
-        else if (collisionObject == Objects::windowBorders) {
+        else if (collisionObject == Objects::windowBorders)
             board->removeBullet(bullet);
-        }
+        // else if (collisionObject == Objects::enemy)
+        // else if (collisionObject == Objects::player)
     }
 }

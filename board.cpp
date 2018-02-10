@@ -162,16 +162,28 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     return prevNextCells;
 }
 
+Objects Board::IdentifyObjectType(QVector<Cell*> objectCells)
+{
+    Objects type = Objects::undefined;
+
+    for (auto& cell : objectCells) {
+        if (!cell->isCellEmpty())
+            type = cell->GetTypeObject();
+    }
+
+    return type;
+}
+
 Objects Board::move(Tank* tank)
 {
     // check if a cell is avaliable
-    // if it's not than don't move tank
+    // if it's not than don't move the tank
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(tank);
     if (prevNextCells.size() == 1)
         return Objects::windowBorders;
 
-    // if new cells are avaliable a tank make a step
-    // otherwise a tank change direction
+    // if new cells are avaliable the tank make a step
+    // otherwise the tank change direction
     if (AreCellsFree(prevNextCells[1])) {
         for (auto& cell : prevNextCells[1])
             cell->setBoardObject(tank);
@@ -180,11 +192,11 @@ Objects Board::move(Tank* tank)
         return Objects::emptyCell;
     }
 
-    return Objects::undefined;
+    return IdentifyObjectType(prevNextCells[1]);
 }
 
 Objects Board::move(Bullet* bullet)
-{ 
+{
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
 
     // if we couldn't calculate next cells
@@ -202,7 +214,7 @@ Objects Board::move(Bullet* bullet)
         return Objects::emptyCell;
     }
 
-    return Objects::undefined;
+    return IdentifyObjectType(prevNextCells[1]);
 }
 
 void Board::addBullet(Bullet* bullet)

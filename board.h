@@ -24,6 +24,7 @@ public:
     void removeBullet(Bullet* bullet);
 
     QVector<QVector<Cell*>> calcPrevAndNextCells(BoardObject* object);
+    Objects IdentifyObjectType(QVector<Cell*> objectCells);
 
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();

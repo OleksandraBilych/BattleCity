@@ -24,7 +24,7 @@ MainAI::~MainAI()
 
 void MainAI::tankEvents()
 {
-    if (!(rand() % 20)) {
+    if (!(rand() % 10)) {
         tankAI->sendAtackSignal(board.data());
     } else {
         tankAI->sendPressSignal(board.data());

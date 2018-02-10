@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "boardobject.h"
+#include "enums.h"
 
 class CellIsEmptyException {};
 
@@ -14,6 +15,7 @@ public:
     ~Cell();
 
     const BoardObject* getBoardObject();
+    Objects GetTypeObject();
     void setBoardObject(const BoardObject* obj);
 
     bool isCellEmpty();
