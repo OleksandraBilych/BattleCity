@@ -14,6 +14,7 @@ class BoardObject : public QQuickPaintedItem
     Q_PROPERTY(int coordinate_y READ getY WRITE setY NOTIFY YChanged)
     Q_PROPERTY(int objectWidth READ getWidth WRITE setWidth NOTIFY WidthChanged)
     Q_PROPERTY(int objectHeight READ getHeight WRITE setHeight NOTIFY HeightChanged)
+    Q_PROPERTY(QVariant imageURL READ getImageURL WRITE setImageURL NOTIFY imageURLChanged)
 
 public:
     explicit BoardObject(QQuickItem *parent = 0);
@@ -24,12 +25,15 @@ public:
     int getY() const;
     int getWidth() const;
     int getHeight() const;
+    QVariant getImageURL() const;
 
     void setDirection(int value);
     void setX(int value);
     void setY(int value);
     void setWidth(int value);
     void setHeight(int value);
+    void setImageURL(QVariant value);
+
 
     void updateDirection(int value);
     void updateDirection();
@@ -43,6 +47,7 @@ signals:
     void YChanged(int value);
     void WidthChanged(int value);
     void HeightChanged(int value);
+    void imageURLChanged(QVariant value);
 
 protected:
     int direction;
@@ -50,6 +55,7 @@ protected:
     int coordinate_y;
     int objectWidth;
     int objectHeight;
+    QVariant imageURL;
 };
 
 #endif // BOARDOBJECT_H

@@ -8,6 +8,7 @@ Bullet::Bullet(const Tank* attacker, QObject* parent)
     direction = attacker->getDirection();
     objectWidth = 10;
     objectHeight = 10;
+    imageURL = "qrc:/images/bullet10*10.png";
 
     if ( direction == Direction::dir_down) {
         coordinate_x = attacker->getX() + (attacker->getWidth() - objectWidth) / 2;

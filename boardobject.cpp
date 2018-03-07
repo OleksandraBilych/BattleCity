@@ -41,6 +41,11 @@ int BoardObject::getHeight() const
     return objectHeight;
 }
 
+QVariant BoardObject::getImageURL() const
+{
+    return imageURL;
+}
+
 void BoardObject::setDirection(int value)
 {
     //qDebug() << "setDirection" << value;
@@ -87,6 +92,14 @@ void BoardObject::setHeight(int value)
     }
 }
 
+void BoardObject::setImageURL(QVariant value)
+{
+    if (value != imageURL) {
+        imageURL = value;
+        emit imageURLChanged(imageURL);
+    }
+}
+
 void BoardObject::updateDirection(int value)
 {
     qDebug() << "updateDirection";
@@ -103,9 +116,4 @@ void BoardObject::updateDirection()
 
 void BoardObject::paint(QPainter *painter)
 {
-    QColor color("red");
-    QPen pen(color, 2);
-    painter->setPen(pen);
-    painter->setRenderHints(QPainter::Antialiasing, true);
-    painter->drawPie(boundingRect().adjusted(1, 1, -1, -1), 90 * 16, 180 * 16);
 }
