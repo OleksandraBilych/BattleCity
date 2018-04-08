@@ -18,14 +18,12 @@ public:
     float getDamage() const;
     float getHitPoints() const;
     float getHitPointsLimit() const;
-    bool getIsDead() const;
     bool getIsPlayer() const;
 
 
     void setHitPoints(float value);
     void setHitPointsLimit(float value);
     void setDamage(float value);
-    void setIsDead(bool value);
 
     void ensureIsAlive();
 
@@ -38,7 +36,6 @@ protected:
     float hitPoints;
     float hitPointsLimit;
     float damage;
-    bool isDead;
     bool isPlayer;
 };
 

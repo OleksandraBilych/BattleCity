@@ -5,7 +5,7 @@
 
 BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
-
+    isDead = false;
 }
 
 BoardObject::~BoardObject()
@@ -44,6 +44,11 @@ int BoardObject::getHeight() const
 QVariant BoardObject::getImageURL() const
 {
     return imageURL;
+}
+
+bool BoardObject::getIsDead() const
+{
+    return isDead;
 }
 
 void BoardObject::setDirection(int value)
@@ -97,6 +102,13 @@ void BoardObject::setImageURL(QVariant value)
     if (value != imageURL) {
         imageURL = value;
         emit imageURLChanged(imageURL);
+    }
+}
+
+void BoardObject::setIsDead(bool value)
+{
+    if (value != isDead) {
+        isDead = value;
     }
 }
 

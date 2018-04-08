@@ -3,7 +3,6 @@
 
 Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 {
-    isDead = false;
     isPlayer = false;
 
     objectWidth = 50; // TO DO: create common config
@@ -30,11 +29,6 @@ float Tank::getHitPointsLimit() const
     return hitPointsLimit;
 }
 
-bool Tank::getIsDead() const
-{
-    return isDead;
-}
-
 bool Tank::getIsPlayer() const
 {
     return isPlayer;
@@ -55,11 +49,6 @@ void Tank::setDamage(float value)
     damage = value;
 }
 
-void Tank::setIsDead(bool value)
-{
-    isDead = value;
-}
-
 void Tank::ensureIsAlive()
 {
     if (isDead)
@@ -70,7 +59,7 @@ void Tank::takeDamage(float value)
 {
     if ( value <= 0 ) {
         hitPoints = 0;
-        isDead = true;
+        setIsDead(true);
         setImageURL("qrc:/images/blowTank75.png");
     } else
         hitPoints = value;

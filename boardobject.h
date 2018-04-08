@@ -26,6 +26,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     QVariant getImageURL() const;
+    bool getIsDead() const;
 
     void setDirection(int value);
     void setX(int value);
@@ -33,6 +34,7 @@ public:
     void setWidth(int value);
     void setHeight(int value);
     void setImageURL(QVariant value);
+    void setIsDead(bool value);
 
 
     void updateDirection(int value);
@@ -56,6 +58,7 @@ protected:
     int objectWidth;
     int objectHeight;
     QVariant imageURL;
+    bool isDead;
 };
 
 #endif // BOARDOBJECT_H
