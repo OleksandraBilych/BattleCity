@@ -78,8 +78,8 @@ void Bullet::attack(Tank& enemy)
 
     try {
         enemy.ensureIsAlive();
-
         float newEnemyHitPoint = enemy.getHitPoints() - attacker->getDamage();
+        qDebug() << &enemy << " was attacked!" << newEnemyHitPoint;
         enemy.takeDamage(newEnemyHitPoint);
 
     } catch (TankIsDead& e) {

@@ -68,9 +68,10 @@ void Tank::ensureIsAlive()
 
 void Tank::takeDamage(float value)
 {
-    if ( value < 0 ) {
+    if ( value <= 0 ) {
         hitPoints = 0;
         isDead = true;
+        setImageURL("qrc:/images/blowTank75.png");
     } else
         hitPoints = value;
 }

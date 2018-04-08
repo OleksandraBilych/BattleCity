@@ -5,5 +5,7 @@
         <file>images/enemy.png</file>
         <file>images/bullet10*10.png</file>
         <file>images/explodedBullet.png</file>
+        <file>images/blowTank.png</file>
+        <file>images/blowTank75.png</file>
     </qresource>
 </RCC>

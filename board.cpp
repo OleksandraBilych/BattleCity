@@ -35,7 +35,7 @@ Board::Board(QObject *parent) : QObject(parent)
     int distance = width/enemiesAmount;
 
     for (int i = 0; i < enemiesAmount; i++) {
-        Enemy* enemy = new Enemy(100, 20, distance * i + distance / 2, 0);
+        Enemy* enemy = new Enemy(100, 100, distance * i + distance / 2, 0);
         m_enemies.append(enemy);
 
         int firstRow = 0;
@@ -53,7 +53,7 @@ Board::Board(QObject *parent) : QObject(parent)
     //create player's tank
     int playerX = width / 2 - 50;
     int playerY = height - 150;
-    player.reset(new Player(100, 20, "PlayerTank", playerX, playerY));
+    player.reset(new Player(300, 100, "PlayerTank", playerX, playerY));
 
     int firstRow = playerY / step;
     int firstCol = playerX / step;
@@ -162,25 +162,26 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     return prevNextCells;
 }
 
-Objects Board::IdentifyObjectType(QVector<Cell*> objectCells)
+QPair<Objects, BoardObject*> Board::IdentifyObjectType(QVector<Cell*> objectCells)
 {
-    Objects type = Objects::undefined;
+    QPair<Objects, BoardObject*> pair(Objects::undefined, nullptr);
 
     for (auto& cell : objectCells) {
         if (!cell->isCellEmpty())
-            type = cell->GetTypeObject();
+            pair.first = cell->GetTypeObject();
+            pair.second = cell->getBoardObject();
     }
 
-    return type;
+    return pair;
 }
 
-Objects Board::move(Tank* tank)
+QPair<Objects, BoardObject*> Board::move(Tank* tank)
 {
     // check if a cell is avaliable
     // if it's not than don't move the tank
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(tank);
     if (prevNextCells.size() == 1)
-        return Objects::windowBorders;
+        return qMakePair(Objects::windowBorders, nullptr);
 
     // if new cells are avaliable the tank make a step
     // otherwise the tank change direction
@@ -189,13 +190,13 @@ Objects Board::move(Tank* tank)
             cell->setBoardObject(tank);
         FreeCells(prevNextCells[0]);
 
-        return Objects::emptyCell;
+        return qMakePair(Objects::emptyCell, nullptr);
     }
 
     return IdentifyObjectType(prevNextCells[1]);
 }
 
-Objects Board::move(Bullet* bullet)
+QPair<Objects, BoardObject*> Board::move(Bullet* bullet)
 {
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
 
@@ -203,7 +204,7 @@ Objects Board::move(Bullet* bullet)
     // than we have collision with window borders
     if (prevNextCells.size() == 1) {
         FreeCells(prevNextCells[0]);
-        return Objects::windowBorders;
+        return qMakePair(Objects::windowBorders, nullptr);
     }
 
     if (AreCellsFree(prevNextCells[1])) {
@@ -211,7 +212,7 @@ Objects Board::move(Bullet* bullet)
             cell->setBoardObject(bullet);
         FreeCells(prevNextCells[0]);
 
-        return Objects::emptyCell;
+        return qMakePair(Objects::emptyCell, nullptr);
     }
 
     return IdentifyObjectType(prevNextCells[1]);
@@ -245,6 +246,12 @@ QQmlListProperty<Enemy> Board::enemies()
 QList<Enemy*> Board::getEnemies()
 {
     return m_enemies;
+}
+
+void Board::removeEnemy(Enemy* enemy)
+{
+    m_enemies.removeOne(enemy);
+    emit enemiesChanged(enemies());
 }
 
 Player* Board::getPlayer() const

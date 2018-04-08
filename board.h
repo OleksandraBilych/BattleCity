@@ -18,16 +18,17 @@ public:
     explicit Board(QObject *parent = 0);
     ~Board();
 
-    Objects move(Tank* tank);
-    Objects move(Bullet* bullet);
+    QPair<Objects, BoardObject*> move(Tank* tank);
+    QPair<Objects, BoardObject*> move(Bullet* bullet);
     Q_INVOKABLE void addBullet(Bullet* bullet);
     void removeBullet(Bullet* bullet);
 
     QVector<QVector<Cell*>> calcPrevAndNextCells(BoardObject* object);
-    Objects IdentifyObjectType(QVector<Cell*> objectCells);
+    QPair<Objects, BoardObject*> IdentifyObjectType(QVector<Cell*> objectCells);
 
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
+    void removeEnemy(Enemy* enemy);
 
     Player* getPlayer() const;
 

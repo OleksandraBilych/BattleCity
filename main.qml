@@ -125,7 +125,7 @@ ApplicationWindow {
                     Image {
                         id: enemyBackground
                         anchors.fill: parent
-                        source: "qrc:/images/enemy.png"
+                        source: modelData.imageURL
                     }
                 }
             }

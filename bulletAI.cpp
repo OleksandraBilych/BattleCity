@@ -1,4 +1,5 @@
 #include "bulletAI.h"
+#include <QTime>
 
 BulletAI::BulletAI(QObject *parent) : QObject(parent)
 {
@@ -13,13 +14,31 @@ BulletAI::~BulletAI()
 void BulletAI::sendMoveSignal(Board* board)
 {
     for (auto& bullet : board->getBullets()) {
-        Objects collisionObject = board->move(bullet);
+        QPair<Objects, BoardObject*> collisionObject = board->move(bullet);
+        Objects objectType = collisionObject.first;
 
-        if (collisionObject == Objects::emptyCell)
+        if (objectType == Objects::emptyCell)
             bullet->move();
-        else if (collisionObject == Objects::windowBorders)
+        else if (objectType == Objects::windowBorders) {
             board->removeBullet(bullet);
-        // else if (collisionObject == Objects::enemy)
+        }
+        else if (objectType == Objects::enemy) {
+            Tank* tank = dynamic_cast<Tank*>(collisionObject.second);
+
+            bullet->setImageURL("qrc:/images/explodedBullet.png");
+            bullet->attack(*tank);
+
+            if (tank->getIsDead()) {
+                if (tank->getIsPlayer()) {
+                    // TO DO: game over
+                } else {
+                    board->removeEnemy(dynamic_cast<Enemy*>(tank));
+                }
+            }
+
+            board->removeBullet(bullet);
+        }
         // else if (collisionObject == Objects::player)
     }
 }
+

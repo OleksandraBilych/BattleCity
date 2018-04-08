@@ -9,7 +9,7 @@ Cell::Cell(int x, int y, QObject *parent)
 {
 }
 
-Cell::Cell(int x, int y, const BoardObject* obj, QObject *parent)
+Cell::Cell(int x, int y, BoardObject* obj, QObject *parent)
     : QObject(parent), x(x), y(y), isEmpty(false), obj(obj)
 {
 }
@@ -18,7 +18,7 @@ Cell::~Cell()
 {
 }
 
-const BoardObject* Cell::getBoardObject()
+BoardObject* Cell::getBoardObject()
 {
     return obj;
 }
@@ -35,7 +35,7 @@ Objects Cell::GetTypeObject()
     return Objects::undefined;
 }
 
-void Cell::setBoardObject(const BoardObject* obj)
+void Cell::setBoardObject(BoardObject* obj)
 {
     if (this->obj == obj)
         return;

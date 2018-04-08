@@ -14,6 +14,7 @@ Enemy::Enemy(float hitPointsLimit, float damage,
     direction = Direction::dir_down;
     this->coordinate_x = coordinate_x;
     this->coordinate_y = coordinate_y;
+    imageURL = "qrc:/images/enemy.png";
 }
 
 Enemy::Enemy()

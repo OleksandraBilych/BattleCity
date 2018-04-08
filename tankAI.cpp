@@ -17,8 +17,8 @@ void TankAI::sendPressSignal(Board* board)
             enemy->updateDirection();
         }
 
-        Objects collisionObject = board->move(enemy);
-        if (collisionObject == Objects::emptyCell)
+        QPair<Objects, BoardObject*> collisionObject = board->move(enemy);
+        if (collisionObject.first == Objects::emptyCell)
             enemy->move();
         else
             enemy->updateDirection();
@@ -48,8 +48,8 @@ void TankAI::sendPressSignal(Board* board, Tank* tank, Qt::Key keyDirection)
         }
     }
 
-    Objects collisionObject = board->move(tank);
-    if (collisionObject == Objects::emptyCell)
+    QPair<Objects, BoardObject*> collisionObject = board->move(tank);
+    if (collisionObject.first == Objects::emptyCell)
         tank->move();
 }
 

@@ -11,12 +11,12 @@ class Cell : public QObject
 {
 public:
     explicit Cell(int x, int y, QObject *parent = 0);
-    explicit Cell(int x, int y, const BoardObject* obj, QObject *parent = 0);
+    explicit Cell(int x, int y, BoardObject* obj, QObject *parent = 0);
     ~Cell();
 
-    const BoardObject* getBoardObject();
+    BoardObject* getBoardObject();
     Objects GetTypeObject();
-    void setBoardObject(const BoardObject* obj);
+    void setBoardObject(BoardObject* obj);
 
     bool isCellEmpty();
     void clearBoardObject();
@@ -26,7 +26,7 @@ public:
     int y;
     private:
     bool isEmpty;
-    const BoardObject* obj;
+    BoardObject* obj;
 };
 
 #endif // CELL_H
