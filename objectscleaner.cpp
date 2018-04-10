@@ -87,14 +87,8 @@ void ObjectsCleaner::deleteObjects()
     QVector<BoardObject*> objects = deadObjects();
 
     for (BoardObject* object : objects) {
-
-        QTime time = object->getTimeOfDeath();
-        qDebug() << time.msecsTo(QTime::currentTime());
-
-        if (object->getTimeOfDeath().msecsTo(QTime::currentTime()) > 80) {
-            // remove object
+        if (object->getTimeOfDeath().msecsTo(QTime::currentTime()) > 80)
             board->removeObject(object);
-       }
     }
 
     if (!isDeadObjectOnBoard())
