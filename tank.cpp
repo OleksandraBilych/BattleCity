@@ -7,6 +7,8 @@ Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 
     objectWidth = 50; // TO DO: create common config
     objectHeight = 50;
+
+    imageURL = "qrc:/images/player.png";
 }
 
 Tank::~Tank()

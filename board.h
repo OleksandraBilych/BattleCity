@@ -21,14 +21,13 @@ public:
     QPair<Objects, BoardObject*> move(Tank* tank);
     QPair<Objects, BoardObject*> move(Bullet* bullet);
     Q_INVOKABLE void addBullet(Bullet* bullet);
-    void removeBullet(Bullet* bullet);
+    void removeObject(BoardObject* object);
 
     QVector<QVector<Cell*>> calcPrevAndNextCells(BoardObject* object);
     QPair<Objects, BoardObject*> IdentifyObjectType(QVector<Cell*> objectCells);
 
     QQmlListProperty<Enemy> enemies();
     QList<Enemy*> getEnemies();
-    void removeEnemy(Enemy* enemy);
 
     Player* getPlayer() const;
 
@@ -39,6 +38,7 @@ signals:
     void enemiesChanged(QQmlListProperty<Enemy>);
     void playerChanged(Player* player);
     void bulletsChanged(QQmlListProperty<Bullet>);
+    void playerIsAlive(bool value);
 
 private:
     bool AreCellsFree(QVector<Cell*> cells);

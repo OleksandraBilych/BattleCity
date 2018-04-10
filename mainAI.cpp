@@ -13,8 +13,10 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     tankAI.reset(new TankAI);
     bulletAI.reset(new BulletAI);
 
-    connect(tankTimer.data(), SIGNAL (timeout()), this, SLOT (tankEvents()));
-    connect(bulletTimer.data(), SIGNAL (timeout()), this, SLOT (bulletEvents()));
+    connect(tankTimer.data(), SIGNAL(timeout()), this, SLOT(tankEvents()));
+    connect(bulletTimer.data(), SIGNAL(timeout()), this, SLOT(bulletEvents()));
+
+    connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(setAnimation(bool)));
 }
 
 MainAI::~MainAI()

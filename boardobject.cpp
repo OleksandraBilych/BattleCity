@@ -1,11 +1,20 @@
-#include "boardobject.h"
 #include <cstdlib>
 #include <QColor>
 #include <QPainter>
+#include <typeinfo>
+#include <QGuiApplication>
+
+#include "boardobject.h"
+#include "bullet.h"
+#include "enemy.h"
+#include "player.h"
+#include "objectscleaner.h"
 
 BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
     isDead = false;
+    QObject::connect(this, SIGNAL(signOfLifeChanged(bool)),
+                         ObjectsCleaner::getInstance(), SLOT(launchCleaner(bool)));
 }
 
 BoardObject::~BoardObject()
@@ -49,6 +58,11 @@ QVariant BoardObject::getImageURL() const
 bool BoardObject::getIsDead() const
 {
     return isDead;
+}
+
+QTime BoardObject::getTimeOfDeath() const
+{
+    return timeOfDeath;
 }
 
 void BoardObject::setDirection(int value)
@@ -109,6 +123,10 @@ void BoardObject::setIsDead(bool value)
 {
     if (value != isDead) {
         isDead = value;
+        if (isDead) {
+            timeOfDeath = QTime::currentTime();
+            emit signOfLifeChanged(isDead);
+        }
     }
 }
 
@@ -128,4 +146,16 @@ void BoardObject::updateDirection()
 
 void BoardObject::paint(QPainter *painter)
 {
+}
+
+Objects BoardObject::getTypeObject()
+{
+    if (typeid(*this) == typeid(Bullet))
+        return Objects::bullet;
+    else if (typeid(*this) == typeid(Enemy))
+        return Objects::enemy;
+    else if (typeid(*this) == typeid(Player))
+        return Objects::player;
+
+    return Objects::undefined;
 }

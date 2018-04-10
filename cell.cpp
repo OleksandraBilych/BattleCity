@@ -23,18 +23,6 @@ BoardObject* Cell::getBoardObject()
     return obj;
 }
 
-Objects Cell::GetTypeObject()
-{
-    if (typeid(*obj) == typeid(Bullet))
-        return Objects::bullet;
-    else if (typeid(*obj) == typeid(Enemy))
-        return Objects::enemy;
-    else if (typeid(*obj) == typeid(Player))
-        return Objects::player;
-
-    return Objects::undefined;
-}
-
 void Cell::setBoardObject(BoardObject* obj)
 {
     if (this->obj == obj)

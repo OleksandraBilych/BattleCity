@@ -3,11 +3,15 @@
 #include <QScreen>
 #include <QWindow>
 
+#include "objectscleaner.h"
+
 const int step = 10;
 
 Board::Board(QObject *parent) : QObject(parent)
 {
     qDebug() << "Constructor Board";
+
+    ObjectsCleaner::getInstance(parent, this);
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
@@ -53,7 +57,7 @@ Board::Board(QObject *parent) : QObject(parent)
     //create player's tank
     int playerX = width / 2 - 50;
     int playerY = height - 150;
-    player.reset(new Player(300, 100, "PlayerTank", playerX, playerY));
+    player.reset(new Player(100, 100, "PlayerTank", playerX, playerY));
 
     int firstRow = playerY / step;
     int firstCol = playerX / step;
@@ -168,7 +172,7 @@ QPair<Objects, BoardObject*> Board::IdentifyObjectType(QVector<Cell*> objectCell
 
     for (auto& cell : objectCells) {
         if (!cell->isCellEmpty())
-            pair.first = cell->GetTypeObject();
+            pair.first = cell->getBoardObject()->getTypeObject();
             pair.second = cell->getBoardObject();
     }
 
@@ -231,12 +235,21 @@ void Board::addBullet(Bullet* bullet)
     emit bulletsChanged(bullets());
 }
 
-void Board::removeBullet(Bullet *bullet)
+void Board::removeObject(BoardObject *object)
 {
-    m_bullets.removeOne(bullet);
-    emit bulletsChanged(bullets());
-}
+    Objects objectType = object->getTypeObject();
 
+    if (objectType == Objects::enemy) {
+        m_enemies.removeOne(dynamic_cast<Enemy*>(object));
+        emit enemiesChanged(enemies());
+
+    } else if (objectType == Objects::bullet) {
+        m_bullets.removeOne(dynamic_cast<Bullet*>(object));
+        emit bulletsChanged(bullets());
+    } else if (objectType == Objects::player) {
+        emit playerIsAlive(false);
+    }
+}
 
 QQmlListProperty<Enemy> Board::enemies()
 {
@@ -246,12 +259,6 @@ QQmlListProperty<Enemy> Board::enemies()
 QList<Enemy*> Board::getEnemies()
 {
     return m_enemies;
-}
-
-void Board::removeEnemy(Enemy* enemy)
-{
-    m_enemies.removeOne(enemy);
-    emit enemiesChanged(enemies());
 }
 
 Player* Board::getPlayer() const

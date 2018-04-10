@@ -2,11 +2,40 @@
 #define OBJECTSCLEANER_H
 
 #include <QObject>
+#include <QTimer>
 
-class ObjectsCleaner
+#include "board.h"
+#include "boardobject.h"
+
+class ObjectsCleaner : public QObject
 {
+    Q_OBJECT
+
 public:
-    ObjectsCleaner();
+    ~ObjectsCleaner();
+
+    void setBoard(Board* board);
+
+    bool isDeadObjectOnBoard();
+    QVector<BoardObject*> deadObjects();
+
+    void startTimer();
+    void stopTimer();
+
+    static ObjectsCleaner* getInstance(QObject *parent = 0, Board *board = nullptr);
+
+public slots:
+    void launchCleaner(bool signOfLife);
+    void deleteObjects();
+
+private:
+    explicit ObjectsCleaner(QObject *parent = 0, Board *board = nullptr);
+
+private:
+    QScopedPointer<QTimer> timer;
+    Board* board;
+
+    static ObjectsCleaner* instance;
 };
 
 #endif // OBJECTSCLEANER_H

@@ -96,7 +96,7 @@ ApplicationWindow {
                 Image {
                     id: playerBackground
                     anchors.fill: parent
-                    source: "qrc:/images/player.png"
+                    source: playerTank.imageURL
                 }
             }
 

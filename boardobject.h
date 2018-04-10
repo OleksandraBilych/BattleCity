@@ -4,6 +4,7 @@
 #include <QtQuick/QQuickPaintedItem>
 #include <QObject>
 #include <QDebug>
+#include <QTime>
 #include "enums.h"
 
 class BoardObject : public QQuickPaintedItem
@@ -27,6 +28,7 @@ public:
     int getHeight() const;
     QVariant getImageURL() const;
     bool getIsDead() const;
+    QTime getTimeOfDeath() const;
 
     void setDirection(int value);
     void setX(int value);
@@ -36,12 +38,13 @@ public:
     void setImageURL(QVariant value);
     void setIsDead(bool value);
 
-
     void updateDirection(int value);
     void updateDirection();
 
     virtual void move() = 0;
     void paint(QPainter *painter);
+
+    Objects getTypeObject();
 
 signals:
     void directionChanged(int value);
@@ -50,6 +53,7 @@ signals:
     void WidthChanged(int value);
     void HeightChanged(int value);
     void imageURLChanged(QVariant value);
+    void signOfLifeChanged(bool value);
 
 protected:
     int direction;
@@ -59,6 +63,7 @@ protected:
     int objectHeight;
     QVariant imageURL;
     bool isDead;
+    QTime timeOfDeath;
 };
 
 #endif // BOARDOBJECT_H

@@ -15,7 +15,6 @@ public:
     ~Cell();
 
     BoardObject* getBoardObject();
-    Objects GetTypeObject();
     void setBoardObject(BoardObject* obj);
 
     bool isCellEmpty();

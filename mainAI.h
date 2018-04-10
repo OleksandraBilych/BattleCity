@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include "objectscleaner.h"
 #include "tankAI.h"
 #include "bulletAI.h"
 
@@ -19,8 +20,6 @@ public:
     bool getAnimation() const;
     TankAI* getTankAI() const;
 
-    void setAnimation(bool value);
-
     void startTimer();
     void stopTimer();
 
@@ -30,6 +29,7 @@ signals:
 public slots:
     void tankEvents();
     void bulletEvents();
+    void setAnimation(bool value);
 
 private:
     QScopedPointer<QTimer> tankTimer;

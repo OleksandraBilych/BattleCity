@@ -13,6 +13,7 @@ BulletAI::~BulletAI()
 
 void BulletAI::sendMoveSignal(Board* board)
 {
+    //TO DO: rewrite if
     for (auto& bullet : board->getBullets()) {
         QPair<Objects, BoardObject*> collisionObject = board->move(bullet);
         Objects objectType = collisionObject.first;
@@ -20,25 +21,26 @@ void BulletAI::sendMoveSignal(Board* board)
         if (objectType == Objects::emptyCell)
             bullet->move();
         else if (objectType == Objects::windowBorders) {
-            board->removeBullet(bullet);
-        }
-        else if (objectType == Objects::enemy) {
+            bullet->setImageURL("qrc:/images/explodedBullet.png");
+            bullet->setIsDead(true);
+        } else if (objectType == Objects::enemy || objectType == Objects::player) {
             Tank* tank = dynamic_cast<Tank*>(collisionObject.second);
 
             bullet->setImageURL("qrc:/images/explodedBullet.png");
             bullet->attack(*tank);
 
-            if (tank->getIsDead()) {
-                if (tank->getIsPlayer()) {
-                    // TO DO: game over
-                } else {
-                    board->removeEnemy(dynamic_cast<Enemy*>(tank));
-                }
-            }
+            if (tank->getIsDead())
+                qDebug() << "GAME OVER!";
 
-            board->removeBullet(bullet);
+            bullet->setIsDead(true);
+        } else if (objectType == Objects::bullet) {
+            bullet->setImageURL("qrc:/images/explodedBullet.png");
+            bullet->setIsDead(true);
+
+            Bullet* anotherBullet = dynamic_cast<Bullet*>(collisionObject.second);
+            anotherBullet->setImageURL("qrc:/images/explodedBullet.png");
+            anotherBullet->setIsDead(true);
         }
-        // else if (collisionObject == Objects::player)
     }
 }
 
