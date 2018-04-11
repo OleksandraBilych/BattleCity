@@ -11,19 +11,19 @@ class Bullet : public BoardObject
     Q_OBJECT
 
 public:
-    explicit Bullet(const Tank* attacker, QObject* parent = 0);
+    explicit Bullet(Tank* attacker, QObject* parent = 0);
     Bullet();
     virtual ~Bullet();
 
-    const Tank* getAttacker() const;
+    Tank* getAttacker() const;
 
-    void setAttacker(const Tank* attacker);
+    void setAttacker(Tank* attacker);
 
     virtual void move();
     void attack(Tank& enemy);
 
 private:
-    const Tank* attacker; // change to const Tank*
+    Tank* attacker;
 };
 
 #endif // BULLET_H

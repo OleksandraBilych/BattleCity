@@ -1,6 +1,6 @@
 #include "bullet.h"
 
-Bullet::Bullet(const Tank* attacker, QObject* parent)
+Bullet::Bullet(Tank* attacker, QObject* parent)
     : attacker(attacker)
 {
     qDebug() << "Constructor: Bullet";
@@ -39,12 +39,12 @@ Bullet::~Bullet()
     qDebug() << "Destructor: Bullet";
 }
 
-const Tank* Bullet::getAttacker() const
+Tank* Bullet::getAttacker() const
 {
     return attacker;
 }
 
-void Bullet::setAttacker(const Tank* attacker)
+void Bullet::setAttacker(Tank* attacker)
 {
     this->attacker = attacker;
 }

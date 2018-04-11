@@ -19,15 +19,18 @@ public:
     virtual ~Player();
 
     const std::string& getName() const;
+    const short getNumberOfDeadTanks() const;
 
     void setName(const std::string& value);
 
     virtual void rotate(int value);
     void move();
     Q_INVOKABLE void rotatePlayer();
+    void incrementNumberOfDeadTanks();
 
 private:
     std::string name;
+    short numberOfDeadTanks;
 };
 
 #endif // PLAYER_H

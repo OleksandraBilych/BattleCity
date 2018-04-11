@@ -16,6 +16,7 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name,
     this->coordinate_x = coordinate_x;
     this->coordinate_y = coordinate_y;
     isPlayer = true;
+    numberOfDeadTanks = 0;
 }
 
 Player::Player()
@@ -33,6 +34,11 @@ const std::string& Player::getName() const
     return name;
 }
 
+const short Player::getNumberOfDeadTanks() const
+{
+    return numberOfDeadTanks;
+}
+
 void Player::setName(const std::string& value)
 {
     name = value;
@@ -40,14 +46,12 @@ void Player::setName(const std::string& value)
 
 void Player::rotate(int value)
 {
-    updateDirection(90);
-    qDebug() << "Update direction";
+    updateDirection(value);
 }
 
 void Player::rotatePlayer()
 {
     updateDirection(90);
-    qDebug() << "Update direction";
 }
 
 void Player::move()
@@ -68,4 +72,9 @@ void Player::move()
         coordinate_x += 10;
         emit XChanged(coordinate_x);
     }
+}
+
+void Player::incrementNumberOfDeadTanks()
+{
+    numberOfDeadTanks++;
 }
