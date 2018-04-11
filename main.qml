@@ -13,8 +13,8 @@ ApplicationWindow {
     color: "black"
     visible: true
 
-    width: Screen.width
-    height: Screen.height
+    width: Screen.width/1.4
+    height: Screen.height/1.4
 
     flags: Qt.SplashScreen
 

@@ -15,8 +15,8 @@ Board::Board(QObject *parent) : QObject(parent)
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
-    int height = screenGeometry.height();
-    int width = screenGeometry.width();
+    int height = screenGeometry.height()/1.4;
+    int width = screenGeometry.width()/1.4;
 
     // divide the board into cells
     int rowsAmount = height / step;
@@ -56,7 +56,7 @@ Board::Board(QObject *parent) : QObject(parent)
 
     //create player's tank
     int playerX = width / 2 - 50;
-    int playerY = height - 150;
+    int playerY = height - 50;
     player.reset(new Player(100, 100, "PlayerTank", playerX, playerY));
 
     int firstRow = playerY / step;
