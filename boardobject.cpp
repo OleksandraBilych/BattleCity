@@ -132,14 +132,12 @@ void BoardObject::setIsDead(bool value)
 
 void BoardObject::updateDirection(int value)
 {
-    qDebug() << "updateDirection";
     direction = value;
     emit directionChanged(value);
 }
 
 void BoardObject::updateDirection()
 {
-    qDebug() << "updateDirection";
     direction = (rand() % 4) * 90;
     emit directionChanged(direction);
 }

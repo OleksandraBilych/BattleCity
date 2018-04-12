@@ -10,7 +10,7 @@ import BattleCity 1.0
 ApplicationWindow {
     id: mainWindow
     title: qsTr("Battle City")
-    color: "black"
+    color: "gray"
     visible: true
 
     width: Screen.width/1.4
@@ -39,12 +39,17 @@ ApplicationWindow {
     }
 
     Item {
+        width: Screen.width/1.4 - 101
+        height: Screen.height/1.4 - 101
+        x: 50
+        y: 50
+
         Rectangle {
             id: board
-            width: 650
-            height: 650
             visible: false
             focus: false
+            width: Screen.width/1.4 - 101
+            height: Screen.height/1.4 - 101
             color: "black"
 
             Keys.onPressed: {
@@ -59,8 +64,7 @@ ApplicationWindow {
                     board.focus = false;
                     computer.animation = false;
                     closeDialog.visible = true;
-                }
-                else if (event.key == Qt.Key_Space) {
+                } else if (event.key == Qt.Key_Space) {
                     gameBoard.addBullet(playerTank.attack());
                 }
 

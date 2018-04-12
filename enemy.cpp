@@ -34,7 +34,7 @@ void Enemy::rotate(int value)
 
 void Enemy::move()
 {
-    if ( direction == Direction::dir_down) {
+    if (direction == Direction::dir_down) {
         coordinate_y += 10;
         emit YChanged(coordinate_y);
 

@@ -15,8 +15,8 @@ Board::Board(QObject *parent) : QObject(parent)
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
-    int height = screenGeometry.height()/1.4;
-    int width = screenGeometry.width()/1.4;
+    int height = screenGeometry.height()/1.4 - 101;
+    int width = screenGeometry.width()/1.4 - 101;
 
     // divide the board into cells
     int rowsAmount = height / step;
@@ -120,6 +120,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     if ( direction == Direction::dir_down) {
         prevIndex = firstRow;
         nextIndex = firstRow + object->getHeight() / step;
+
     } else if (direction == Direction::dir_up) {
         prevIndex = firstRow + object->getHeight() / step - 1;
         nextIndex = firstRow - 1;
@@ -139,7 +140,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * step >= qApp->focusWindow()->height() ||
+        if (nextIndex * step >= qApp->focusWindow()->height() - 101 ||
             nextIndex * step < 0)
             return prevNextCells;
 
@@ -153,7 +154,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * step >= qApp->focusWindow()->width() ||
+        if (nextIndex * step >= qApp->focusWindow()->width() - 111 ||
             nextIndex * step < 0)
             return prevNextCells;
 
@@ -203,7 +204,6 @@ QPair<Objects, BoardObject*> Board::move(Tank* tank)
 QPair<Objects, BoardObject*> Board::move(Bullet* bullet)
 {
     QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
-
     // if we couldn't calculate next cells
     // than we have collision with window borders
     if (prevNextCells.size() == 1) {
