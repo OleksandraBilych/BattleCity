@@ -20,17 +20,17 @@ Wall::~Wall()
 
 }
 
-float Tank::getHitPoints() const
+float Wall::getHitPoints() const
 {
     return hitPoints;
 }
 
-void Tank::setHitPoints(float value)
+void Wall::setHitPoints(float value)
 {
     hitPoints = value;
 }
 
-void Tank::takeDamage(float value)
+void Wall::takeDamage(float value)
 {
 
 }

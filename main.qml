@@ -151,6 +151,24 @@ ApplicationWindow {
                     }
                 }
             }
+
+            Repeater {
+                model: gameBoard.walls
+                Wall {
+                    id: wall
+                    x: modelData.coordinate_x
+                    y: modelData.coordinate_y
+                    width: modelData.objectWidth
+                    height: modelData.objectHeight
+                    rotation: modelData.direction
+
+                    Image {
+                        id: wallBackground
+                        anchors.fill: parent
+                        source: modelData.imageURL
+                    }
+                }
+            }
         }
     }
 

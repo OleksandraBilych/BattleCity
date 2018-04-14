@@ -42,6 +42,8 @@ void BulletAI::sendMoveSignal(Board* board)
 
                 anotherBullet->setImageURL("qrc:/images/explodedBullet.png");
                 anotherBullet->setIsDead(true);
+            } else if (objectType == Objects::wall) {
+                collisionObject.second->setIsDead(true);
             }
         }
     }

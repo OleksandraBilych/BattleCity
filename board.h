@@ -6,6 +6,7 @@
 #include "enemy.h"
 #include "player.h"
 #include "bullet.h"
+#include "wall.h"
 
 class Board : public QObject
 {
@@ -13,6 +14,7 @@ class Board : public QObject
     Q_PROPERTY(QQmlListProperty<Enemy> enemies READ enemies NOTIFY enemiesChanged)
     Q_PROPERTY(Player player READ getPlayer NOTIFY playerChanged)
     Q_PROPERTY(QQmlListProperty<Bullet> bullets READ bullets NOTIFY bulletsChanged)
+    Q_PROPERTY(QQmlListProperty<Wall> walls READ walls NOTIFY wallsChanged)
 
 public:
     explicit Board(QObject *parent = 0);
@@ -34,11 +36,15 @@ public:
     QQmlListProperty<Bullet> bullets();
     QList<Bullet*> getBullets();
 
+    QQmlListProperty<Wall> walls();
+    QList<Wall*> getWalls();
+
 signals:
     void enemiesChanged(QQmlListProperty<Enemy>);
     void playerChanged(Player* player);
     void bulletsChanged(QQmlListProperty<Bullet>);
     void playerIsAlive(bool value);
+    void wallsChanged(QQmlListProperty<Wall>);
 
 private:
     bool AreCellsFree(QVector<Cell*> cells);
@@ -48,6 +54,7 @@ private:
     QScopedPointer<Player> player;
     QVector<QVector<Cell*>> cells;
     QList<Bullet*> m_bullets;
+    QList<Wall*> m_walls;
 };
 
 #endif // BOARD_H

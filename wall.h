@@ -3,10 +3,13 @@
 
 #include "boardobject.h"
 
-class Wall : BoardObject
-{
+class Wall : public BoardObject
+{ 
+    Q_OBJECT
+
 public:
     explicit Wall(int direction, int coordinate_x, int coordinate_y, QQuickItem *parent = 0);
+    Wall() {}
     virtual ~Wall();
 
     float getHitPoints() const;
@@ -14,6 +17,7 @@ public:
     void setHitPoints(float value);
 
     void takeDamage(float value);
+    virtual void move() {}
 
 private:
     float hitPoints;

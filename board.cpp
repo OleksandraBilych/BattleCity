@@ -69,6 +69,25 @@ Board::Board(QObject *parent) : QObject(parent)
             cells[firstRow + row][firstCol + col]->setBoardObject(player.data());
         }
     }
+
+    //create enemy tanks
+    int wallsAmount = 1; // TO DO: move to commmon config
+
+    for (int i = 0; i < wallsAmount; i++) {
+        Wall* wall = new Wall(0, 300,200);
+        m_walls.append(wall);
+
+        int firstRow = 200 / step;
+        int firstCol = 300 / step;
+        rowsAmount = wall->getHeight() / step;
+        columnsAmount = wall->getWidth() / step;
+
+        for (int row = 0; row < rowsAmount; row++) {
+            for(int col = 0; col < columnsAmount; col++) {
+                 cells[firstRow + row][firstCol + col]->setBoardObject(wall);
+            }
+        }
+    }
 }
 
 Board::~Board()
@@ -82,6 +101,9 @@ Board::~Board()
 
     qDeleteAll(m_bullets);
     m_bullets.clear();
+
+    qDeleteAll(m_walls);
+    m_walls.clear();
 }
 
 bool Board::AreCellsFree(QVector<Cell*> cells)
@@ -242,12 +264,25 @@ void Board::removeObject(BoardObject *object)
     if (objectType == Objects::enemy) {
         m_enemies.removeOne(dynamic_cast<Enemy*>(object));
         emit enemiesChanged(enemies());
-
     } else if (objectType == Objects::bullet) {
         m_bullets.removeOne(dynamic_cast<Bullet*>(object));
         emit bulletsChanged(bullets());
     } else if (objectType == Objects::player) {
         emit playerIsAlive(false);
+    } else if (objectType == Objects::wall) {
+        m_walls.removeOne(dynamic_cast<Wall*>(object));
+        emit wallsChanged(walls());
+    }
+
+    int firstRow = object->getY() / step;
+    int firstCol = object->getX() / step;
+    int rowsAmount = object->getHeight() / step;
+    int columnsAmount = object->getWidth() / step;
+
+    for (int row = 0; row < rowsAmount; row++) {
+        for(int col = 0; col < columnsAmount; col++) {
+             cells[firstRow + row][firstCol + col]->clearBoardObject();
+        }
     }
 }
 
@@ -274,4 +309,14 @@ QQmlListProperty<Bullet> Board::bullets()
 QList<Bullet*> Board::getBullets()
 {
     return m_bullets;
+}
+
+QQmlListProperty<Wall> Board::walls()
+{
+    return QQmlListProperty<Wall>(this, m_walls);
+}
+
+QList<Wall*> Board::getWalls()
+{
+    return m_walls;
 }

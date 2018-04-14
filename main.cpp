@@ -9,6 +9,7 @@
 #include "enemy.h"
 #include "bullet.h"
 #include "mainAI.h"
+#include "wall.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Board>("BattleCity", 1, 0, "Board");
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
     qmlRegisterType<Bullet>("BattleCity", 1, 0, "Bullet");
+    qmlRegisterType<Wall>("BattleCity", 1, 0, "Wall");
     qmlRegisterType<Tank>();
     qmlRegisterType<BoardObject>();
 
@@ -33,7 +35,6 @@ int main(int argc, char *argv[])
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    qDebug() << "NumberOfDeadTanks: " <<  comp->getBoard()->getPlayer()->getNumberOfDeadTanks();
     return app.exec();
 }
 

@@ -52,6 +52,15 @@ bool ObjectsCleaner::isDeadObjectOnBoard()
         }
     }
 
+    // check if a dead wall presents on the board
+    QList<Wall*> walls(board->getWalls());
+    for (Wall* wall : walls) {
+        if (wall->getIsDead()) {
+            isDeadObjectExisted = true;
+            return isDeadObjectExisted;
+        }
+    }
+
     if (board->getPlayer()->getIsDead()) {
         isDeadObjectExisted = true;
         return isDeadObjectExisted;
@@ -74,6 +83,12 @@ QVector<BoardObject*> ObjectsCleaner::deadObjects()
     for (Bullet* bullet : bullets) {
         if (bullet->getIsDead())
             deadObjects.append(bullet);
+    }
+
+    QList<Wall*> walls(board->getWalls());
+    for (Wall* wall : walls) {
+        if (wall->getIsDead())
+            deadObjects.append(wall);
     }
 
     if (board->getPlayer()->getIsDead())
