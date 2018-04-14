@@ -14,7 +14,8 @@ SOURCES += \
     bulletAI.cpp \
     mainAI.cpp \
     tankAI.cpp \
-    objectscleaner.cpp
+    objectscleaner.cpp \
+    wall.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,7 +42,8 @@ HEADERS += \
     bulletAI.h \
     mainAI.h \
     tankAI.h \
-    objectscleaner.h
+    objectscleaner.h \
+    wall.h
 
 release {
     QT_NO_DEBUG_OUTPUT
