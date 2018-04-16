@@ -16,7 +16,6 @@ public:
 
     void setHitPoints(float value);
 
-    void takeDamage(float value);
     virtual void move() {}
 
 private:

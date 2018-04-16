@@ -7,5 +7,7 @@
         <file>images/explodedBullet.png</file>
         <file>images/blowTank.png</file>
         <file>images/wall50x25.png</file>
+        <file>images/base.png</file>
+        <file>images/blowTank75.png</file>
     </qresource>
 </RCC>

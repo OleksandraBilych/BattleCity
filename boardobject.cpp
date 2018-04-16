@@ -9,6 +9,7 @@
 #include "enemy.h"
 #include "player.h"
 #include "wall.h"
+#include "playersbase.h"
 #include "objectscleaner.h"
 
 BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
@@ -157,6 +158,8 @@ Objects BoardObject::getTypeObject()
         return Objects::player;
     else if (typeid(*this) == typeid(Wall))
         return Objects::wall;
+    else if (typeid(*this) == typeid(PlayersBase))
+        return Objects::playersBase;
 
     return Objects::undefined;
 }

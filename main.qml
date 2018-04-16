@@ -13,8 +13,8 @@ ApplicationWindow {
     color: "gray"
     visible: true
 
-    width: Screen.width/1.4
-    height: Screen.height/1.4
+    width: 850
+    height: 850
 
     flags: Qt.SplashScreen
 
@@ -39,8 +39,8 @@ ApplicationWindow {
     }
 
     Item {
-        width: Screen.width/1.4 - 101
-        height: Screen.height/1.4 - 101
+        width: 750
+        height: 750
         x: 50
         y: 50
 
@@ -48,8 +48,8 @@ ApplicationWindow {
             id: board
             visible: false
             focus: false
-            width: Screen.width/1.4 - 101
-            height: Screen.height/1.4 - 101
+            width: 750
+            height: 750
             color: "black"
 
             Keys.onPressed: {
@@ -101,6 +101,21 @@ ApplicationWindow {
                     id: playerBackground
                     anchors.fill: parent
                     source: playerTank.imageURL
+                }
+            }
+
+            PlayersBase {
+                id: base
+                x: playersBase.coordinate_x
+                y: playersBase.coordinate_y
+                width: playersBase.objectWidth
+                height: playersBase.objectHeight
+                rotation: playersBase.direction
+
+                Image {
+                    id: playersBaseBackground
+                    anchors.fill: parent
+                    source: playersBase.imageURL
                 }
             }
 

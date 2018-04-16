@@ -29,8 +29,3 @@ void Wall::setHitPoints(float value)
 {
     hitPoints = value;
 }
-
-void Wall::takeDamage(float value)
-{
-
-}

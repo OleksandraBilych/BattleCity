@@ -66,6 +66,11 @@ bool ObjectsCleaner::isDeadObjectOnBoard()
         return isDeadObjectExisted;
     }
 
+    if (board->getBase()->getIsDead()) {
+        isDeadObjectExisted = true;
+        return isDeadObjectExisted;
+    }
+
     return isDeadObjectExisted;
 }
 
@@ -93,6 +98,9 @@ QVector<BoardObject*> ObjectsCleaner::deadObjects()
 
     if (board->getPlayer()->getIsDead())
         deadObjects.append(board->getPlayer());
+
+    if (board->getBase()->getIsDead())
+        deadObjects.append(board->getBase());
 
     return deadObjects;
 }

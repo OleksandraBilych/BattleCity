@@ -1,11 +1,11 @@
 #include "board.h"
 #include <QGuiApplication>
-#include <QScreen>
 #include <QWindow>
 
 #include "objectscleaner.h"
 
 const int step = 10;
+const int tankWidth = 50;
 
 Board::Board(QObject *parent) : QObject(parent)
 {
@@ -13,10 +13,8 @@ Board::Board(QObject *parent) : QObject(parent)
 
     ObjectsCleaner::getInstance(parent, this);
 
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->geometry();
-    int height = screenGeometry.height()/1.4 - 101;
-    int width = screenGeometry.width()/1.4 - 101;
+    int height = 750;
+    int width = 750;
 
     // divide the board into cells
     int rowsAmount = height / step;
@@ -35,15 +33,14 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create enemy tanks
-    int enemiesAmount = 6; // TO DO: move to commmon config
-    int distance = width/enemiesAmount;
+    int enemiesAmount = 8; // TO DO: move to commmon config
 
     for (int i = 0; i < enemiesAmount; i++) {
-        Enemy* enemy = new Enemy(100, 100, distance * i + distance / 2, 0);
+        Enemy* enemy = new Enemy(100, 100, tankWidth * i * 2, 0);
         m_enemies.append(enemy);
 
         int firstRow = 0;
-        int firstCol = (distance * i + distance / 2) / step;
+        int firstCol = tankWidth * i * 2 / step;
         rowsAmount = enemy->getHeight() / step;
         columnsAmount = enemy->getWidth() / step;
 
@@ -52,10 +49,58 @@ Board::Board(QObject *parent) : QObject(parent)
                  cells[firstRow + row][firstCol + col]->setBoardObject(enemy);
             }
         }
+
+        if (i == enemiesAmount - 1)
+            continue;
+
+        for(int j = 0; j < 4 + abs(i - 3) * 2 ; j++) {
+            Wall* upperWall = new Wall(0, tankWidth * (2 * i + 1), j * 25 + tankWidth);
+            m_walls.append(upperWall);
+
+            int firstRow = upperWall->getY() / step;
+            int firstCol = upperWall->getX() / step;
+            rowsAmount = upperWall->getHeight() / step;
+            columnsAmount = upperWall->getWidth() / step;
+
+            for (int row = 0; row < rowsAmount; row++) {
+                for(int col = 0; col < columnsAmount; col++) {
+                     cells[firstRow + row][firstCol + col]->setBoardObject(upperWall);
+                }
+            }
+
+            Wall* lowerWall = new Wall(0, tankWidth * (2 * i + 1), height / 2 + (j + 1) * 25 + tankWidth);
+            m_walls.append(lowerWall);
+
+            firstRow = lowerWall->getY() / step;
+            firstCol = lowerWall->getX() / step;
+
+            for (int row = 0; row < rowsAmount; row++) {
+                for(int col = 0; col < columnsAmount; col++) {
+                     cells[firstRow + row][firstCol + col]->setBoardObject(lowerWall);
+                }
+            }
+        }
+    }
+
+    //create walls
+    for(int j = 0; j < 17 ; j++) {
+        Wall* wall = new Wall(0, j * 25 + tankWidth * 3, width / 2);
+        m_walls.append(wall);
+
+        int firstRow = wall->getY() / step;
+        int firstCol = wall->getX() / step;
+        rowsAmount = wall->getHeight() / step;
+        columnsAmount = wall->getWidth() / step;
+
+        for (int row = 0; row < rowsAmount; row++) {
+            for(int col = 0; col < columnsAmount; col++) {
+                 cells[firstRow + row][firstCol + col]->setBoardObject(wall);
+            }
+        }
     }
 
     //create player's tank
-    int playerX = width / 2 - 50;
+    int playerX = width / 2 - 125;
     int playerY = height - 50;
     player.reset(new Player(100, 100, "PlayerTank", playerX, playerY));
 
@@ -70,22 +115,17 @@ Board::Board(QObject *parent) : QObject(parent)
         }
     }
 
-    //create enemy tanks
-    int wallsAmount = 1; // TO DO: move to commmon config
+    //create the player's base
+    base.reset(new PlayersBase(player->getX() + 100, height - 50));
 
-    for (int i = 0; i < wallsAmount; i++) {
-        Wall* wall = new Wall(0, 300,200);
-        m_walls.append(wall);
+    firstRow = base->getY() / step;
+    firstCol = base->getX() / step;
+    rowsAmount = base->getHeight() / step;
+    columnsAmount = base->getWidth() / step;
 
-        int firstRow = 200 / step;
-        int firstCol = 300 / step;
-        rowsAmount = wall->getHeight() / step;
-        columnsAmount = wall->getWidth() / step;
-
-        for (int row = 0; row < rowsAmount; row++) {
-            for(int col = 0; col < columnsAmount; col++) {
-                 cells[firstRow + row][firstCol + col]->setBoardObject(wall);
-            }
+    for (int row = 0; row < rowsAmount; row++) {
+        for(int col = 0; col < columnsAmount; col++) {
+            cells[firstRow + row][firstCol + col]->setBoardObject(base.data());
         }
     }
 }
@@ -272,6 +312,8 @@ void Board::removeObject(BoardObject *object)
     } else if (objectType == Objects::wall) {
         m_walls.removeOne(dynamic_cast<Wall*>(object));
         emit wallsChanged(walls());
+    } else if (objectType == Objects::playersBase) {
+        emit playerIsAlive(false);
     }
 
     int firstRow = object->getY() / step;
@@ -319,4 +361,9 @@ QQmlListProperty<Wall> Board::walls()
 QList<Wall*> Board::getWalls()
 {
     return m_walls;
+}
+
+PlayersBase* Board::getBase() const
+{
+    return base.data();
 }

@@ -10,6 +10,7 @@
 #include "bullet.h"
 #include "mainAI.h"
 #include "wall.h"
+#include "playersbase.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
     qmlRegisterType<Bullet>("BattleCity", 1, 0, "Bullet");
     qmlRegisterType<Wall>("BattleCity", 1, 0, "Wall");
+    qmlRegisterType<PlayersBase>("BattleCity", 1, 0, "PlayersBase");
     qmlRegisterType<Tank>();
     qmlRegisterType<BoardObject>();
 
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("tankAI", comp->getTankAI());
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());
     engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
+    engine.rootContext()->setContextProperty("playersBase", comp->getBoard()->getBase());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

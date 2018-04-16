@@ -15,7 +15,8 @@ SOURCES += \
     mainAI.cpp \
     tankAI.cpp \
     objectscleaner.cpp \
-    wall.cpp
+    wall.cpp \
+    playersbase.cpp
 
 RESOURCES += qml.qrc
 
@@ -43,7 +44,8 @@ HEADERS += \
     mainAI.h \
     tankAI.h \
     objectscleaner.h \
-    wall.h
+    wall.h \
+    playersbase.h
 
 release {
     QT_NO_DEBUG_OUTPUT
