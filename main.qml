@@ -162,7 +162,7 @@ ApplicationWindow {
                     Image {
                         id: bulletBackground
                         anchors.fill: parent
-                        source: modelData.imageURL
+                        source:  modelData.imageURL
                     }
                 }
             }

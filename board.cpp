@@ -128,6 +128,41 @@ Board::Board(QObject *parent) : QObject(parent)
             cells[firstRow + row][firstCol + col]->setBoardObject(base.data());
         }
     }
+
+    //create walls around the player's tank
+    for(int j = 0; j < 3 ; j++) {
+        Wall* leftWalls = new Wall(0, player->getX() + 50, height - (j + 1) * 25);
+        Wall* rightWalls = new Wall(0, player->getX() + 150, height - (j + 1) * 25);
+
+        m_walls.append(leftWalls);
+        m_walls.append(rightWalls);
+
+        firstRow = leftWalls->getY() / step;
+        firstCol = leftWalls->getX() / step;
+        rowsAmount = leftWalls->getHeight() / step;
+        columnsAmount = leftWalls->getWidth() / step;
+
+        for (int row = 0; row < rowsAmount; row++) {
+            for(int col = 0; col < columnsAmount; col++) {
+                 cells[firstRow + row][firstCol + col]->setBoardObject(leftWalls);
+                 cells[firstRow + row][firstCol + 10 + col]->setBoardObject(rightWalls);
+            }
+        }
+    }
+
+    Wall* wall = new Wall(0, player->getX() + 100, height - 75);
+    m_walls.append(wall);
+    firstRow = wall->getY() / step;
+    firstCol = wall->getX() / step;
+    rowsAmount = wall->getHeight() / step;
+    columnsAmount = wall->getWidth() / step;
+
+    for (int row = 0; row < rowsAmount; row++) {
+        for(int col = 0; col < columnsAmount; col++) {
+             cells[firstRow + row][firstCol + col]->setBoardObject(wall);
+        }
+    }
+
 }
 
 Board::~Board()
