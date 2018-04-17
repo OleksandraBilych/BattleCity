@@ -1,12 +1,13 @@
 #include "wall.h"
+#include "constants.h"
 
 Wall::Wall(int direction, int coordinate_x, int coordinate_y, QQuickItem *parent) : BoardObject(parent)
 {
     qDebug() << "Constructor: Wall";
 
-    objectWidth = 50;
-    objectHeight = 25;
-    hitPoints = 50;
+    objectWidth = wallWidth;
+    objectHeight = wallHeight;
+    hitPoints = wallHitPoints;
 
     this->direction = direction;
     this->coordinate_x = coordinate_x;

@@ -1,12 +1,13 @@
 #include "tank.h"
 #include "bullet.h"
+#include "constants.h"
 
 Tank::Tank(QQuickItem *parent) : BoardObject(parent)
 {
     isPlayer = false;
 
-    objectWidth = 50; // TO DO: create common config
-    objectHeight = 50;
+    objectWidth = tankWidth;
+    objectHeight = tankHeight;
 
     imageURL = "qrc:/images/player.png";
 }

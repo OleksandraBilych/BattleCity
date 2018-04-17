@@ -1,12 +1,13 @@
 #include "playersbase.h"
+#include "constants.h"
 
 PlayersBase::PlayersBase(int coordinate_x, int coordinate_y, QQuickItem *parent) : BoardObject(parent)
 {
     qDebug() << "Constructor: PlayersBase";
 
-    objectWidth = 50;
-    objectHeight = 50;
-    hitPoints = 50;
+    objectWidth = baseWidth;
+    objectHeight = baseHeight;
+    hitPoints = baseHitPoints;
 
     this->direction = 0;
     this->coordinate_x = coordinate_x;

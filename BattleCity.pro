@@ -45,7 +45,8 @@ HEADERS += \
     tankAI.h \
     objectscleaner.h \
     wall.h \
-    playersbase.h
+    playersbase.h \
+    constants.h
 
 release {
     QT_NO_DEBUG_OUTPUT

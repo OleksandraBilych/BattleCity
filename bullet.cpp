@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include "constants.h"
 
 Bullet::Bullet(Tank* attacker, QObject* parent)
     : attacker(attacker)
@@ -6,8 +7,8 @@ Bullet::Bullet(Tank* attacker, QObject* parent)
     qDebug() << "Constructor: Bullet";
 
     direction = attacker->getDirection();
-    objectWidth = 10;
-    objectHeight = 10;
+    objectWidth = bulletWidth;
+    objectHeight = bulletHeight;
     imageURL = "qrc:/images/bullet10*10.png";
 
     if ( direction == Direction::dir_down) {
@@ -52,19 +53,19 @@ void Bullet::setAttacker(Tank* attacker)
 void Bullet::move()
 {
     if ( direction == Direction::dir_down) {
-        coordinate_y += 10;
+        coordinate_y += cellSize;
         emit YChanged(coordinate_y);
 
     } else if (direction == Direction::dir_up) {
-        coordinate_y -= 10;
+        coordinate_y -= cellSize;
         emit YChanged(coordinate_y);
 
     } else if (direction == Direction::dir_left) {
-        coordinate_x -= 10;
+        coordinate_x -= cellSize;
         emit XChanged(coordinate_x);
 
     } else if (direction == Direction::dir_right) {
-        coordinate_x += 10;
+        coordinate_x += cellSize;
         emit XChanged(coordinate_x);
     }
 }

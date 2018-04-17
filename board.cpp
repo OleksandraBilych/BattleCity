@@ -3,9 +3,7 @@
 #include <QWindow>
 
 #include "objectscleaner.h"
-
-const int step = 10;
-const int tankWidth = 50;
+#include "constants.h"
 
 Board::Board(QObject *parent) : QObject(parent)
 {
@@ -13,22 +11,19 @@ Board::Board(QObject *parent) : QObject(parent)
 
     ObjectsCleaner::getInstance(parent, this);
 
-    int height = 750;
-    int width = 750;
-
     // divide the board into cells
-    int rowsAmount = height / step;
-    if (height % step != 0)
+    int rowsAmount = height / cellSize;
+    if (height % cellSize != 0)
         rowsAmount += 1;
 
-    int columnsAmount = width / step;
-    if (width % step != 0)
+    int columnsAmount = width / cellSize;
+    if (width % cellSize != 0)
         columnsAmount += 1;
 
     cells.resize(rowsAmount);
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
-            cells[row].append(new Cell(row * step, col * step));
+            cells[row].append(new Cell(row * cellSize, col * cellSize));
         }
     }
 
@@ -36,13 +31,13 @@ Board::Board(QObject *parent) : QObject(parent)
     int enemiesAmount = 8; // TO DO: move to commmon config
 
     for (int i = 0; i < enemiesAmount; i++) {
-        Enemy* enemy = new Enemy(100, 100, tankWidth * i * 2, 0);
+        Enemy* enemy = new Enemy(tankHitPoints, tankDamage, tankWidth * i * 2, 0);
         m_enemies.append(enemy);
 
         int firstRow = 0;
-        int firstCol = tankWidth * i * 2 / step;
-        rowsAmount = enemy->getHeight() / step;
-        columnsAmount = enemy->getWidth() / step;
+        int firstCol = tankWidth * i * 2 / cellSize;
+        rowsAmount = enemy->getHeight() / cellSize;
+        columnsAmount = enemy->getWidth() / cellSize;
 
         for (int row = 0; row < rowsAmount; row++) {
             for(int col = 0; col < columnsAmount; col++) {
@@ -54,13 +49,13 @@ Board::Board(QObject *parent) : QObject(parent)
             continue;
 
         for(int j = 0; j < 4 + abs(i - 3) * 2 ; j++) {
-            Wall* upperWall = new Wall(0, tankWidth * (2 * i + 1), j * 25 + tankWidth);
+            Wall* upperWall = new Wall(0, tankWidth * (2 * i + 1), j * wallHeight + tankWidth);
             m_walls.append(upperWall);
 
-            int firstRow = upperWall->getY() / step;
-            int firstCol = upperWall->getX() / step;
-            rowsAmount = upperWall->getHeight() / step;
-            columnsAmount = upperWall->getWidth() / step;
+            int firstRow = upperWall->getY() / cellSize;
+            int firstCol = upperWall->getX() / cellSize;
+            rowsAmount = upperWall->getHeight() / cellSize;
+            columnsAmount = upperWall->getWidth() / cellSize;
 
             for (int row = 0; row < rowsAmount; row++) {
                 for(int col = 0; col < columnsAmount; col++) {
@@ -68,11 +63,11 @@ Board::Board(QObject *parent) : QObject(parent)
                 }
             }
 
-            Wall* lowerWall = new Wall(0, tankWidth * (2 * i + 1), height / 2 + (j + 1) * 25 + tankWidth);
+            Wall* lowerWall = new Wall(0, tankWidth * (2 * i + 1), halfHeight + (j + 1) * wallHeight + tankWidth);
             m_walls.append(lowerWall);
 
-            firstRow = lowerWall->getY() / step;
-            firstCol = lowerWall->getX() / step;
+            firstRow = lowerWall->getY() / cellSize;
+            firstCol = lowerWall->getX() / cellSize;
 
             for (int row = 0; row < rowsAmount; row++) {
                 for(int col = 0; col < columnsAmount; col++) {
@@ -83,14 +78,14 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create walls
-    for(int j = 0; j < 17 ; j++) {
-        Wall* wall = new Wall(0, j * 25 + tankWidth * 3, width / 2);
+    for(int j = 0; j < 9; j++) {
+        Wall* wall = new Wall(0, j * wallWidth + tankWidth * 3, halfWidth - tankWidth);
         m_walls.append(wall);
 
-        int firstRow = wall->getY() / step;
-        int firstCol = wall->getX() / step;
-        rowsAmount = wall->getHeight() / step;
-        columnsAmount = wall->getWidth() / step;
+        int firstRow = wall->getY() / cellSize;
+        int firstCol = wall->getX() / cellSize;
+        rowsAmount = wall->getHeight() / cellSize;
+        columnsAmount = wall->getWidth() / cellSize;
 
         for (int row = 0; row < rowsAmount; row++) {
             for(int col = 0; col < columnsAmount; col++) {
@@ -100,14 +95,14 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create player's tank
-    int playerX = width / 2 - 125;
-    int playerY = height - 50;
-    player.reset(new Player(100, 100, "PlayerTank", playerX, playerY));
+    int playerX = halfWidth - tankWidth * 2 - wallHeight;
+    int playerY = height - tankHeight;
+    player.reset(new Player(tankHitPoints, tankDamage, "PlayerTank", playerX, playerY));
 
-    int firstRow = playerY / step;
-    int firstCol = playerX / step;
-    rowsAmount = player->getHeight() / step;
-    columnsAmount = player->getWidth() / step;
+    int firstRow = playerY / cellSize;
+    int firstCol = playerX / cellSize;
+    rowsAmount = player->getHeight() / cellSize;
+    columnsAmount = player->getWidth() / cellSize;
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
@@ -116,12 +111,12 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create the player's base
-    base.reset(new PlayersBase(player->getX() + 100, height - 50));
+    base.reset(new PlayersBase(player->getX() + tankWidth + wallWidth, height - baseHeight));
 
-    firstRow = base->getY() / step;
-    firstCol = base->getX() / step;
-    rowsAmount = base->getHeight() / step;
-    columnsAmount = base->getWidth() / step;
+    firstRow = base->getY() / cellSize;
+    firstCol = base->getX() / cellSize;
+    rowsAmount = base->getHeight() / cellSize;
+    columnsAmount = base->getWidth() / cellSize;
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
@@ -131,16 +126,16 @@ Board::Board(QObject *parent) : QObject(parent)
 
     //create walls around the player's tank
     for(int j = 0; j < 3 ; j++) {
-        Wall* leftWalls = new Wall(0, player->getX() + 50, height - (j + 1) * 25);
-        Wall* rightWalls = new Wall(0, player->getX() + 150, height - (j + 1) * 25);
+        Wall* leftWalls = new Wall(0, player->getX() + tankWidth, height - (j + 1) * wallHeight);
+        Wall* rightWalls = new Wall(0, player->getX() + tankWidth * 2 + baseWidth, height - (j + 1) * wallHeight);
 
         m_walls.append(leftWalls);
         m_walls.append(rightWalls);
 
-        firstRow = leftWalls->getY() / step;
-        firstCol = leftWalls->getX() / step;
-        rowsAmount = leftWalls->getHeight() / step;
-        columnsAmount = leftWalls->getWidth() / step;
+        firstRow = leftWalls->getY() / cellSize;
+        firstCol = leftWalls->getX() / cellSize;
+        rowsAmount = leftWalls->getHeight() / cellSize;
+        columnsAmount = leftWalls->getWidth() / cellSize;
 
         for (int row = 0; row < rowsAmount; row++) {
             for(int col = 0; col < columnsAmount; col++) {
@@ -150,12 +145,12 @@ Board::Board(QObject *parent) : QObject(parent)
         }
     }
 
-    Wall* wall = new Wall(0, player->getX() + 100, height - 75);
+    Wall* wall = new Wall(0, player->getX() + tankWidth + baseWidth, height - wallHeight * 3);
     m_walls.append(wall);
-    firstRow = wall->getY() / step;
-    firstCol = wall->getX() / step;
-    rowsAmount = wall->getHeight() / step;
-    columnsAmount = wall->getWidth() / step;
+    firstRow = wall->getY() / cellSize;
+    firstCol = wall->getX() / cellSize;
+    rowsAmount = wall->getHeight() / cellSize;
+    columnsAmount = wall->getWidth() / cellSize;
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {
@@ -208,51 +203,51 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
     QVector<QVector<Cell*>> prevNextCells;
 
     int direction = object->getDirection();
-    int firstRow = object->getY() / step;
-    int firstCol = object->getX() / step;
+    int firstRow = object->getY() / cellSize;
+    int firstCol = object->getX() / cellSize;
     int nextIndex = 0;
     int prevIndex = 0;
 
     //calculate indexes next and previous cells
     if ( direction == Direction::dir_down) {
         prevIndex = firstRow;
-        nextIndex = firstRow + object->getHeight() / step;
+        nextIndex = firstRow + object->getHeight() / cellSize;
 
     } else if (direction == Direction::dir_up) {
-        prevIndex = firstRow + object->getHeight() / step - 1;
+        prevIndex = firstRow + object->getHeight() / cellSize - 1;
         nextIndex = firstRow - 1;
     } else if (direction == Direction::dir_left) {
-        prevIndex = firstCol + object->getWidth() / step - 1;
+        prevIndex = firstCol + object->getWidth() / cellSize - 1;
         nextIndex = firstCol - 1;
     } else if (direction == Direction::dir_right) {
-        nextIndex = firstCol + object->getWidth() / step;
+        nextIndex = firstCol + object->getWidth() / cellSize;
         prevIndex = firstCol;
     }
 
     if ( direction == Direction::dir_down || direction == Direction::dir_up) {
-        int cellAmount = object->getWidth() / step;
+        int cellAmount = object->getWidth() / cellSize;
         for (int cell = 0; cell < cellAmount; cell++)
             prevCells.append(cells[prevIndex][firstCol + cell]);
 
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * step >= qApp->focusWindow()->height() - 101 ||
-            nextIndex * step < 0)
+        if (nextIndex * cellSize >= qApp->focusWindow()->height() - 101 ||
+            nextIndex * cellSize < 0)
             return prevNextCells;
 
         for (int cell = 0; cell < cellAmount; cell++)
             nextCells.append(cells[nextIndex][firstCol + cell]);
     } else {
-        int cellAmount = object->getHeight() / step;
+        int cellAmount = object->getHeight() / cellSize;
         for (int cell = 0; cell < cellAmount; cell++)
             prevCells.append(cells[firstRow + cell][prevIndex]);
 
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * step >= qApp->focusWindow()->width() - 111 ||
-            nextIndex * step < 0)
+        if (nextIndex * cellSize >= qApp->focusWindow()->width() - 101 ||
+            nextIndex * cellSize < 0)
             return prevNextCells;
 
         for (int cell = 0; cell < cellAmount; cell++)
@@ -323,8 +318,8 @@ void Board::addBullet(Bullet* bullet)
 {
     m_bullets.append(bullet);
 
-    int col = bullet->getX() / step;
-    int row = bullet->getY() / step;
+    int col = bullet->getX() / cellSize;
+    int row = bullet->getY() / cellSize;
 
     Cell* cell = cells.at(row).at(col);
     cell->setBoardObject(bullet);
@@ -351,10 +346,10 @@ void Board::removeObject(BoardObject *object)
         emit playerIsAlive(false);
     }
 
-    int firstRow = object->getY() / step;
-    int firstCol = object->getX() / step;
-    int rowsAmount = object->getHeight() / step;
-    int columnsAmount = object->getWidth() / step;
+    int firstRow = object->getY() / cellSize;
+    int firstCol = object->getX() / cellSize;
+    int rowsAmount = object->getHeight() / cellSize;
+    int columnsAmount = object->getWidth() / cellSize;
 
     for (int row = 0; row < rowsAmount; row++) {
         for(int col = 0; col < columnsAmount; col++) {

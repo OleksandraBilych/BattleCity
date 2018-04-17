@@ -1,6 +1,8 @@
-#include "player.h"
 #include <QGuiApplication>
 #include <QWindow>
+
+#include "player.h"
+#include "constants.h"
 
 Player::Player(float hitPointsLimit, float damage, const std::string& name,
                int coordinate_x, int coordinate_y, QQuickItem* parent)
@@ -57,19 +59,19 @@ void Player::rotatePlayer()
 void Player::move()
 {
     if ( direction == Direction::dir_down) {
-        coordinate_y += 10;
+        coordinate_y += cellSize;
         emit YChanged(coordinate_y);
 
     } else if (direction == Direction::dir_up) {
-        coordinate_y -= 10;
+        coordinate_y -= cellSize;
         emit YChanged(coordinate_y);
 
     } else if (direction == Direction::dir_left) {
-        coordinate_x -= 10;
+        coordinate_x -= cellSize;
         emit XChanged(coordinate_x);
 
     } else if (direction == Direction::dir_right) {
-        coordinate_x += 10;
+        coordinate_x += cellSize;
         emit XChanged(coordinate_x);
     }
 }
