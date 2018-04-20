@@ -10,13 +10,21 @@ import BattleCity 1.0
 ApplicationWindow {
     id: mainWindow
     title: qsTr("Battle City")
-    color: "gray"
+    color: "black"
     visible: true
-
     width: 850
     height: 850
+    modality: "WindowModal"
 
     flags: Qt.SplashScreen
+
+    Item {
+        focus: true
+        Keys.onEscapePressed: {
+          mainWindow.close()
+          event.accepted = true;
+        }
+    }
 
     Dialog {
         id: closeDialog
@@ -36,6 +44,65 @@ ApplicationWindow {
             board.focus = true;
             computer.animation = true;
         }
+    }
+
+    Rectangle {
+            id: startDialog
+            width: mainWindow.width
+            height: 300
+            y: (mainWindow.height - height) / 2
+            visible: true
+            color: "#090808"
+
+            Image {
+                id: title
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 20
+                source: "qrc:/images/title.png"
+            }
+
+            Button {
+                id: startButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: title.height + 50
+                width: startTitle.width + 10
+                height: startTitle.height + 10
+
+                background: Rectangle {
+                            color: "black"
+                            border.width: focus ? 5 : 1
+                            border.color: "#888"
+                            radius: 4
+                        }
+
+                Text {
+                    id: startTitle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Start game")
+                    color: "white"
+                    font.bold: true
+                    font.pointSize: 20
+                }
+
+                onClicked: {
+                    console.log("Start game");
+                    startDialog.visible = false;
+                    board.visible = true;
+                    board.focus = true;
+                    computer.animation = true;
+                    mainWindow.color = "gray"
+                }
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: startDialog.height - 50
+                text: "For exit press - ESC"
+                font.pointSize: 14
+                font.bold: true
+                color: "white"
+            }
     }
 
     Item {
@@ -60,7 +127,6 @@ ApplicationWindow {
 
                 tankAI.sendPressSignal(gameBoard, playerTank, event.key);
                 } else if (event.key == Qt.Key_Escape) {
-                    closeDialog.visible = false;
                     board.focus = false;
                     computer.animation = false;
                     closeDialog.visible = true;
@@ -183,25 +249,6 @@ ApplicationWindow {
                         source: modelData.imageURL
                     }
                 }
-            }
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-
-        Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            id: button1
-            text: qsTr("Start")
-
-            onClicked: {
-                console.log("Start");
-                visible = false;
-                board.visible = true;
-                board.focus = true;
-                computer.animation = true;
             }
         }
     }

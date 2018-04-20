@@ -9,5 +9,6 @@
         <file>images/wall50x25.png</file>
         <file>images/base.png</file>
         <file>images/blowTank75.png</file>
+        <file>images/title.png</file>
     </qresource>
 </RCC>
