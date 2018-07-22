@@ -1,8 +1,9 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick 2.0
+
+import QtQml.Models 2.3
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
-import QtQml.Models 2.1
 import QtQuick.Dialogs 1.2
 
 import BattleCity 1.0
@@ -33,13 +34,11 @@ ApplicationWindow {
         standardButtons: StandardButton.Yes | StandardButton.No
 
         onYes: {
-            console.log("Exit");
             visible = false;
             mainWindow.close();
         }
 
         onNo: {
-            console.log("Return to game");
             visible = false;
             board.focus = true;
             computer.animation = true;
@@ -86,7 +85,6 @@ ApplicationWindow {
                 }
 
                 onClicked: {
-                    console.log("Start game");
                     startDialog.visible = false;
                     board.visible = true;
                     board.focus = true;

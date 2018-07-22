@@ -1,6 +1,7 @@
 QT += qml quick
 
 CONFIG += c++11
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 SOURCES += \
     main.cpp \
@@ -19,9 +20,6 @@ SOURCES += \
     playersbase.cpp
 
 RESOURCES += qml.qrc
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -47,8 +45,3 @@ HEADERS += \
     wall.h \
     playersbase.h \
     constants.h
-
-release {
-    QT_NO_DEBUG_OUTPUT
-}
-
