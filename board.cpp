@@ -316,10 +316,21 @@ QPair<Objects, BoardObject*> Board::move(Bullet* bullet)
 
 void Board::addBullet(Bullet* bullet)
 {
-    m_bullets.append(bullet);
-
+    // check if there is room for a bullet
     int col = bullet->getX() / cellSize;
     int row = bullet->getY() / cellSize;
+
+    qDebug() << "row: " << row << " | " << cells.size() << "col: " << col;
+    if (row >= cells.size() ||
+        row < 0 ||
+        col >= cells.at(row).size() ||
+        col < 0) {
+
+        delete bullet;
+        return;
+    }
+
+    m_bullets.append(bullet);
 
     Cell* cell = cells.at(row).at(col);
     cell->setBoardObject(bullet);
