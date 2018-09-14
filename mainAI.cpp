@@ -1,3 +1,6 @@
+#include <QQmlEngine>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "mainAI.h"
 
 MainAI::MainAI(QObject *parent) : QObject(parent)
@@ -17,6 +20,7 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     connect(bulletTimer.data(), SIGNAL(timeout()), this, SLOT(bulletEvents()));
 
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(setAnimation(bool)));
+    connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(openCloseDialog()));
 }
 
 MainAI::~MainAI()
@@ -72,7 +76,7 @@ void MainAI::setAnimation(bool value)
 void MainAI::startTimer()
 {
     if (!tankTimer->isActive() && !bulletTimer->isActive()) {
-        tankTimer->start(100);
+        tankTimer->start(90);
         bulletTimer->start(50);
     }
 }
@@ -83,4 +87,20 @@ void MainAI::stopTimer()
         tankTimer->stop();
         bulletTimer->stop();
     }
+}
+
+void MainAI::openCloseDialog()
+{
+    QQmlContext *currentContext = QQmlEngine::contextForObject(board.data());
+    if (currentContext == nullptr)
+        return;
+
+    QQmlEngine *engine = currentContext->engine();
+    QObject* object = qobject_cast<QQmlApplicationEngine*>(engine)->rootObjects().at(0);
+    if (object == nullptr)
+        return;
+
+    QObject* dlg = object->findChild<QObject *>("endDialog");
+    if (dlg)
+        dlg->setProperty("visible", true);
 }

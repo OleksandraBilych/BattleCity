@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
     engine.rootContext()->setContextProperty("playersBase", comp->getBoard()->getBase());
 
+    engine.setContextForObject(comp->getBoard(), engine.rootContext());
+
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();

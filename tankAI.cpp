@@ -13,7 +13,7 @@ TankAI::~TankAI()
 void TankAI::sendPressSignal(Board* board)
 {
     for (auto& enemy : board->getEnemies()) {
-        if (!(rand() % 20)) {
+        if (!(rand() % 19)) {
             enemy->updateDirection();
         }
 

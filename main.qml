@@ -28,6 +28,14 @@ ApplicationWindow {
     }
 
     Dialog {
+        id: endDialog
+        visible: false
+        title: "GAME OVER !!!"
+        objectName: "endDialog"
+    }
+
+
+    Dialog {
         id: closeDialog
         visible: false
         title: "Do you want to exit the game?"

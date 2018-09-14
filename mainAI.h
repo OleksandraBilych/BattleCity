@@ -30,6 +30,7 @@ public slots:
     void tankEvents();
     void bulletEvents();
     void setAnimation(bool value);
+    void openCloseDialog();
 
 private:
     QScopedPointer<QTimer> tankTimer;

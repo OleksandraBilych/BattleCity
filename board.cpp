@@ -348,13 +348,12 @@ void Board::removeObject(BoardObject *object)
     } else if (objectType == Objects::bullet) {
         m_bullets.removeOne(dynamic_cast<Bullet*>(object));
         emit bulletsChanged(bullets());
-    } else if (objectType == Objects::player) {
-        emit playerIsAlive(false);
     } else if (objectType == Objects::wall) {
         m_walls.removeOne(dynamic_cast<Wall*>(object));
         emit wallsChanged(walls());
-    } else if (objectType == Objects::playersBase) {
+    } else if (objectType == Objects::playersBase || objectType == Objects::player) {
         emit playerIsAlive(false);
+        ObjectsCleaner::getInstance()->stopTimer();
     }
 
     int firstRow = object->getY() / cellSize;
