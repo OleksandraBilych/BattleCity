@@ -23,7 +23,6 @@ ApplicationWindow {
         focus: true
         Keys.onEscapePressed: {
           mainWindow.close()
-          event.accepted = true;
         }
     }
 
@@ -33,7 +32,6 @@ ApplicationWindow {
         title: "GAME OVER !!!"
         objectName: "endDialog"
     }
-
 
     Dialog {
         id: closeDialog
@@ -116,6 +114,7 @@ ApplicationWindow {
         height: 750
         x: 50
         y: 50
+        objectName: "mainScreen"
 
         Rectangle {
             id: board
@@ -124,23 +123,23 @@ ApplicationWindow {
             width: 750
             height: 750
             color: "black"
+            objectName: "board"
 
             Keys.onPressed: {
                 if (event.key == Qt.Key_Left ||
                     event.key == Qt.Key_Right ||
                     event.key == Qt.Key_Up ||
                     event.key == Qt.Key_Down) {
-
                 tankAI.sendPressSignal(gameBoard, playerTank, event.key);
-                } else if (event.key == Qt.Key_Escape) {
-                    board.focus = false;
-                    computer.animation = false;
-                    closeDialog.visible = true;
                 } else if (event.key == Qt.Key_Space) {
                     gameBoard.addBullet(playerTank.attack());
                 }
+            }
 
-                event.accepted = true;
+            Keys.onEscapePressed: {
+                board.focus = false;
+                computer.animation = false;
+                closeDialog.visible = true;
             }
 
             Player {
@@ -257,5 +256,24 @@ ApplicationWindow {
                 }
             }
         }
-    }
+
+        Text {
+            id: gameOver
+            x: 315
+            visible: false
+            objectName: "gameOver"
+
+            text: qsTr("GAME" + "\n" + "OVER")
+            color: "red"
+            font.bold: true
+            font.pointSize: 30
+            horizontalAlignment: Text.Center
+
+            NumberAnimation on y {
+                from: 750;
+                to: 350;
+                duration: 4000;
+                running: gameOver.visible === true ? true : false}
+            }
+        }
 }

@@ -100,7 +100,14 @@ void MainAI::openCloseDialog()
     if (object == nullptr)
         return;
 
-    QObject* dlg = object->findChild<QObject *>("endDialog");
+    QObject* dlg = object->findChild<QObject *>("board");
     if (dlg)
+        dlg->setProperty("enabled", false);
+
+    dlg = object->findChild<QObject *>("gameOver");
+    if (dlg) {
         dlg->setProperty("visible", true);
+    }
+
+
 }
