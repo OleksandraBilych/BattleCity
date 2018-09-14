@@ -52,8 +52,8 @@ signals:
     void baseChanged(PlayersBase* base);
 
 private:
-    bool AreCellsFree(QVector<Cell*> cells);
-    void FreeCells(QVector<Cell*> cells);
+    bool areCellsFree(QVector<Cell*> cells);
+    void freeCells(QVector<Cell*> cells);
 
     QList<Enemy*> m_enemies;
     QScopedPointer<Player> player;

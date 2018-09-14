@@ -176,7 +176,7 @@ Board::~Board()
     m_walls.clear();
 }
 
-bool Board::AreCellsFree(QVector<Cell*> cells)
+bool Board::areCellsFree(QVector<Cell*> cells)
 {
     // check if cells are avaliable
     bool areFree = true;
@@ -191,7 +191,7 @@ bool Board::AreCellsFree(QVector<Cell*> cells)
     return areFree;
 }
 
-void Board::FreeCells(QVector<Cell*> cells)
+void Board::freeCells(QVector<Cell*> cells)
 {
     for (auto& cell : cells)
         cell->clearBoardObject();
@@ -282,10 +282,10 @@ QPair<Objects, BoardObject*> Board::move(Tank* tank)
 
     // if new cells are avaliable the tank make a step
     // otherwise the tank change direction
-    if (AreCellsFree(prevNextCells[1])) {
+    if (areCellsFree(prevNextCells[1])) {
         for (auto& cell : prevNextCells[1])
             cell->setBoardObject(tank);
-        FreeCells(prevNextCells[0]);
+        freeCells(prevNextCells[0]);
 
         return qMakePair(Objects::emptyCell, nullptr);
     }
@@ -299,14 +299,14 @@ QPair<Objects, BoardObject*> Board::move(Bullet* bullet)
     // if we couldn't calculate next cells
     // than we have collision with window borders
     if (prevNextCells.size() == 1) {
-        FreeCells(prevNextCells[0]);
+        freeCells(prevNextCells[0]);
         return qMakePair(Objects::windowBorders, nullptr);
     }
 
-    if (AreCellsFree(prevNextCells[1])) {
+    if (areCellsFree(prevNextCells[1])) {
         for (auto& cell : prevNextCells[1])
             cell->setBoardObject(bullet);
-        FreeCells(prevNextCells[0]);
+        freeCells(prevNextCells[0]);
 
         return qMakePair(Objects::emptyCell, nullptr);
     }
