@@ -30,9 +30,12 @@ public slots:
     void tankEvents();
     void bulletEvents();
     void setAnimation(bool value);
-    void openCloseDialog();
+    void gameOverAnimation();
+    void openResultScreen();
 
 private:
+    QObject* getRootObject();
+
     QScopedPointer<QTimer> tankTimer;
     QScopedPointer<QTimer> bulletTimer;
 

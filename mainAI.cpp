@@ -20,7 +20,8 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     connect(bulletTimer.data(), SIGNAL(timeout()), this, SLOT(bulletEvents()));
 
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(setAnimation(bool)));
-    connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(openCloseDialog()));
+    connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(gameOverAnimation()));
+    connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(openResultScreen()));
 }
 
 MainAI::~MainAI()
@@ -89,25 +90,43 @@ void MainAI::stopTimer()
     }
 }
 
-void MainAI::openCloseDialog()
+void MainAI::gameOverAnimation()
 {
-    QQmlContext *currentContext = QQmlEngine::contextForObject(board.data());
-    if (currentContext == nullptr)
-        return;
-
-    QQmlEngine *engine = currentContext->engine();
-    QObject* object = qobject_cast<QQmlApplicationEngine*>(engine)->rootObjects().at(0);
+    QObject* object = getRootObject();
     if (object == nullptr)
         return;
 
-    QObject* dlg = object->findChild<QObject *>("board");
-    if (dlg)
-        dlg->setProperty("enabled", false);
-
-    dlg = object->findChild<QObject *>("gameOver");
-    if (dlg) {
-        dlg->setProperty("visible", true);
+    QObject* animation = object->findChild<QObject *>("gameOver");
+    if (animation) {
+        animation->setProperty("focus", true);
+        animation->setProperty("visible", true);
     }
 
+    QTime dieTime= QTime::currentTime().addSecs(5);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
 
+void MainAI::openResultScreen()
+{
+    QObject* object = getRootObject();
+    if (object == nullptr)
+        return;
+
+    QObject* resultScreen = object->findChild<QObject *>("resultScreen");
+    if (resultScreen) {
+        resultScreen->setProperty("visible", true);
+    }
+}
+
+QObject* MainAI::getRootObject()
+{
+    QQmlContext *currentContext = QQmlEngine::contextForObject(board.data());
+    if (currentContext == nullptr)
+        return nullptr;
+
+    QQmlEngine *engine = currentContext->engine();
+    QObject* object = qobject_cast<QQmlApplicationEngine*>(engine)->rootObjects().at(0);
+
+    return object;
 }

@@ -116,6 +116,12 @@ ApplicationWindow {
         y: 50
         objectName: "mainScreen"
 
+        Keys.onEscapePressed: {
+            board.focus = false;
+            computer.animation = false;
+            closeDialog.visible = true;
+        }
+
         Rectangle {
             id: board
             visible: false
@@ -134,12 +140,6 @@ ApplicationWindow {
                 } else if (event.key == Qt.Key_Space) {
                     gameBoard.addBullet(playerTank.attack());
                 }
-            }
-
-            Keys.onEscapePressed: {
-                board.focus = false;
-                computer.animation = false;
-                closeDialog.visible = true;
             }
 
             Player {
@@ -276,4 +276,19 @@ ApplicationWindow {
                 running: gameOver.visible === true ? true : false}
             }
         }
+
+    Item {
+        width: 750
+        height: 750
+        x: 50
+        y: 50
+        visible: false
+        objectName: "resultScreen"
+
+        Rectangle {
+            width: 750
+            height: 750
+            color: "black"
+        }
+    }
 }
