@@ -27,13 +27,6 @@ ApplicationWindow {
     }
 
     Dialog {
-        id: endDialog
-        visible: false
-        title: "GAME OVER !!!"
-        objectName: "endDialog"
-    }
-
-    Dialog {
         id: closeDialog
         visible: false
         title: "Do you want to exit the game?"
@@ -47,7 +40,8 @@ ApplicationWindow {
         onNo: {
             visible = false;
             board.focus = true;
-            computer.animation = true;
+            computer.animation = playerTank.getIsDead() || playersBase.getIsDead() ?
+                        false : true;
         }
     }
 
@@ -289,6 +283,18 @@ ApplicationWindow {
             width: 750
             height: 750
             color: "black"
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: playerTank.getIsDead() || playersBase.getIsDead() ?
+                          qsTr("YOU WIN") : qsTr("GAME OVER")
+                color: "red"
+                font.bold: true
+                font.pointSize: 30
+                horizontalAlignment: Text.Center
+            }
         }
     }
 }
