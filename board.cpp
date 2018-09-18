@@ -28,7 +28,7 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create enemy tanks
-    int enemiesAmount = 8; // TO DO: move to commmon config
+    int enemiesAmount = 1; // TO DO: move to commmon config
 
     for (int i = 0; i < enemiesAmount; i++) {
         Enemy* enemy = new Enemy(tankHitPoints, tankDamage, tankWidth * i * 2, 0);
@@ -320,7 +320,6 @@ void Board::addBullet(Bullet* bullet)
     int col = bullet->getX() / cellSize;
     int row = bullet->getY() / cellSize;
 
-    qDebug() << "row: " << row << " | " << cells.size() << "col: " << col;
     if (row >= cells.size() ||
         row < 0 ||
         col >= cells.at(row).size() ||

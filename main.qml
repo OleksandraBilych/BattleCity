@@ -353,7 +353,7 @@ ApplicationWindow {
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: 450
+                y: 700
                 text: "For exit press - ESC"
                 font.pointSize: 14
                 font.bold: true

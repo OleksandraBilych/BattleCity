@@ -56,6 +56,9 @@ void TankAI::sendPressSignal(Board* board, Tank* tank, Qt::Key keyDirection)
 void TankAI::sendAtackSignal(Board* board)
 {
     QList<Enemy*> enemies = board->getEnemies();
+    if (enemies.empty())
+        return;
+
     int index = rand() % enemies.size();
 
     Enemy* enemy = enemies.at(index);
