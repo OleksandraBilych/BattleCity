@@ -272,12 +272,21 @@ ApplicationWindow {
         }
 
     Item {
+        id: resultScreen
         width: 750
         height: 750
         x: 50
         y: 50
         visible: false
         objectName: "resultScreen"
+        property int value: 0
+
+        NumberAnimation on value {
+            from: 0;
+            to: playerTank.deadTanks;
+            duration: 1200;
+            running: resultScreen.visible === true ? true : false
+        }
 
         Rectangle {
             width: 750
@@ -285,8 +294,8 @@ ApplicationWindow {
             color: "black"
 
             Text {
+                y: 250
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
 
                 text: playerTank.getIsDead() || playersBase.getIsDead() ?
                           qsTr("YOU WIN") : qsTr("GAME OVER")
@@ -294,6 +303,61 @@ ApplicationWindow {
                 font.bold: true
                 font.pointSize: 30
                 horizontalAlignment: Text.Center
+            }
+
+            Grid {
+                anchors.verticalCenter : parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                columns: 3
+                spacing: 2
+                Text {
+                    width: 100; height: 50
+                    text: qsTr("SCORE")
+                    color: "white"; font.bold: true; font.pointSize: 15
+                    horizontalAlignment: Text.Center
+                }
+                Text {
+                    width: 100; height: 50
+                    text: qsTr("AMOUNT")
+                    color: "white"; font.bold: true; font.pointSize: 15
+                    horizontalAlignment: Text.Center
+                }
+                Text {
+                    width: 100; height: 50
+                    text: qsTr("")
+                }
+
+                Text {
+                    width: 100; height: 50
+                    text: resultScreen.value * 300
+                    color: "white"; font.bold: true; font.pointSize: 20
+                    horizontalAlignment: Text.Center
+                }
+                Text {
+                    width: 100; height: 50
+                    text: resultScreen.value
+                    color: "white"; font.bold: true; font.pointSize: 20
+                    horizontalAlignment: Text.Center
+                }
+                Rectangle {
+                    width: 100; height: 50
+                    color: "black"
+                    Image {
+                        width: 50; height: 50
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: "qrc:/images/enemy.png"
+                    }
+                }
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 450
+                text: "For exit press - ESC"
+                font.pointSize: 14
+                font.bold: true
+                color: "white"
             }
         }
     }

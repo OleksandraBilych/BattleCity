@@ -7,6 +7,7 @@
 class Player : public Tank
 {
     Q_OBJECT
+    Q_PROPERTY(short deadTanks READ getDeadTanks WRITE setDeadTanks NOTIFY deadTanksChanged)
 
 public:
     Player(float hitPointsLimit, float damage, const std::string& name,
@@ -19,18 +20,22 @@ public:
     virtual ~Player();
 
     const std::string& getName() const;
-    const short getNumberOfDeadTanks() const;
+    Q_INVOKABLE const short getDeadTanks() const;
 
     void setName(const std::string& value);
+    void setDeadTanks(short value);
 
     virtual void rotate(int value);
     void move();
     Q_INVOKABLE void rotatePlayer();
     void incrementNumberOfDeadTanks();
 
+signals:
+    void deadTanksChanged(short value);
+
 private:
     std::string name;
-    short numberOfDeadTanks;
+    short deadTanks;
 };
 
 #endif // PLAYER_H

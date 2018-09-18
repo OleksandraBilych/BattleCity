@@ -27,7 +27,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     QVariant getImageURL() const;
-    bool getIsDead() const;
+    Q_INVOKABLE bool getIsDead() const;
     QTime getTimeOfDeath() const;
 
     void setDirection(int value);

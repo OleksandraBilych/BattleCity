@@ -35,7 +35,7 @@ void BulletAI::sendMoveSignal(Board* board)
                     Player* player = dynamic_cast<Player*>(bullet->getAttacker());
                     player->incrementNumberOfDeadTanks();
 
-                    qDebug() << "NumberOfDeadTanks: " << player->getNumberOfDeadTanks();
+                    qDebug() << "NumberOfDeadTanks: " << player->getDeadTanks();
                 }
             } else if (objectType == Objects::bullet) {
                 Bullet* anotherBullet = dynamic_cast<Bullet*>(collisionObject.second);
