@@ -344,6 +344,10 @@ void Board::removeObject(BoardObject *object)
     if (objectType == Objects::enemy) {
         m_enemies.removeOne(dynamic_cast<Enemy*>(object));
         emit enemiesChanged(enemies());
+        if (m_enemies.empty()) {
+            qDebug() << "Remove last enemies!";
+            emit playerWin();
+        }
     } else if (objectType == Objects::bullet) {
         m_bullets.removeOne(dynamic_cast<Bullet*>(object));
         emit bulletsChanged(bullets());

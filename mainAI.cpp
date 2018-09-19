@@ -22,6 +22,8 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(setAnimation(bool)));
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(gameOverAnimation()));
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(openResultScreen()));
+
+    connect(board.data(), SIGNAL(playerWin()), this, SLOT(openResultScreen()));
 }
 
 MainAI::~MainAI()
@@ -109,6 +111,7 @@ void MainAI::gameOverAnimation()
 
 void MainAI::openResultScreen()
 {
+    qDebug() << "Open result dialog!";
     QObject* object = getRootObject();
     if (object == nullptr)
         return;

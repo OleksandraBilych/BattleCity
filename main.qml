@@ -40,7 +40,7 @@ ApplicationWindow {
         onNo: {
             visible = false;
             board.focus = true;
-            computer.animation = playerTank.getIsDead() || playersBase.getIsDead() ?
+            computer.animation = playerTank.isDead || playersBase.isDead ?
                         false : true;
         }
     }
@@ -297,8 +297,8 @@ ApplicationWindow {
                 y: 250
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: playerTank.getIsDead() || playersBase.getIsDead() ?
-                          qsTr("YOU WIN") : qsTr("GAME OVER")
+                text:  playerTank.isDead || playersBase.isDead ?
+                          qsTr("GAME OVER") : qsTr("YOU WIN")
                 color: "red"
                 font.bold: true
                 font.pointSize: 30

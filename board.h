@@ -48,6 +48,7 @@ signals:
     void playerChanged(Player* player);
     void bulletsChanged(QQmlListProperty<Bullet>);
     void playerIsAlive(bool value);
+    void playerWin();
     void wallsChanged(QQmlListProperty<Wall>);
     void baseChanged(PlayersBase* base);
 
