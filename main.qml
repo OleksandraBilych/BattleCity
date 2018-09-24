@@ -8,7 +8,7 @@ import QtQuick.Dialogs 1.2
 
 import BattleCity 1.0
 
-ApplicationWindow {
+Window {
     id: mainWindow
     title: qsTr("Battle City")
     color: "black"
@@ -17,13 +17,11 @@ ApplicationWindow {
     height: 850
     modality: "WindowModal"
 
-    flags: Qt.SplashScreen
+    flags: Qt.FramelessWindowHint
 
-    Item {
-        focus: true
-        Keys.onEscapePressed: {
-          mainWindow.close()
-        }
+    Component.onCompleted: {
+        setX(Screen.width / 2 - width / 2);
+        setY(Screen.height / 2 - height / 2);
     }
 
     Dialog {
@@ -52,6 +50,13 @@ ApplicationWindow {
             y: (mainWindow.height - height) / 2
             visible: true
             color: "#090808"
+            focus: true
+
+            Keys.onEscapePressed: {
+                board.focus = false;
+                computer.animation = false;
+                closeDialog.visible = true;
+            }
 
             Image {
                 id: title

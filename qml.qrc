@@ -10,5 +10,6 @@
         <file>images/base.png</file>
         <file>images/blowTank75.png</file>
         <file>images/title.png</file>
+        <file>images/appIcon.png</file>
     </qresource>
 </RCC>

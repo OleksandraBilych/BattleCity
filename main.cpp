@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QQmlApplicationEngine>
+#include <QIcon>
 
 #include "boardobject.h"
 #include "board.h"
@@ -14,8 +15,8 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/images/appIcon.png"));
 
     qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Board>("BattleCity", 1, 0, "Board");
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("playersBase", comp->getBoard()->getBase());
 
     engine.setContextForObject(comp->getBoard(), engine.rootContext());
-    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
 }
