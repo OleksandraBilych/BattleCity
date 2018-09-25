@@ -38,8 +38,8 @@ Window {
         onNo: {
             visible = false;
             board.focus = true;
-            computer.animation = playerTank.isDead || playersBase.isDead ?
-                        false : true;
+            computer.animation = playerTank.isDead || playersBase.isDead ||
+                    startDialog.visible == true ? false : true;
         }
     }
 
