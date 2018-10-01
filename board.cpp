@@ -4,6 +4,7 @@
 
 #include "objectscleaner.h"
 #include "constants.h"
+#include "globalvariables.h"
 
 Board::Board(QObject *parent) : QObject(parent)
 {
@@ -28,7 +29,7 @@ Board::Board(QObject *parent) : QObject(parent)
     }
 
     //create enemy tanks
-    int enemiesAmount = 1; // TO DO: move to commmon config
+    int enemiesAmount = GlobalVariables::getInstance()->getEnemiesAmount();
 
     for (int i = 0; i < enemiesAmount; i++) {
         Enemy* enemy = new Enemy(tankHitPoints, tankDamage, tankWidth * i * 2, 0);
@@ -232,7 +233,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * cellSize >= qApp->focusWindow()->height() - 101 ||
+        if (nextIndex * cellSize >= GlobalVariables::getInstance()->getAppHeight()  - 101 ||
             nextIndex * cellSize < 0)
             return prevNextCells;
 
@@ -246,7 +247,7 @@ QVector<QVector<Cell*>> Board::calcPrevAndNextCells(BoardObject* object)
         prevNextCells.append(prevCells);
 
         //check colision with window borders
-        if (nextIndex * cellSize >= qApp->focusWindow()->width() - 101 ||
+        if (nextIndex * cellSize >= GlobalVariables::getInstance()->getAppWidth() - 101 ||
             nextIndex * cellSize < 0)
             return prevNextCells;
 
@@ -264,9 +265,11 @@ QPair<Objects, BoardObject*> Board::IdentifyObjectType(QVector<Cell*> objectCell
     QPair<Objects, BoardObject*> pair(Objects::undefined, nullptr);
 
     for (auto& cell : objectCells) {
-        if (!cell->isCellEmpty())
-            pair.first = cell->getBoardObject()->getTypeObject();
-            pair.second = cell->getBoardObject();
+        if (cell->isCellEmpty())
+            return pair;
+
+        pair.first = cell->getBoardObject()->getTypeObject();
+        pair.second = cell->getBoardObject();
     }
 
     return pair;

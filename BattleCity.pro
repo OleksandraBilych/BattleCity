@@ -17,7 +17,8 @@ SOURCES += \
     tankAI.cpp \
     objectscleaner.cpp \
     wall.cpp \
-    playersbase.cpp
+    playersbase.cpp \
+    globalvariables.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,4 +45,6 @@ HEADERS += \
     objectscleaner.h \
     wall.h \
     playersbase.h \
-    constants.h
+    constants.h \
+    globalvariables.h \
+    globalvariables.h

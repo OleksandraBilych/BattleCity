@@ -8,13 +8,15 @@ import QtQuick.Dialogs 1.2
 
 import BattleCity 1.0
 
+//var appWidth = globalVariables.appWidth();
+
 Window {
     id: mainWindow
     title: qsTr("Battle City")
     color: "black"
     visible: true
-    width: 850
-    height: 850
+    width: globalVariables.appWidth
+    height: globalVariables.appHeight
     modality: "WindowModal"
 
     flags: Qt.FramelessWindowHint

@@ -12,6 +12,7 @@
 #include "mainAI.h"
 #include "wall.h"
 #include "playersbase.h"
+#include "globalvariables.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +37,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("gameBoard", comp->getBoard());
     engine.rootContext()->setContextProperty("playerTank", comp->getBoard()->getPlayer());
     engine.rootContext()->setContextProperty("playersBase", comp->getBoard()->getBase());
+
+    engine.rootContext()->setContextProperty("globalVariables", GlobalVariables::getInstance().data());
 
     engine.setContextForObject(comp->getBoard(), engine.rootContext());
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
