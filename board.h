@@ -42,6 +42,7 @@ public:
     QList<Wall*> getWalls();
 
     PlayersBase* getBase() const;
+    bool areCellsFree(QVector<Cell*> cells);
 
 signals:
     void enemiesChanged(QQmlListProperty<Enemy>);
@@ -53,7 +54,6 @@ signals:
     void baseChanged(PlayersBase* base);
 
 private:
-    bool areCellsFree(QVector<Cell*> cells);
     void freeCells(QVector<Cell*> cells);
 
     QList<Enemy*> m_enemies;
