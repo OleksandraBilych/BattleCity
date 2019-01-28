@@ -1,8 +1,8 @@
 #include "bullet.h"
 #include "constants.h"
 
-Bullet::Bullet(Tank* attacker, QObject* parent)
-    : attacker(attacker)
+Bullet::Bullet(Tank* attacker, QQuickItem* parent)
+    : attacker(attacker), BoardObject(parent)
 {
     qDebug() << "Constructor: Bullet";
 
@@ -52,6 +52,7 @@ void Bullet::setAttacker(Tank* attacker)
 
 void Bullet::move()
 {
+    qDebug() << "Try move" << direction << endl;
     if ( direction == Direction::dir_down) {
         coordinate_y += cellSize;
         emit YChanged(coordinate_y);
@@ -68,6 +69,8 @@ void Bullet::move()
         coordinate_x += cellSize;
         emit XChanged(coordinate_x);
     }
+
+    qDebug() << "moved" << endl;
 }
 
 void Bullet::attack(Tank& enemy)

@@ -20,8 +20,13 @@ void BulletAI::sendMoveSignal(Board* board)
         QPair<Objects, BoardObject*> collisionObject = board->move(bullet);
         Objects objectType = collisionObject.first;
 
-        if (objectType == Objects::emptyCell)
+        if (objectType == Objects::emptyCell) {
+            if(bullet->getIsDead())
+                qDebug() << "DELETED OBJ" << endl;
+            qDebug() << bullet;
             bullet->move();
+            qDebug() << "return from function" << endl;
+        }
         else {
             bullet->setImageURL("qrc:/images/explodedBullet.png");
             bullet->setIsDead(true);
