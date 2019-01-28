@@ -8,8 +8,6 @@ import QtQuick.Dialogs 1.2
 
 import BattleCity 1.0
 
-//var appWidth = globalVariables.appWidth();
-
 Window {
     id: mainWindow
     title: qsTr("Battle City")
@@ -34,7 +32,7 @@ Window {
 
         onYes: {
             visible = false;
-            mainWindow.close();
+            Qt.quit();
         }
 
         onNo: {
