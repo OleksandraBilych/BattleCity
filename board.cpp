@@ -342,6 +342,17 @@ void Board::addBullet(Bullet* bullet)
 
 void Board::removeObject(BoardObject *object)
 {
+    int firstRow = object->getY() / cellSize;
+    int firstCol = object->getX() / cellSize;
+    int rowsAmount = object->getHeight() / cellSize;
+    int columnsAmount = object->getWidth() / cellSize;
+
+    for (int row = 0; row < rowsAmount; row++) {
+        for(int col = 0; col < columnsAmount; col++) {
+             cells[firstRow + row][firstCol + col]->clearBoardObject();
+        }
+    }
+
     Objects objectType = object->getTypeObject();
 
     if (objectType == Objects::enemy) {
@@ -360,17 +371,6 @@ void Board::removeObject(BoardObject *object)
     } else if (objectType == Objects::playersBase || objectType == Objects::player) {
         emit playerIsAlive(false);
         ObjectsCleaner::getInstance()->stopTimer();
-    }
-
-    int firstRow = object->getY() / cellSize;
-    int firstCol = object->getX() / cellSize;
-    int rowsAmount = object->getHeight() / cellSize;
-    int columnsAmount = object->getWidth() / cellSize;
-
-    for (int row = 0; row < rowsAmount; row++) {
-        for(int col = 0; col < columnsAmount; col++) {
-             cells[firstRow + row][firstCol + col]->clearBoardObject();
-        }
     }
 }
 
