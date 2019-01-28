@@ -332,6 +332,17 @@ void Board::addBullet(Bullet* bullet)
         return;
     }
 
+    QVector<QVector<Cell*>> prevNextCells = calcPrevAndNextCells(bullet);
+
+    if (!areCellsFree(prevNextCells[1])) {
+        auto a = IdentifyObjectType(prevNextCells[1]);
+
+        if (a.first == Objects::bullet) {
+            delete bullet;
+            return;
+        }
+    }
+
     m_bullets.append(bullet);
 
     Cell* cell = cells.at(row).at(col);
