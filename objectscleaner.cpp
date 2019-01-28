@@ -133,6 +133,7 @@ void ObjectsCleaner::stopTimer()
     if (timer->isActive()) {
         qDebug() << "Stop timer";
         timer->stop();
+        qDebug() << "Stoped";
     }
 }
 

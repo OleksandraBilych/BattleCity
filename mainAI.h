@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QThread>
 #include "objectscleaner.h"
 #include "tankAI.h"
 #include "bulletAI.h"
@@ -38,6 +39,9 @@ private:
 
     QScopedPointer<QTimer> tankTimer;
     QScopedPointer<QTimer> bulletTimer;
+
+    QScopedPointer<QThread> tankThread;
+    QScopedPointer<QThread> bulletThread;
 
     QScopedPointer<Board> board;
     QScopedPointer<TankAI> tankAI;

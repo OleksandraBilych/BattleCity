@@ -10,14 +10,27 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     board.reset(new Board(parent));
     animation = false;
 
+    tankThread.reset(new QThread(this));
+    bulletThread.reset(new QThread(this));
+
     tankTimer.reset(new QTimer(this));
     bulletTimer.reset(new QTimer(this));
+    tankTimer->setInterval(90);
+    bulletTimer->setInterval(50);
+
+    tankTimer->moveToThread(tankThread.data());
+    bulletTimer->moveToThread(bulletThread.data());
 
     tankAI.reset(new TankAI);
     bulletAI.reset(new BulletAI);
 
     connect(tankTimer.data(), SIGNAL(timeout()), this, SLOT(tankEvents()));
     connect(bulletTimer.data(), SIGNAL(timeout()), this, SLOT(bulletEvents()));
+
+    tankTimer->connect(tankThread.data(), SIGNAL(started()), SLOT(start()));
+    tankTimer->connect(tankThread.data(), SIGNAL(finished()), SLOT(stop()));
+    bulletTimer->connect(bulletThread.data(), SIGNAL(started()), SLOT(start()));
+    bulletTimer->connect(bulletThread.data(), SIGNAL(finished()), SLOT(stop()));
 
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(setAnimation(bool)));
     connect(board.data(), SIGNAL(playerIsAlive(bool)), this, SLOT(gameOverAnimation()));
@@ -43,6 +56,7 @@ void MainAI::tankEvents()
 void MainAI::bulletEvents()
 {
     bulletAI->sendMoveSignal(board.data());
+    qDebug() << "end bulletEvents" << endl;
 }
 
 void atackEvents();
@@ -79,16 +93,16 @@ void MainAI::setAnimation(bool value)
 void MainAI::startTimer()
 {
     if (!tankTimer->isActive() && !bulletTimer->isActive()) {
-        tankTimer->start(90);
-        bulletTimer->start(50);
+        tankThread->start();
+        bulletThread->start();
     }
 }
 
 void MainAI::stopTimer()
 {
     if (tankTimer->isActive() && bulletTimer->isActive()) {
-        tankTimer->stop();
-        bulletTimer->stop();
+        tankThread->quit();
+        bulletThread->quit();
     }
 }
 
