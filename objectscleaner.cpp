@@ -130,11 +130,8 @@ void ObjectsCleaner::startTimer()
 
 void ObjectsCleaner::stopTimer()
 {
-    if (timer->isActive()) {
-        qDebug() << "Stop timer";
+    if (timer->isActive())
         timer->stop();
-        qDebug() << "Stoped";
-    }
 }
 
 void ObjectsCleaner::launchCleaner(bool signOfLife)

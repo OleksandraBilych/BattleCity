@@ -98,7 +98,7 @@ Board::Board(QObject *parent) : QObject(parent)
     //create player's tank
     int playerX = halfWidth - tankWidth * 2 - wallHeight;
     int playerY = height - tankHeight;
-    player.reset(new Player(tankHitPoints, tankDamage, "PlayerTank", playerX, playerY));
+    player.reset(new Player(tankHitPoints, tankDamage, "PlayerTank", playerX, playerY, this));
 
     int firstRow = playerY / cellSize;
     int firstCol = playerX / cellSize;

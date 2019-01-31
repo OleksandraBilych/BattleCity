@@ -21,11 +21,7 @@ void BulletAI::sendMoveSignal(Board* board)
         Objects objectType = collisionObject.first;
 
         if (objectType == Objects::emptyCell) {
-            if(bullet->getIsDead())
-                qDebug() << "DELETED OBJ" << endl;
-            qDebug() << bullet;
             bullet->move();
-            qDebug() << "return from function" << endl;
         }
         else {
             bullet->setImageURL("qrc:/images/explodedBullet.png");
@@ -39,8 +35,6 @@ void BulletAI::sendMoveSignal(Board* board)
                 if (objectType == Objects::enemy && tank->getIsDead()) {
                     Player* player = dynamic_cast<Player*>(bullet->getAttacker());
                     player->incrementNumberOfDeadTanks();
-
-                    qDebug() << "NumberOfDeadTanks: " << player->getDeadTanks();
                 }
             } else if (objectType == Objects::bullet) {
                 Bullet* anotherBullet = dynamic_cast<Bullet*>(collisionObject.second);

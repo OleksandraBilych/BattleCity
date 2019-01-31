@@ -12,7 +12,7 @@
 #include "playersbase.h"
 #include "objectscleaner.h"
 
-BoardObject::BoardObject(QQuickItem *parent) : QQuickPaintedItem(parent)
+BoardObject::BoardObject(QObject *parent) : QObject(parent)
 {
     isDead = false;
     QObject::connect(this, SIGNAL(signOfLifeChanged(bool)),
@@ -142,10 +142,6 @@ void BoardObject::updateDirection()
 {
     direction = (rand() % 4) * 90;
     emit directionChanged(direction);
-}
-
-void BoardObject::paint(QPainter *painter)
-{
 }
 
 Objects BoardObject::getTypeObject()

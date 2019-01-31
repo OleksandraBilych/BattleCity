@@ -141,7 +141,7 @@ Window {
                 }
             }
 
-            Player {
+            Item {
                 id: aPlayer
                 x: playerTank.coordinate_x
                 y: playerTank.coordinate_y
@@ -174,7 +174,7 @@ Window {
                 }
             }
 
-            PlayersBase {
+            Item {
                 id: base
                 x: playersBase.coordinate_x
                 y: playersBase.coordinate_y
@@ -191,7 +191,7 @@ Window {
 
             Repeater {
                 model: gameBoard.enemies
-                Enemy {
+                Item {
                     id: enemyTank
                     x: modelData.coordinate_x
                     y: modelData.coordinate_y
@@ -221,7 +221,7 @@ Window {
 
             Repeater {
                 model: gameBoard.bullets
-                Bullet {
+                Item {
                     id: bullet
                     x: modelData.coordinate_x
                     y: modelData.coordinate_y
@@ -239,7 +239,7 @@ Window {
 
             Repeater {
                 model: gameBoard.walls
-                Wall {
+                Item {
                     id: wall
                     x: modelData.coordinate_x
                     y: modelData.coordinate_y

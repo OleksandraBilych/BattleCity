@@ -5,7 +5,7 @@
 #include "constants.h"
 
 Enemy::Enemy(float hitPointsLimit, float damage,
-             int coordinate_x, int coordinate_y, QQuickItem* parent)
+             int coordinate_x, int coordinate_y, QObject* parent)
     : Tank(parent)
 {
     qDebug() << "Constructor: Enemy";

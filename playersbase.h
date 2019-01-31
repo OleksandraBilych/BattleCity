@@ -8,7 +8,7 @@ class PlayersBase : public BoardObject
      Q_OBJECT
 
 public:
-    explicit PlayersBase(int coordinate_x, int coordinate_y, QQuickItem *parent = 0);
+    explicit PlayersBase(int coordinate_x, int coordinate_y, QObject *parent = 0);
     PlayersBase() {}
     virtual ~PlayersBase();
 

@@ -5,7 +5,7 @@
 #include "constants.h"
 
 Player::Player(float hitPointsLimit, float damage, const std::string& name,
-               int coordinate_x, int coordinate_y, QQuickItem* parent)
+               int coordinate_x, int coordinate_y, QObject* parent)
     : Tank(parent)
 {
     qDebug() << "Constructor: Player";

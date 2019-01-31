@@ -19,17 +19,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/images/appIcon.png"));
 
-    qmlRegisterType<Player>("BattleCity", 1, 0, "Player");
     qmlRegisterType<Board>("BattleCity", 1, 0, "Board");
-    qmlRegisterType<Enemy>("BattleCity", 1, 0, "Enemy");
-    qmlRegisterType<Bullet>("BattleCity", 1, 0, "Bullet");
-    qmlRegisterType<Wall>("BattleCity", 1, 0, "Wall");
-    qmlRegisterType<PlayersBase>("BattleCity", 1, 0, "PlayersBase");
-    qmlRegisterType<Tank>();
     qmlRegisterType<BoardObject>();
+    qmlRegisterType<Player>();
+    qmlRegisterType<Enemy>();
+    qmlRegisterType<Bullet>();
+    qmlRegisterType<Wall>();
+    qmlRegisterType<PlayersBase>();
+    qmlRegisterType<Tank>();
 
     QQmlApplicationEngine engine;
-
     QScopedPointer<MainAI> comp(new MainAI(&app));
 
     engine.rootContext()->setContextProperty("computer", comp.data());

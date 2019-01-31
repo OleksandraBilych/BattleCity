@@ -1,7 +1,7 @@
 #include "playersbase.h"
 #include "constants.h"
 
-PlayersBase::PlayersBase(int coordinate_x, int coordinate_y, QQuickItem *parent) : BoardObject(parent)
+PlayersBase::PlayersBase(int coordinate_x, int coordinate_y, QObject *parent) : BoardObject(parent)
 {
     qDebug() << "Constructor: PlayersBase";
 

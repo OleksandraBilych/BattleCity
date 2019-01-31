@@ -29,7 +29,7 @@ private:
 
     int appWidth = 850;
     int appHeight = 850;
-    const int enemiesAmount = 8;
+    const int enemiesAmount = 8  ;
 
     static QSharedPointer<GlobalVariables> instance;
 };

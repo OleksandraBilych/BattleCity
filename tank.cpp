@@ -2,7 +2,7 @@
 #include "bullet.h"
 #include "constants.h"
 
-Tank::Tank(QQuickItem *parent) : BoardObject(parent)
+Tank::Tank(QObject *parent) : BoardObject(parent)
 {
     isPlayer = false;
 

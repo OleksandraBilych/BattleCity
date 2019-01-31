@@ -13,8 +13,8 @@ MainAI::MainAI(QObject *parent) : QObject(parent)
     tankThread.reset(new QThread(this));
     bulletThread.reset(new QThread(this));
 
-    tankTimer.reset(new QTimer(this));
-    bulletTimer.reset(new QTimer(this));
+    tankTimer.reset(new QTimer());
+    bulletTimer.reset(new QTimer());
     tankTimer->setInterval(90);
     bulletTimer->setInterval(50);
 
@@ -56,7 +56,6 @@ void MainAI::tankEvents()
 void MainAI::bulletEvents()
 {
     bulletAI->sendMoveSignal(board.data());
-    qDebug() << "end bulletEvents" << endl;
 }
 
 void atackEvents();

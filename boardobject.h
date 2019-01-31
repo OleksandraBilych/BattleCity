@@ -7,7 +7,7 @@
 #include <QTime>
 #include "enums.h"
 
-class BoardObject : public QQuickPaintedItem
+class BoardObject : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int direction READ getDirection WRITE setDirection NOTIFY directionChanged)
@@ -19,7 +19,7 @@ class BoardObject : public QQuickPaintedItem
     Q_PROPERTY(bool isDead READ getIsDead WRITE setIsDead NOTIFY signOfLifeChanged)
 
 public:
-    explicit BoardObject(QQuickItem *parent = 0);
+    explicit BoardObject(QObject *parent = 0);
     virtual ~BoardObject();
 
     int getDirection() const;
@@ -43,7 +43,6 @@ public:
     void updateDirection();
 
     virtual void move() = 0;
-    void paint(QPainter *painter);
 
     Objects getTypeObject();
 
