@@ -9,7 +9,6 @@ class Wall : public BoardObject
 
 public:
     explicit Wall(int direction, int coordinate_x, int coordinate_y, QObject *parent = 0);
-    Wall() {}
     virtual ~Wall();
 
     float getHitPoints() const;

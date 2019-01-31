@@ -21,11 +21,6 @@ Player::Player(float hitPointsLimit, float damage, const std::string& name,
     deadTanks = 0;
 }
 
-Player::Player()
-{
-    qDebug() << "Default constructor: Player";
-}
-
 Player::~Player()
 {
     qDebug() << "Destructor: Player";

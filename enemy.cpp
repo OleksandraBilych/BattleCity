@@ -19,11 +19,6 @@ Enemy::Enemy(float hitPointsLimit, float damage,
     imageURL = "qrc:/images/enemy.png";
 }
 
-Enemy::Enemy()
-{
-    qDebug() << "Default constructor: Enemy";
-}
-
 Enemy::~Enemy()
 {
     qDebug() << "Destructor: Enemy";

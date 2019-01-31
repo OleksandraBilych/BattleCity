@@ -29,12 +29,6 @@ Bullet::Bullet(Tank* attacker, QObject* parent)
     }
 }
 
-Bullet::Bullet()
-{
-    qDebug() << "Default constructor: Bullet";
-    attacker = nullptr;
-}
-
 Bullet::~Bullet()
 {
     qDebug() << "Destructor: Bullet";
