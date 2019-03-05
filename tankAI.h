@@ -10,7 +10,7 @@ class TankAI : public QObject
     Q_OBJECT
 
 public:
-    explicit TankAI(QObject *parent = 0);
+    explicit TankAI(QObject *parent = nullptr);
     ~TankAI();
 
     void sendPressSignal(Board* board);

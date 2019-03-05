@@ -11,7 +11,7 @@ class Bullet : public BoardObject
     Q_OBJECT
 
 public:
-    explicit Bullet(Tank* attacker, QObject* parent = 0);
+    explicit Bullet(Tank* attacker, QObject* parent = nullptr);
     virtual ~Bullet();
 
     Tank* getAttacker() const;

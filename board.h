@@ -19,7 +19,7 @@ class Board : public QObject
     Q_PROPERTY(PlayersBase base READ getBase NOTIFY baseChanged)
 
 public:
-    explicit Board(QObject *parent = 0);
+    explicit Board(QObject *parent = nullptr);
     ~Board();
 
     QPair<Objects, BoardObject*> move(Tank* tank);

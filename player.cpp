@@ -31,7 +31,7 @@ const std::string& Player::getName() const
     return name;
 }
 
-const short Player::getDeadTanks() const
+short Player::getDeadTanks() const
 {
     return deadTanks;
 }

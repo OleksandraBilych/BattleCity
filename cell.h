@@ -10,8 +10,8 @@ class CellIsEmptyException {};
 class Cell : public QObject
 {
 public:
-    explicit Cell(int x, int y, QObject *parent = 0);
-    explicit Cell(int x, int y, BoardObject* obj, QObject *parent = 0);
+    explicit Cell(int x, int y, QObject *parent = nullptr);
+    explicit Cell(int x, int y, BoardObject* obj, QObject *parent = nullptr);
     ~Cell();
 
     BoardObject* getBoardObject();

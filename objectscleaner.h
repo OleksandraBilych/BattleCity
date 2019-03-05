@@ -22,14 +22,14 @@ public:
     void startTimer();
     void stopTimer();
 
-    static ObjectsCleaner* getInstance(QObject *parent = 0, Board *board = nullptr);
+    static ObjectsCleaner* getInstance(QObject *parent = nullptr, Board *board = nullptr);
 
 public slots:
     void launchCleaner(bool signOfLife);
     void deleteObjects();
 
 private:
-    explicit ObjectsCleaner(QObject *parent = 0, Board *board = nullptr);
+    explicit ObjectsCleaner(QObject *parent = nullptr, Board *board = nullptr);
 
 private:
     QScopedPointer<QTimer> timer;

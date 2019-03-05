@@ -9,7 +9,7 @@ class BulletAI : public QObject
     Q_OBJECT
 
 public:
-    explicit BulletAI(QObject *parent = 0);
+    explicit BulletAI(QObject *parent = nullptr);
     ~BulletAI();
 
    void sendMoveSignal(Board* board);

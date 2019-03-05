@@ -26,7 +26,7 @@ Enemy::~Enemy()
 
 void Enemy::rotate(int value)
 {
-
+    qDebug() << value;
 }
 
 void Enemy::move()

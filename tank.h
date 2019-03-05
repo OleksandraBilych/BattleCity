@@ -12,7 +12,7 @@ class Tank : public BoardObject
     Q_OBJECT
 
 public:
-    explicit Tank(QObject *parent = 0);
+    explicit Tank(QObject *parent = nullptr);
     virtual ~Tank();
 
     float getDamage() const;

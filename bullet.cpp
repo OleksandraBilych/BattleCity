@@ -2,7 +2,7 @@
 #include "constants.h"
 
 Bullet::Bullet(Tank* attacker, QObject* parent)
-    : attacker(attacker), BoardObject(parent)
+    : BoardObject(parent), attacker(attacker)
 {
     qDebug() << "Constructor: Bullet";
 
@@ -78,6 +78,6 @@ void Bullet::attack(Tank& enemy)
         enemy.takeDamage(newEnemyHitPoint);
 
     } catch (TankIsDead& e) {
-        qDebug() << &enemy << " is dead!";
+        qDebug() << &e << " is dead!";
     }
 }

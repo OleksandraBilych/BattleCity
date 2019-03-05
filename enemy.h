@@ -11,7 +11,7 @@ class Enemy : public Tank
 
 public:
     Enemy(float hitPointsLimit, float damage,
-          int coordinate_x, int coordinate_y, QObject* parent = 0);
+          int coordinate_x, int coordinate_y, QObject* parent = nullptr);
 
     Enemy(const Enemy&) = delete;
     Enemy& operator=(const Enemy&) = delete;

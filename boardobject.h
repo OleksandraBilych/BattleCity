@@ -19,7 +19,7 @@ class BoardObject : public QObject
     Q_PROPERTY(bool isDead READ getIsDead WRITE setIsDead NOTIFY signOfLifeChanged)
 
 public:
-    explicit BoardObject(QObject *parent = 0);
+    explicit BoardObject(QObject *parent = nullptr);
     virtual ~BoardObject();
 
     int getDirection() const;
