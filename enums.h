@@ -1,5 +1,4 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+# pragma once
 
 enum Direction
 {
@@ -20,7 +19,3 @@ enum Objects
     playersBase = 7,
     undefined = -1
 };
-
-#endif // ENUMS_H
-
-

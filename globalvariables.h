@@ -1,5 +1,4 @@
-#ifndef GLOBALVARIABLES_H
-#define GLOBALVARIABLES_H
+# pragma once
 
 #include <QObject>
 
@@ -33,5 +32,3 @@ private:
 
     static QSharedPointer<GlobalVariables> instance;
 };
-
-#endif // GLOBALVARIABLES_H

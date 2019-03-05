@@ -1,5 +1,4 @@
-#ifndef TANK_H
-#define TANK_H
+# pragma once
 
 #include "boardobject.h"
 #include "bullet.h"
@@ -38,5 +37,3 @@ protected:
     float damage;
     bool isPlayer;
 };
-
-#endif // TANK_H

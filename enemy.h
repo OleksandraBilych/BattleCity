@@ -1,5 +1,4 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+# pragma once
 
 #include "tank.h"
 
@@ -21,5 +20,3 @@ public:
     virtual void rotate(int value);
     void move();
 };
-
-#endif // ENEMY_H

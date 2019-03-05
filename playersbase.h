@@ -1,5 +1,4 @@
-#ifndef PLAYERSBASE_H
-#define PLAYERSBASE_H
+# pragma once
 
 #include "boardobject.h"
 
@@ -21,5 +20,3 @@ public:
 private:
     float hitPoints;
 };
-
-#endif // PLAYERSBASE_H

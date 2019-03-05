@@ -1,5 +1,4 @@
-#ifndef MAINAI_H
-#define MAINAI_H
+# pragma once
 
 #include <QObject>
 #include <QTimer>
@@ -48,5 +47,3 @@ private:
     QScopedPointer<BulletAI> bulletAI;
     bool animation;
 };
-
-#endif // MAINAI_H

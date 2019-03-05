@@ -1,5 +1,4 @@
-#ifndef BULLETAI_H
-#define BULLETAI_H
+# pragma once
 
 #include <QObject>
 #include "board.h"
@@ -14,5 +13,3 @@ public:
 
    void sendMoveSignal(Board* board);
 };
-
-#endif // BULLETAI_H

@@ -1,5 +1,4 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+# pragma once
 
 // board
 const int height = 750;
@@ -29,5 +28,3 @@ const int cellSize = 10;
 const int baseWidth = 50;
 const int baseHeight = 50;
 const int baseHitPoints = 50;
-
-#endif // CONSTANTS_H

@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+# pragma once
 
 #include "tank.h"
 #include <string>
@@ -36,7 +35,3 @@ private:
     std::string name;
     short deadTanks;
 };
-
-#endif // PLAYER_H
-
-

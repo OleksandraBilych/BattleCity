@@ -1,5 +1,4 @@
-#ifndef BULLET_H
-#define BULLET_H
+# pragma once
 
 #include "boardobject.h"
 #include "tank.h"
@@ -24,5 +23,3 @@ public:
 private:
     Tank* attacker;
 };
-
-#endif // BULLET_H

@@ -1,5 +1,4 @@
-#ifndef TANKAI_H
-#define TANKAI_H
+# pragma once
 
 #include <QObject>
 #include <QDebug>
@@ -18,6 +17,3 @@ public:
 
     void sendAtackSignal(Board* board);
 };
-
-#endif // COMPUTER_H
-

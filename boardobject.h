@@ -1,5 +1,4 @@
-#ifndef BOARDOBJECT_H
-#define BOARDOBJECT_H
+# pragma once
 
 #include <QtQuick/QQuickPaintedItem>
 #include <QObject>
@@ -65,5 +64,3 @@ protected:
     bool isDead;
     QTime timeOfDeath;
 };
-
-#endif // BOARDOBJECT_H

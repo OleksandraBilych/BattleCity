@@ -1,5 +1,4 @@
-#ifndef WALL_H
-#define WALL_H
+# pragma once
 
 #include "boardobject.h"
 
@@ -20,5 +19,3 @@ public:
 private:
     float hitPoints;
 };
-
-#endif // WALL_H

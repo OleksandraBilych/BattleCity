@@ -1,5 +1,4 @@
-#ifndef CELL_H
-#define CELL_H
+# pragma once
 
 #include <QObject>
 #include "boardobject.h"
@@ -27,6 +26,3 @@ public:
     bool isEmpty;
     BoardObject* obj;
 };
-
-#endif // CELL_H
-

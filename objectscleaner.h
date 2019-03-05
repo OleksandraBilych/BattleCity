@@ -1,5 +1,4 @@
-#ifndef OBJECTSCLEANER_H
-#define OBJECTSCLEANER_H
+# pragma once
 
 #include <QObject>
 #include <QTimer>
@@ -37,5 +36,3 @@ private:
 
     static ObjectsCleaner* instance;
 };
-
-#endif // OBJECTSCLEANER_H

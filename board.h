@@ -1,5 +1,4 @@
-#ifndef BOARD_H
-#define BOARD_H
+# pragma once
 
 #include <QObject>
 #include "cell.h"
@@ -63,5 +62,3 @@ private:
     QList<Wall*> m_walls;
     QScopedPointer<PlayersBase> base;
 };
-
-#endif // BOARD_H
