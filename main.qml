@@ -1,10 +1,10 @@
 import QtQuick 2.0
 
-import QtQml.Models 2.3
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.0
-import QtQuick.Window 2.0
-import QtQuick.Dialogs 1.2
+import QtQml.Models 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Window 2.12
+import QtQuick.Dialogs 1.3
 
 import BattleCity 1.0
 
@@ -19,10 +19,7 @@ Window {
 
     flags: Qt.FramelessWindowHint
 
-    Component.onCompleted: {
-        setX(Screen.width / 2 - width / 2);
-        setY(Screen.height / 2 - height / 2);
-    }
+
 
     Dialog {
         id: closeDialog
