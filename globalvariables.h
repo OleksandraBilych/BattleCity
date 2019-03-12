@@ -17,7 +17,7 @@ public:
     void setAppHeight(int value);
 
     ~GlobalVariables();
-    static QSharedPointer<GlobalVariables> getInstance();
+    static GlobalVariables& getInstance();
 
 signals:
     void AppWidthChanged(int value);
@@ -28,7 +28,5 @@ private:
 
     int appWidth = 850;
     int appHeight = 850;
-    const int enemiesAmount = 8  ;
-
-    static QSharedPointer<GlobalVariables> instance;
+    const int enemiesAmount = 8;
 };

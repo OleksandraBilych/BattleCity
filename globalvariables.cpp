@@ -9,8 +9,6 @@ GlobalVariables::GlobalVariables()
 
 GlobalVariables::~GlobalVariables()
 {
-    if (!instance.isNull())
-        instance.clear();
 }
 
 int GlobalVariables::getAppWidth()
@@ -35,13 +33,9 @@ void GlobalVariables::setAppHeight(int value)
         appHeight = value;
 }
 
-QSharedPointer<GlobalVariables> GlobalVariables::instance =
-        QSharedPointer<GlobalVariables>();
-
-QSharedPointer<GlobalVariables> GlobalVariables::getInstance()
+GlobalVariables& GlobalVariables::getInstance()
 {
-    if (instance.isNull())
-        instance = QSharedPointer<GlobalVariables>(new GlobalVariables());
+    static GlobalVariables instance;
 
     return instance;
 }
